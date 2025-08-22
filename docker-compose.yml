@@ -1,0 +1,27 @@
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: mysql_db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: fauzan25
+    ports:
+      - "3306:3306"  # Host:3306 -> Container:3306
+    volumes:
+      - db_data:/var/lib/mysql
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: my_phpmyadmin
+    restart: always
+    environment:
+      PMA_HOST: mysql  # HARUS service name "mysql", BUKAN "mysql_db"
+      PMA_PORT: 3306   # HARUS port container MySQL (3306), BUKAN host port (3307)
+      MYSQL_ROOT_PASSWORD: fauzan25
+    ports:
+      - "8080:80"
+    depends_on:
+      - mysql
+
+volumes:
+  db_data:
