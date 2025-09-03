@@ -2,10 +2,17 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\TicketController;
 
 Route::get('/', function () {
     return view('index');
 });
+
+Route::resource('tickets', TicketController::class);
+
+// redirect /ticket ke tickets.index
+Route::get('/ticket', [TicketController::class, 'index'])->name('tickets.index');
+
 
 Route::get('/dashboard', function () {
     return view('dashboard');
