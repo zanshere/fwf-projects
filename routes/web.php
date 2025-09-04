@@ -11,8 +11,9 @@ Route::get('/', function () {
 Route::resource('tickets', TicketController::class);
 
 // redirect /ticket ke tickets.index
-Route::get('/ticket', [TicketController::class, 'index'])->name('tickets.index');
-Route::post('/tickets', [TicketController::class, 'store'])->name('tickets.store');
+Route::get('/tiket', function () {
+    return view('pages.tiket');
+})->name('tiket');
 
 
 Route::get('/dashboard', function () {
