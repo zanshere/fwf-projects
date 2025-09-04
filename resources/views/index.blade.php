@@ -154,11 +154,10 @@
                             <span class="text-reveal">FAJAR WORLD</span>
                         </h2>
 
-                        <div class="space-y-6 text-lg text-green-700 leading-relaxed">
-                            <p class="gsap-fade-up">
-                                Terletak di tengah rimbunnya pepohonan Indonesia, terdapat sebuah surga tempat satwa liar
-                                berkeliaran bebas, dan manusia dapat menjelajahi dunia mereka.
-                            </p>
+                    <div class="space-y-6 text-lg text-green-700 leading-relaxed">
+                        <p class="gsap-fade-up">
+                            Terletak di tengah rimbunnya pepohonan Indonesia, terdapat sebuah surga tempat satwa liar berkeliaran bebas, dan manusia dapat menjelajahi dunia mereka.
+                        </p>
 
                             <p class="gsap-fade-up">
                                 Suaka margasatwa ini, yang dikenal sebagai <span class="font-bold text-green-800">Fajar
@@ -346,30 +345,25 @@
                                 </div>
                             </div>
 
-                            <button
-                                class="w-full bg-gradient-to-r from-green-600 to-green-800 hover:from-green-700 hover:to-green-900 text-white font-bold py-4 px-8 rounded-2xl shadow-xl magnetic">
-                                <span class="flex items-center justify-center gap-3">
-                                    <i data-lucide="shopping-cart" class="w-5 h-5"></i>
-                                    BELI SEKARANG
-                                </span>
-                            </button>
-                        </div>
+                        <button class="w-full bg-gradient-to-r from-green-600 to-green-800 hover:from-green-700 hover:to-green-900 text-white font-bold py-4 px-8 rounded-2xl shadow-xl magnetic">
+                            <span class="flex items-center justify-center gap-3">
+                                <i data-lucide="shopping-cart" class="w-5 h-5"></i>
+                                BELI SEKARANG
+                            </span>
+                        </button>
                     </div>
+                </div>
 
-                    <!-- Premium Ticket -->
-                    <div class="ticket-card group relative gsap-fade-right">
-                        <div
-                            class="absolute inset-0 bg-gradient-to-r from-purple-500 to-pink-500 rounded-3xl blur-xl opacity-75 group-hover:opacity-100 transition-opacity">
-                        </div>
-                        <div
-                            class="relative bg-white rounded-3xl p-8 shadow-2xl border-4 border-gradient-to-r from-purple-400 to-pink-400 magnetic">
-                            <div class="absolute -top-4 left-1/2 transform -translate-x-1/2">
-                                <div
-                                    class="bg-gradient-to-r from-purple-600 to-pink-600 text-white px-6 py-2 rounded-full font-bold shadow-lg">
-                                    <i data-lucide="star" class="w-4 h-4 inline mr-2"></i>
-                                    POPULER
-                                </div>
+                <!-- Premium Ticket -->
+                <div class="ticket-card group relative gsap-fade-right">
+                    <div class="absolute inset-0 bg-gradient-to-r from-purple-500 to-pink-500 rounded-3xl blur-xl opacity-75 group-hover:opacity-100 transition-opacity"></div>
+                    <div class="relative bg-white rounded-3xl p-8 shadow-2xl border-4 border-gradient-to-r from-purple-400 to-pink-400 magnetic">
+                        <div class="absolute -top-4 left-1/2 transform -translate-x-1/2">
+                            <div class="bg-gradient-to-r from-purple-600 to-pink-600 text-white px-6 py-2 rounded-full font-bold shadow-lg">
+                                <i data-lucide="star" class="w-4 h-4 inline mr-2"></i>
+                                POPULER
                             </div>
+                        </div>
 
                             <div class="text-center mb-8 mt-4">
                                 <div
@@ -411,54 +405,52 @@
                                 </div>
                             </div>
 
-                            <button
-                                class="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-bold py-4 px-8 rounded-2xl shadow-xl magnetic">
-                                <span class="flex items-center justify-center gap-3">
-                                    <i data-lucide="crown" class="w-5 h-5"></i>
-                                    BELI SEKARANG
-                                </span>
-                            </button>
-                        </div>
+                        <button class="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-bold py-4 px-8 rounded-2xl shadow-xl magnetic">
+                            <span class="flex items-center justify-center gap-3">
+                                <i data-lucide="crown" class="w-5 h-5"></i>
+                                BELI SEKARANG
+                            </span>
+                        </button>
                     </div>
                 </div>
-
-                <div class="text-center mt-16">
-                    <p class="text-white/80 text-lg mb-6 gsap-fade-up">Ingin pengalaman yang lebih personal?</p>
-                    <button
-                        class="bg-yellow-400 hover:bg-yellow-300 text-green-900 font-bold py-3 px-8 rounded-full shadow-xl magnetic gsap-fade-up">
-                        <span class="flex items-center gap-2">
-                            <i data-lucide="phone" class="w-5 h-5"></i>
-                            Hubungi Kami untuk Paket Khusus
-                        </span>
-                    </button>
-                </div>
             </div>
-        </section>
 
-        <!-- Contact Section -->
-        <section id="contact" class="py-20 bg-gradient-to-r from-yellow-100 to-orange-100">
-            <div class="container mx-auto px-4">
-                <div class="text-center mb-16">
-                    <h2 class="text-5xl font-black text-green-800 mb-4">
-                        <span>HUBUNGI KAMI</span>
-                    </h2>
-                    <p class="text-green-700 text-xl">Siap memulai petualangan di Fajar World?</p>
-                    <div class="w-32 h-1 bg-green-600 mx-auto rounded-full mt-4"></div>
-                </div>
+            <div class="text-center mt-16">
+                <p class="text-white/80 text-lg mb-6 gsap-fade-up">Ingin pengalaman yang lebih personal?</p>
+                <button class="bg-yellow-400 hover:bg-yellow-300 text-green-900 font-bold py-3 px-8 rounded-full shadow-xl magnetic gsap-fade-up">
+                    <span class="flex items-center gap-2">
+                        <i data-lucide="phone" class="w-5 h-5"></i>
+                        Hubungi Kami untuk Paket Khusus
+                    </span>
+                </button>
+            </div>
+        </div>
+    </section>
 
-                <div class="grid lg:grid-cols-3 gap-12">
-                    <!-- Contact Info -->
-                    <div class="lg:col-span-1">
-                        <div class="bg-white rounded-3xl p-8 shadow-xl contact-card">
-                            <div class="mb-8">
-                                <div class="bg-green-600 rounded-2xl p-4 w-16 h-16 mx-auto mb-4">
-                                    <i data-lucide="map-pin" class="w-8 h-8 text-white mx-auto"></i>
-                                </div>
-                                <h3 class="text-2xl font-black text-green-800 mb-4 text-center">LOKASI</h3>
-                                <p class="text-green-700 text-center">
-                                    Jl. Raya Cileungsi-Jonggol, Kec. Cileungsi, Kab. Bogor
-                                </p>
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 bg-gradient-to-r from-yellow-100 to-orange-100">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-5xl font-black text-green-800 mb-4 gsap-fade-up">
+                    <span class="text-reveal">HUBUNGI KAMI</span>
+                </h2>
+                <p class="text-green-700 text-xl gsap-fade-up">Siap memulai petualangan di Fajar World?</p>
+                <div class="w-32 h-1 bg-green-600 mx-auto rounded-full mt-4 gsap-scale"></div>
+            </div>
+
+            <div class="grid lg:grid-cols-3 gap-12">
+                <!-- Contact Info -->
+                <div class="lg:col-span-1">
+                    <div class="bg-white rounded-3xl p-8 shadow-xl gsap-fade-left magnetic">
+                        <div class="mb-8">
+                            <div class="bg-green-600 rounded-2xl p-4 w-16 h-16 mx-auto mb-4">
+                                <i data-lucide="map-pin" class="w-8 h-8 text-white mx-auto"></i>
                             </div>
+                            <h3 class="text-2xl font-black text-green-800 mb-4 text-center">LOKASI</h3>
+                            <p class="text-green-700 text-center">
+                                Jl. Raya Cileungsi-Jonggol, Kec. Cileungsi, Kab. Bogor
+                            </p>
+                        </div>
 
                             <div class="mb-8">
                                 <div class="bg-blue-600 rounded-2xl p-4 w-16 h-16 mx-auto mb-4">
@@ -501,80 +493,73 @@
                         </div>
                     </div>
 
-                    <!-- Contact Form & Info -->
-                    <div class="lg:col-span-2">
-                        <div class="bg-white rounded-3xl p-8 shadow-xl contact-card">
-                            <div class="grid md:grid-cols-2 gap-8">
-                                <div>
-                                    <h3 class="text-2xl font-black text-green-800 mb-6">TENTANG KAMI</h3>
-                                    <p class="text-green-700 leading-relaxed mb-6">
-                                        Fajar World adalah destinasi wisata keluarga yang menggabungkan konservasi satwa,
-                                        edukasi lingkungan, dan hiburan berkelanjutan. Kami berkomitmen untuk memberikan
-                                        pengalaman tak terlupakan sambil melindungi keanekaragaman hayati Indonesia.
-                                    </p>
-                                    <div class="space-y-4">
-                                        <div class="flex items-center gap-3">
-                                            <div class="bg-green-100 p-2 rounded-lg">
-                                                <i data-lucide="clock" class="w-5 h-5 text-green-600"></i>
-                                            </div>
-                                            <div>
-                                                <p class="font-semibold text-gray-800">Jam Operasional</p>
-                                                <p class="text-gray-600">08:00 - 17:00 WIB</p>
-                                            </div>
+                <!-- Contact Form & Info -->
+                <div class="lg:col-span-2">
+                    <div class="bg-white rounded-3xl p-8 shadow-xl gsap-fade-right magnetic">
+                        <div class="grid md:grid-cols-2 gap-8">
+                            <div>
+                                <h3 class="text-2xl font-black text-green-800 mb-6">TENTANG KAMI</h3>
+                                <p class="text-green-700 leading-relaxed mb-6">
+                                    Fajar World adalah destinasi wisata keluarga yang menggabungkan konservasi satwa, edukasi lingkungan, dan hiburan berkelanjutan. Kami berkomitmen untuk memberikan pengalaman tak terlupakan sambil melindungi keanekaragaman hayati Indonesia.
+                                </p>
+                                <div class="space-y-4">
+                                    <div class="flex items-center gap-3">
+                                        <div class="bg-green-100 p-2 rounded-lg">
+                                            <i data-lucide="clock" class="w-5 h-5 text-green-600"></i>
                                         </div>
-                                        <div class="flex items-center gap-3">
-                                            <div class="bg-blue-100 p-2 rounded-lg">
-                                                <i data-lucide="calendar" class="w-5 h-5 text-blue-600"></i>
-                                            </div>
-                                            <div>
-                                                <p class="font-semibold text-gray-800">Buka Setiap Hari</p>
-                                                <p class="text-gray-600">Senin - Minggu</p>
-                                            </div>
+                                        <div>
+                                            <p class="font-semibold text-gray-800">Jam Operasional</p>
+                                            <p class="text-gray-600">08:00 - 17:00 WIB</p>
                                         </div>
-                                        <div class="flex items-center gap-3">
-                                            <div class="bg-yellow-100 p-2 rounded-lg">
-                                                <i data-lucide="users" class="w-5 h-5 text-yellow-600"></i>
-                                            </div>
-                                            <div>
-                                                <p class="font-semibold text-gray-800">Grup Rombongan</p>
-                                                <p class="text-gray-600">Diskon khusus tersedia</p>
-                                            </div>
+                                    </div>
+                                    <div class="flex items-center gap-3">
+                                        <div class="bg-blue-100 p-2 rounded-lg">
+                                            <i data-lucide="calendar" class="w-5 h-5 text-blue-600"></i>
+                                        </div>
+                                        <div>
+                                            <p class="font-semibold text-gray-800">Buka Setiap Hari</p>
+                                            <p class="text-gray-600">Senin - Minggu</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-center gap-3">
+                                        <div class="bg-yellow-100 p-2 rounded-lg">
+                                            <i data-lucide="users" class="w-5 h-5 text-yellow-600"></i>
+                                        </div>
+                                        <div>
+                                            <p class="font-semibold text-gray-800">Grup Rombongan</p>
+                                            <p class="text-gray-600">Diskon khusus tersedia</p>
                                         </div>
                                     </div>
                                 </div>
+                            </div>
 
-                                <div>
-                                    <h3 class="text-2xl font-black text-green-800 mb-6">QUICK CONTACT</h3>
-                                    <form class="space-y-4" id="quick-contact-form">
-                                        <div>
-                                            <input type="text" placeholder="Nama Lengkap"
-                                                class="w-full p-4 border border-gray-200 rounded-xl focus:border-green-500 focus:ring-2 focus:ring-green-200 transition-all">
-                                        </div>
-                                        <div>
-                                            <input type="email" placeholder="Email"
-                                                class="w-full p-4 border border-gray-200 rounded-xl focus:border-green-500 focus:ring-2 focus:ring-green-200 transition-all">
-                                        </div>
-                                        <div>
-                                            <input type="tel" placeholder="Nomor WhatsApp"
-                                                class="w-full p-4 border border-gray-200 rounded-xl focus:border-green-500 focus:ring-2 focus:ring-green-200 transition-all">
-                                        </div>
-                                        <div>
-                                            <textarea placeholder="Pesan Anda" rows="4"
-                                                class="w-full p-4 border border-gray-200 rounded-xl focus:border-green-500 focus:ring-2 focus:ring-green-200 transition-all resize-none"></textarea>
-                                        </div>
-                                        <button type="submit"
-                                            class="w-full bg-gradient-to-r from-green-600 to-green-800 hover:from-green-700 hover:to-green-900 text-white font-bold py-4 px-8 rounded-xl shadow-lg">
-                                            <span class="flex items-center justify-center gap-3">
-                                                <i data-lucide="send" class="w-5 h-5"></i>
-                                                Kirim Pesan
-                                            </span>
-                                        </button>
-                                    </form>
-                                </div>
+                            <div>
+                                <h3 class="text-2xl font-black text-green-800 mb-6">QUICK CONTACT</h3>
+                                <form class="space-y-4" id="quick-contact-form">
+                                    <div>
+                                        <input type="text" placeholder="Nama Lengkap" class="w-full p-4 border border-gray-200 rounded-xl focus:border-green-500 focus:ring-2 focus:ring-green-200 transition-all">
+                                    </div>
+                                    <div>
+                                        <input type="email" placeholder="Email" class="w-full p-4 border border-gray-200 rounded-xl focus:border-green-500 focus:ring-2 focus:ring-green-200 transition-all">
+                                    </div>
+                                    <div>
+                                        <input type="tel" placeholder="Nomor WhatsApp" class="w-full p-4 border border-gray-200 rounded-xl focus:border-green-500 focus:ring-2 focus:ring-green-200 transition-all">
+                                    </div>
+                                    <div>
+                                        <textarea placeholder="Pesan Anda" rows="4" class="w-full p-4 border border-gray-200 rounded-xl focus:border-green-500 focus:ring-2 focus:ring-green-200 transition-all resize-none"></textarea>
+                                    </div>
+                                    <button type="submit" class="w-full bg-gradient-to-r from-green-600 to-green-800 hover:from-green-700 hover:to-green-900 text-white font-bold py-4 px-8 rounded-xl shadow-lg magnetic">
+                                        <span class="flex items-center justify-center gap-3">
+                                            <i data-lucide="send" class="w-5 h-5"></i>
+                                            Kirim Pesan
+                                        </span>
+                                    </button>
+                                </form>
                             </div>
                         </div>
                     </div>
                 </div>
+            </div>
 
                 <!-- Member Logos -->
                 <div class="mt-16 text-center">
@@ -643,19 +628,19 @@
             animation-delay: 1s;
         }
 
-        /* Gallery hover effects */
-        .gallery-item:hover .magnetic {
-            transform: translateY(-10px) scale(1.05);
-        }
+/* Gallery hover effects */
+.gallery-item:hover .magnetic {
+    transform: translateY(-10px) scale(1.05);
+}
 
-        .gallery-item:hover i {
-            transform: scale(1.2) rotate(10deg);
-        }
+.gallery-item:hover i {
+    transform: scale(1.2) rotate(10deg);
+}
 
-        /* Ticket card hover effects */
-        .ticket-card:hover {
-            transform: translateY(-5px);
-        }
+/* Ticket card hover effects */
+.ticket-card:hover {
+    transform: translateY(-5px);
+}
 
         /* Text typing effect */
         .typewriter {
@@ -735,175 +720,151 @@
             box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.2);
         }
 
-        /* Magnetic effect for interactive elements */
-        .magnetic {
-            transition: transform 0.3s ease-out, box-shadow 0.3s ease-out;
-        }
+/* Smooth transitions for all interactive elements */
+.magnetic, .gallery-item, .ticket-card, button, a {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+</style>
 
-        .magnetic:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-        }
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Enhanced GSAP Animations
+    initAdvancedAnimations();
 
-        /* Contact card hover glow effect */
-        .contact-card {
-            transition: all 0.3s ease;
-            border: 1px solid transparent;
-        }
+    // Interactive elements
+    initInteractiveElements();
 
-        .contact-card:hover {
-            border-color: rgba(34, 197, 94, 0.3);
-            box-shadow: 0 0 15px rgba(34, 197, 94, 0.3);
-        }
+    // Form handling
+    initFormAnimations();
 
-        /* Parallax elements */
-        .parallax-element {
-            will-change: transform;
-        }
+    // Parallax effects
+    initParallaxEffects();
+});
 
-        /* ScrollTrigger animations */
-        .gsap-fade-up {
-            opacity: 0;
-            transform: translateY(50px);
-        }
+function initAdvancedAnimations() {
+    // Hero CTA button special animation
+    const heroCTA = document.getElementById('hero-cta');
+    if (heroCTA) {
+        gsap.to(heroCTA, {
+            scale: 1.05,
+            duration: 2,
+            repeat: -1,
+            yoyo: true,
+            ease: "power2.inOut"
+        });
+    }
 
-        .gsap-fade-left {
-            opacity: 0;
-            transform: translateX(-50px);
-        }
+    // Gallery items stagger animation
+    gsap.utils.toArray('.gallery-item').forEach((item, index) => {
+        gsap.fromTo(item, {
+            opacity: 0,
+            y: 50,
+            scale: 0.8
+        }, {
+            opacity: 1,
+            y: 0,
+            scale: 1,
+            duration: 0.8,
+            delay: index * 0.2,
+            scrollTrigger: {
+                trigger: item,
+                start: "top 85%",
+                end: "top 50%",
+                toggleActions: "play none none reverse"
+            }
+        });
+    });
 
-        .gsap-fade-right {
-            opacity: 0;
-            transform: translateX(50px);
-        }
+    // Ticket cards with special effects
+    gsap.utils.toArray('.ticket-card').forEach(card => {
+        const tl = gsap.timeline({
+            scrollTrigger: {
+                trigger: card,
+                start: "top 80%",
+                end: "top 40%",
+                toggleActions: "play none none reverse"
+            }
+        });
 
-        .gsap-scale {
-            opacity: 0;
-            transform: scale(0.8);
-        }
+        tl.fromTo(card, {
+            opacity: 0,
+            y: 80,
+            rotationX: -15
+        }, {
+            opacity: 1,
+            y: 0,
+            rotationX: 0,
+            duration: 1,
+            ease: "back.out(1.7)"
+        });
+    });
 
-        .gsap-rotate {
-            opacity: 0;
-            transform: rotate(-5deg);
-        }
+    // Floating elements continuous animation
+    gsap.utils.toArray('.floating-element').forEach((element, index) => {
+        gsap.to(element, {
+            y: -20,
+            rotation: 360,
+            duration: 4 + index,
+            repeat: -1,
+            yoyo: true,
+            ease: "power2.inOut",
+            delay: index * 0.5
+        });
+    });
 
-        .text-reveal {
-            display: inline-block;
-            overflow: hidden;
-            vertical-align: bottom;
-        }
+    // Text reveal with stagger
+    gsap.utils.toArray('.text-reveal').forEach(container => {
+        const chars = container.textContent.split('');
+        container.innerHTML = '';
 
-        /* Custom scrollbar */
-        ::-webkit-scrollbar {
-            width: 10px;
-        }
+        chars.forEach(char => {
+            const span = document.createElement('span');
+            span.textContent = char === ' ' ? '\u00A0' : char;
+            span.style.display = 'inline-block';
+            container.appendChild(span);
+        });
 
-        ::-webkit-scrollbar-track {
-            background: #f1f1f1;
-        }
+        gsap.fromTo(container.children, {
+            opacity: 0,
+            y: 50,
+            rotationX: -90
+        }, {
+            opacity: 1,
+            y: 0,
+            rotationX: 0,
+            duration: 0.8,
+            stagger: {
+                amount: 0.5,
+                from: "start"
+            },
+            ease: "back.out(1.7)",
+            scrollTrigger: {
+                trigger: container,
+                start: "top 80%",
+                end: "top 50%",
+                toggleActions: "play none none reverse"
+            }
+        });
+    });
+}
 
-        ::-webkit-scrollbar-thumb {
-            background: linear-gradient(to bottom, #16a34a, #22c55e);
-            border-radius: 10px;
-        }
+function initInteractiveElements() {
+    // Enhanced magnetic effect for all magnetic elements
+    document.querySelectorAll('.magnetic').forEach(element => {
+        element.addEventListener('mousemove', (e) => {
+            const rect = element.getBoundingClientRect();
+            const x = e.clientX - rect.left - rect.width / 2;
+            const y = e.clientY - rect.top - rect.height / 2;
 
-        ::-webkit-scrollbar-thumb:hover {
-            background: linear-gradient(to bottom, #15803d, #16a34a);
-        }
-    </style>
-
-    <!-- GSAP and ScrollTrigger Scripts -->
-    <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
-
-    <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
-    <!-- ScrollSmoother requires ScrollTrigger -->
-    <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollSmoother.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/TextPlugin.min.js"></script>
-
-    <script>
-        // Initialize Lucide icons
-        document.addEventListener('DOMContentLoaded', function() {
-            // Initialize Lucide icons
-            lucide.createIcons();
-
-            // Initialize GSAP and plugins
-            gsap.registerPlugin(ScrollTrigger, TextPlugin, ScrollSmoother);
-
-            // Create the smooth scroller
-            ScrollSmoother.create({
-                smooth: 1.5,
-                effects: true,
-                smoothTouch: 0.1
-            });
-
-            // Hero section animations
-            gsap.to('.text-reveal', {
-                y: 0,
-                opacity: 1,
-                duration: 1.2,
-                stagger: 0.2,
+            gsap.to(element, {
+                duration: 0.4,
+                x: x * 0.3,
+                y: y * 0.3,
+                rotation: x * 0.1,
+                scale: 1.1,
                 ease: "power3.out"
             });
-
-            // Animate hero CTA button
-            gsap.to('#hero-cta', {
-                opacity: 1,
-                y: 0,
-                duration: 1,
-                delay: 1.5,
-                ease: "back.out(1.7)"
-            });
-
-            // Animate floating elements
-            gsap.to('.floating-element', {
-                y: 20,
-                rotation: 5,
-                duration: 3,
-                repeat: -1,
-                yoyo: true,
-                ease: "sine.inOut",
-                stagger: 0.5
-            });
-
-            // Animate parallax elements
-            gsap.to('.parallax-element', {
-                y: (i, el) => (i % 2 === 0 ? 100 : -100),
-                scrollTrigger: {
-                    trigger: '#home',
-                    start: 'top bottom',
-                    end: 'bottom top',
-                    scrub: true
-                }
-            });
-
-            // Setup ScrollTrigger animations for all sections
-            gsap.utils.toArray('.gsap-fade-up').forEach(el => {
-                gsap.to(el, {
-                    opacity: 1,
-                    y: 0,
-                    duration: 1,
-                    scrollTrigger: {
-                        trigger: el,
-                        start: 'top 80%',
-                        end: 'bottom 20%',
-                        toggleActions: 'play none none reverse'
-                    }
-                });
-            });
-
-            gsap.utils.toArray('.gsap-fade-left').forEach(el => {
-                gsap.to(el, {
-                    opacity: 1,
-                    x: 0,
-                    duration: 1,
-                    scrollTrigger: {
-                        trigger: el,
-                        start: 'top 80%',
-                        end: 'bottom 20%',
-                        toggleActions: 'play none none reverse'
-                    }
-                });
-            });
+        });
 
             gsap.utils.toArray('.gsap-fade-right').forEach(el => {
                 gsap.to(el, {
@@ -933,84 +894,96 @@
                 });
             });
 
-            gsap.utils.toArray('.gsap-rotate').forEach(el => {
-                gsap.to(el, {
-                    opacity: 1,
-                    rotation: 0,
-                    duration: 1,
-                    scrollTrigger: {
-                        trigger: el,
-                        start: 'top 80%',
-                        end: 'bottom 20%',
-                        toggleActions: 'play none none reverse'
-                    }
+        item.addEventListener('mouseleave', () => {
+            gsap.to(icon, {
+                scale: 1,
+                rotation: 0,
+                duration: 0.4,
+                ease: "back.out(1.7)"
+            });
+        });
+    });
+}
+
+function initFormAnimations() {
+    const form = document.getElementById('quick-contact-form');
+    if (form) {
+        const inputs = form.querySelectorAll('input, textarea');
+
+        inputs.forEach((input, index) => {
+            gsap.fromTo(input, {
+                opacity: 0,
+                x: -30
+            }, {
+                opacity: 1,
+                x: 0,
+                duration: 0.6,
+                delay: index * 0.1,
+                scrollTrigger: {
+                    trigger: form,
+                    start: "top 80%"
+                }
+            });
+
+            // Focus animations
+            input.addEventListener('focus', () => {
+                gsap.to(input, {
+                    scale: 1.02,
+                    borderColor: "#059669",
+                    duration: 0.3,
+                    ease: "power2.out"
                 });
             });
 
-            // Gallery item animations
-            gsap.utils.toArray('.gallery-item').forEach((item, i) => {
-                gsap.to(item, {
-                    opacity: 1,
-                    y: 0,
-                    duration: 0.8,
-                    delay: i * 0.2,
-                    scrollTrigger: {
-                        trigger: item,
-                        start: 'top 85%',
-                        end: 'bottom 20%',
-                        toggleActions: 'play none none reverse'
-                    }
+            input.addEventListener('blur', () => {
+                gsap.to(input, {
+                    scale: 1,
+                    duration: 0.3,
+                    ease: "power2.out"
                 });
             });
+        });
 
-            // Ticket card animations
-            gsap.utils.toArray('.ticket-card').forEach((card, i) => {
-                gsap.to(card, {
-                    opacity: 1,
-                    y: 0,
-                    duration: 1,
-                    delay: i * 0.3,
-                    scrollTrigger: {
-                        trigger: card,
-                        start: 'top 85%',
-                        end: 'bottom 20%',
-                        toggleActions: 'play none none reverse'
-                    }
-                });
+        // Form submission animation
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            const button = form.querySelector('button');
+            const originalText = button.innerHTML;
+
+            gsap.to(button, {
+                scale: 0.95,
+                duration: 0.1,
+                yoyo: true,
+                repeat: 1,
+                onComplete: () => {
+                    button.innerHTML = '<i data-lucide="check" class="w-5 h-5 mr-2"></i>Terkirim!';
+                    lucide.createIcons();
+
+                    setTimeout(() => {
+                        button.innerHTML = originalText;
+                        lucide.createIcons();
+                    }, 2000);
+                }
             });
+        });
+    }
+}
 
-            // Magnetic effect for interactive elements
-            document.querySelectorAll('.magnetic').forEach(el => {
-                el.addEventListener('mousemove', function(e) {
-                    const rect = this.getBoundingClientRect();
-                    const x = e.clientX - rect.left;
-                    const y = e.clientY - rect.top;
-
-                    const centerX = rect.width / 2;
-                    const centerY = rect.height / 2;
-
-                    const deltaX = (x - centerX) / centerX * 10;
-                    const deltaY = (y - centerY) / centerY * 10;
-
-                    gsap.to(this, {
-                        x: deltaX,
-                        y: deltaY,
-                        rotation: deltaX * 0.5,
-                        duration: 1,
-                        ease: "power2.out"
-                    });
-                });
-
-                el.addEventListener('mouseleave', function() {
-                    gsap.to(this, {
-                        x: 0,
-                        y: 0,
-                        rotation: 0,
-                        duration: 1,
-                        ease: "elastic.out(1, 0.5)"
-                    });
-                });
-            });
+function initParallaxEffects() {
+    // Parallax background elements
+    gsap.utils.toArray('.parallax-element').forEach(element => {
+        gsap.to(element, {
+            yPercent: -30,
+            ease: "none",
+            scrollTrigger: {
+                trigger: element.closest('section'),
+                start: "top bottom",
+                end: "bottom top",
+                scrub: 1
+            }
+        });
+    });
 
             // Text reveal animation for headings
             gsap.utils.toArray('h1, h2, h3').forEach(heading => {
