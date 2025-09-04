@@ -56,7 +56,7 @@
 
             <!-- CTA Button -->
             <div class="hidden lg:block gsap-fade-right">
-                <a href="{{ route('tickets.index') }}" class="bg-yellow-400 hover:bg-yellow-300 text-green-900 font-bold py-3 px-6 rounded-full transform hover:scale-105 transition-all duration-300 shadow-lg magnetic" id="cta-button">
+                <button class="bg-yellow-400 hover:bg-yellow-300 text-green-900 font-bold py-3 px-6 rounded-full transform hover:scale-105 transition-all duration-300 shadow-lg magnetic" id="cta-button">
                     <span class="flex items-center gap-2">
                         <i data-lucide="shopping-cart" class="w-4 h-4"></i>
                         Beli Tiket
@@ -105,7 +105,7 @@
                         </span>
                     </a>
                     <div class="pt-4 border-t border-green-200">
-                        <a href="{{ route('tickets.index') }}" class="w-full bg-yellow-400 hover:bg-yellow-300 text-green-900 font-bold py-3 px-6 rounded-full transition-all duration-300 magnetic block text-center">
+                        <button class="w-full bg-yellow-400 hover:bg-yellow-300 text-green-900 font-bold py-3 px-6 rounded-full transition-all duration-300 magnetic">
                             <span class="flex items-center justify-center gap-2">
                                 <i data-lucide="shopping-cart" class="w-4 h-4"></i>
                                 Beli Tiket
