@@ -134,7 +134,7 @@
                         <span class="text-reveal">FAJAR WORLD</span>
                     </h2>
 
-                    <div class="space-y-6 text-lg text-green-700 leading-relaxed">
+                    <div class="space-y-6 text-2xl text-green-700 leading-relaxed">
                         <p class="gsap-fade-up">
                             Terletak di tengah rimbunnya pepohonan Indonesia, terdapat sebuah surga tempat satwa liar berkeliaran bebas, dan manusia dapat menjelajahi dunia mereka.
                         </p>
@@ -310,7 +310,7 @@
                             </div>
                         </div>
 
-                        <button class="w-full bg-gradient-to-r from-green-600 to-green-800 hover:from-green-700 hover:to-green-900 text-white font-bold py-4 px-8 rounded-2xl shadow-xl magnetic">
+                        <button onclick="window.location.href='{{ route('tiket') }}'" class="w-full bg-gradient-to-r from-green-600 to-green-800 hover:from-green-700 hover:to-green-900 text-white font-bold py-4 px-8 rounded-2xl shadow-xl magnetic">
                             <span class="flex items-center justify-center gap-3">
                                 <i data-lucide="shopping-cart" class="w-5 h-5"></i>
                                 BELI SEKARANG
@@ -321,7 +321,7 @@
 
                 <!-- Premium Ticket -->
                 <div class="ticket-card group relative gsap-fade-right">
-                    <div class="absolute inset-0 bg-gradient-to-r from-purple-500 to-pink-500 rounded-3xl blur-xl opacity-75 group-hover:opacity-100 transition-opacity"></div>
+                <div class="absolute inset-0 bg-gradient-to-r from-purple-500 to-pink-500 rounded-3xl blur-xl opacity-75 group-hover:opacity-100 transition-opacity"></div>
                     <div class="relative bg-white rounded-3xl p-8 shadow-2xl border-4 border-gradient-to-r from-purple-400 to-pink-400 magnetic">
                         <div class="absolute -top-4 left-1/2 transform -translate-x-1/2">
                             <div class="bg-gradient-to-r from-purple-600 to-pink-600 text-white px-6 py-2 rounded-full font-bold shadow-lg">
@@ -369,7 +369,7 @@
                             </div>
                         </div>
 
-                        <button class="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-bold py-4 px-8 rounded-2xl shadow-xl magnetic">
+                        <button onclick="window.location.href='{{ route('tiket') }}'" class="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-bold py-4 px-8 rounded-2xl shadow-xl magnetic">
                             <span class="flex items-center justify-center gap-3">
                                 <i data-lucide="crown" class="w-5 h-5"></i>
                                 BELI SEKARANG
@@ -380,7 +380,7 @@
             </div>
 
             <div class="text-center mt-16">
-                <p class="text-white/80 text-lg mb-6 gsap-fade-up">Ingin pengalaman yang lebih personal?</p>
+                <p class="text-white/80 text-lg mb-4 gsap-fade-up">Ingin pengalaman yang lebih personal?</p>
                 <button class="bg-yellow-400 hover:bg-yellow-300 text-green-900 font-bold py-3 px-8 rounded-full shadow-xl magnetic gsap-fade-up">
                     <span class="flex items-center gap-2">
                         <i data-lucide="phone" class="w-5 h-5"></i>
@@ -399,13 +399,13 @@
                     <span class="text-reveal">HUBUNGI KAMI</span>
                 </h2>
                 <p class="text-green-700 text-xl gsap-fade-up">Siap memulai petualangan di Fajar World?</p>
-                <div class="w-32 h-1 bg-green-600 mx-auto rounded-full mt-4 gsap-scale"></div>
+                <div class="w-32 h-1 bg-green-600 mx-auto rounded-full mt-4"></div>
             </div>
 
             <div class="grid lg:grid-cols-3 gap-12">
                 <!-- Contact Info -->
                 <div class="lg:col-span-1">
-                    <div class="bg-white rounded-3xl p-8 shadow-xl gsap-fade-left magnetic">
+                    <div class="bg-white rounded-3xl p-8 shadow-xl">
                         <div class="mb-8">
                             <div class="bg-green-600 rounded-2xl p-4 w-16 h-16 mx-auto mb-4">
                                 <i data-lucide="map-pin" class="w-8 h-8 text-white mx-auto"></i>
@@ -458,7 +458,7 @@
 
                 <!-- Contact Form & Info -->
                 <div class="lg:col-span-2">
-                    <div class="bg-white rounded-3xl p-8 shadow-xl gsap-fade-right magnetic">
+                    <div class="bg-white rounded-3xl p-8 shadow-xl">
                         <div class="grid md:grid-cols-2 gap-8">
                             <div>
                                 <h3 class="text-2xl font-black text-green-800 mb-6">TENTANG KAMI</h3>
@@ -511,7 +511,7 @@
                                     <div>
                                         <textarea placeholder="Pesan Anda" rows="4" class="w-full p-4 border border-gray-200 rounded-xl focus:border-green-500 focus:ring-2 focus:ring-green-200 transition-all resize-none"></textarea>
                                     </div>
-                                    <button type="submit" class="w-full bg-gradient-to-r from-green-600 to-green-800 hover:from-green-700 hover:to-green-900 text-white font-bold py-4 px-8 rounded-xl shadow-lg magnetic">
+                                    <button type="submit" class="w-full bg-gradient-to-r from-green-600 to-green-800 hover:from-green-700 hover:to-green-900 text-white font-bold py-4 px-8 rounded-xl shadow-lg">
                                         <span class="flex items-center justify-center gap-3">
                                             <i data-lucide="send" class="w-5 h-5"></i>
                                             Kirim Pesan
@@ -579,18 +579,37 @@
     animation-delay: 1s;
 }
 
-/* Gallery hover effects */
+/* Gallery hover effects with smoother transitions */
+.gallery-item {
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
 .gallery-item:hover .magnetic {
-    transform: translateY(-10px) scale(1.05);
+    transform: translateY(-12px) scale(1.03);
 }
 
 .gallery-item:hover i {
-    transform: scale(1.2) rotate(10deg);
+    transform: scale(1.15) rotate(8deg);
+    transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
-/* Ticket card hover effects */
+/* Smoother card hover effects */
+.magnetic {
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.magnetic:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+}
+
+/* Ticket card enhanced animations */
+.ticket-card {
+    transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
 .ticket-card:hover {
-    transform: translateY(-5px);
+    transform: translateY(-10px);
 }
 
 /* Text typing effect */
@@ -644,6 +663,12 @@ input:focus, textarea:focus {
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
+    // Initialize Lucide icons
+    lucide.createIcons();
+
+    // Register GSAP ScrollTrigger plugin
+    gsap.registerPlugin(ScrollTrigger);
+
     // Enhanced GSAP Animations
     initAdvancedAnimations();
 
@@ -670,18 +695,19 @@ function initAdvancedAnimations() {
         });
     }
 
-    // Gallery items stagger animation
+    // Gallery items stagger animation with smoother transitions
     gsap.utils.toArray('.gallery-item').forEach((item, index) => {
         gsap.fromTo(item, {
             opacity: 0,
-            y: 50,
-            scale: 0.8
+            y: 60,
+            scale: 0.9
         }, {
             opacity: 1,
             y: 0,
             scale: 1,
-            duration: 0.8,
-            delay: index * 0.2,
+            duration: 1.2,
+            delay: index * 0.15,
+            ease: "power3.out",
             scrollTrigger: {
                 trigger: item,
                 start: "top 85%",
@@ -691,8 +717,8 @@ function initAdvancedAnimations() {
         });
     });
 
-    // Ticket cards with special effects
-    gsap.utils.toArray('.ticket-card').forEach(card => {
+    // Enhanced ticket cards with smoother effects
+    gsap.utils.toArray('.ticket-card').forEach((card, index) => {
         const tl = gsap.timeline({
             scrollTrigger: {
                 trigger: card,
@@ -704,14 +730,17 @@ function initAdvancedAnimations() {
 
         tl.fromTo(card, {
             opacity: 0,
-            y: 80,
-            rotationX: -15
+            y: 100,
+            rotationX: -20,
+            scale: 0.8
         }, {
             opacity: 1,
             y: 0,
             rotationX: 0,
-            duration: 1,
-            ease: "back.out(1.7)"
+            scale: 1,
+            duration: 1.4,
+            ease: "power4.out",
+            delay: index * 0.2
         });
     });
 
@@ -758,6 +787,71 @@ function initAdvancedAnimations() {
                 trigger: container,
                 start: "top 80%",
                 end: "top 50%",
+                toggleActions: "play none none reverse"
+            }
+        });
+    });
+
+    // Standard GSAP animations for other elements
+    gsap.utils.toArray('.gsap-fade-up').forEach(element => {
+        gsap.fromTo(element, {
+            opacity: 0,
+            y: 30
+        }, {
+            opacity: 1,
+            y: 0,
+            duration: 1,
+            scrollTrigger: {
+                trigger: element,
+                start: "top 85%",
+                toggleActions: "play none none reverse"
+            }
+        });
+    });
+
+    gsap.utils.toArray('.gsap-fade-left').forEach(element => {
+        gsap.fromTo(element, {
+            opacity: 0,
+            x: -50
+        }, {
+            opacity: 1,
+            x: 0,
+            duration: 1,
+            scrollTrigger: {
+                trigger: element,
+                start: "top 85%",
+                toggleActions: "play none none reverse"
+            }
+        });
+    });
+
+    gsap.utils.toArray('.gsap-fade-right').forEach(element => {
+        gsap.fromTo(element, {
+            opacity: 0,
+            x: 50
+        }, {
+            opacity: 1,
+            x: 0,
+            duration: 1,
+            scrollTrigger: {
+                trigger: element,
+                start: "top 85%",
+                toggleActions: "play none none reverse"
+            }
+        });
+    });
+
+    gsap.utils.toArray('.gsap-scale').forEach(element => {
+        gsap.fromTo(element, {
+            scale: 0.8,
+            opacity: 0
+        }, {
+            scale: 1,
+            opacity: 1,
+            duration: 0.8,
+            scrollTrigger: {
+                trigger: element,
+                start: "top 90%",
                 toggleActions: "play none none reverse"
             }
         });
@@ -821,43 +915,7 @@ function initInteractiveElements() {
 function initFormAnimations() {
     const form = document.getElementById('quick-contact-form');
     if (form) {
-        const inputs = form.querySelectorAll('input, textarea');
-
-        inputs.forEach((input, index) => {
-            gsap.fromTo(input, {
-                opacity: 0,
-                x: -30
-            }, {
-                opacity: 1,
-                x: 0,
-                duration: 0.6,
-                delay: index * 0.1,
-                scrollTrigger: {
-                    trigger: form,
-                    start: "top 80%"
-                }
-            });
-
-            // Focus animations
-            input.addEventListener('focus', () => {
-                gsap.to(input, {
-                    scale: 1.02,
-                    borderColor: "#059669",
-                    duration: 0.3,
-                    ease: "power2.out"
-                });
-            });
-
-            input.addEventListener('blur', () => {
-                gsap.to(input, {
-                    scale: 1,
-                    duration: 0.3,
-                    ease: "power2.out"
-                });
-            });
-        });
-
-        // Form submission animation
+        // Form submission animation only - no input animations
         form.addEventListener('submit', (e) => {
             e.preventDefault();
 
