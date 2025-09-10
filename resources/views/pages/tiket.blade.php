@@ -38,6 +38,16 @@
                     {{ session('success') }}
                 </div>
             @endif
+            @if ($errors->any())
+    <div class="bg-red-100 text-red-800 p-3 rounded mb-4">
+        <ul class="list-disc pl-5">
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
+
 
             <form action="{{ route('tickets.store') }}" method="POST">
                 @csrf
@@ -69,6 +79,26 @@
                     <label class="block font-semibold mb-1">Tanggal Kunjungan</label>
                     <input type="date" name="tanggal" class="w-full p-3 border rounded-lg" required>
                 </div>
+
+            <div class="mb-4">
+    <label class="block font-semibold mb-1">Harga</label>
+    <input type="text" id="harga_display" class="w-full p-3 border rounded-lg bg-gray-100" readonly>
+    <input type="hidden" name="harga" id="harga">
+</div>
+
+<script>
+document.querySelector('select[name="kategori"]').addEventListener('change', function () {
+    let harga = 0;
+    if (this.value === 'dewasa') harga = 2000000;
+    if (this.value === 'anak') harga = 1500000;
+    if (this.value === 'rombongan') harga = 0; // hubungi admin
+    
+    // update value ke form
+    document.getElementById('harga').value = harga;
+    document.getElementById('harga_display').value = harga > 0 ? "Rp " + harga.toLocaleString() : "Hubungi Admin";
+});
+</script>
+
 
                 <button type="submit" class="bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-lg w-full">
                     Pesan Sekarang
