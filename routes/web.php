@@ -12,6 +12,7 @@ Route::resource('tickets', TicketController::class);
 
 // redirect /ticket ke tickets.index
 Route::get('/ticket', [TicketController::class, 'index'])->name('tickets.index');
+Route::post('/tickets', [TicketController::class, 'store'])->name('tickets.store');
 
 
 Route::get('/dashboard', function () {
@@ -23,5 +24,10 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
+Route::get('/gallery', function () {
+    return view('pages.gallery');
+})->name('gallery');
+
 
 require __DIR__.'/auth.php';
