@@ -1,30 +1,29 @@
 <?php
 namespace App\Http\Controllers;
 
+use App\Models\Order;
 use Illuminate\Http\Request;
-use App\Models\Ticket;
 
 class TicketController extends Controller
 {
-    // tampilkan daftar ticket
     public function index()
     {
-        $tickets = Ticket::latest()->get();
-        return view('pages.tiket', compact('tickets'));
+        return view('pages.tiket');
     }
 
-    // simpan ticket baru
     public function store(Request $request)
     {
-        $request->validate([
-            'title' => 'required|string|max:255',
-            'description' => 'nullable|string',
-            'priority' => 'required|in:low,medium,high',
-            'status' => 'required|in:open,in_progress,closed',
+        $validated = $request->validate([
+            'nama' => 'required|string|max:255',
+            'email' => 'required|email',
+            'kategori' => 'required|in:dewasa,anak,rombongan',
+            'jumlah' => 'required|integer|min:1',
+            'tanggal' => 'required|date|after_or_equal:today',
         ]);
 
-        Ticket::create($request->all());
+        Order::create($validated);
 
-        return redirect()->route('tickets.index')->with('success', 'Ticket berhasil dibuat!');
+        return redirect()->route('tickets.index')
+            ->with('success', 'Pemesanan tiket berhasil! Kami akan mengirim detail ke email Anda.');
     }
 }
