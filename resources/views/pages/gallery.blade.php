@@ -9,7 +9,7 @@
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
         <!-- Singa -->
         <div class="rounded-xl overflow-hidden border-4 border-white shadow-lg hover:scale-105 hover:shadow-2xl transition">
-            <img src="{{ asset('../images/pg4.jpeg') }}" alt="Singa" class="w-full h-60 object-cover">
+            <img src="{{ asset('images/pg4.jpeg') }}" alt="Singa" class="w-full h-60 object-cover">
             <div class="p-4 bg-white">
                 <h3 class="font-semibold text-lg">Singa</h3>
                 <p class="text-sm text-gray-600">Penghuni hutan rimba yang gagah.</p>
@@ -18,59 +18,57 @@
 
         <!-- Cheetah -->
         <div class="rounded-xl overflow-hidden border-4 border-white shadow-lg hover:scale-105 hover:shadow-2xl transition">
-            <img src="{{ asset('../images/cheetah.jpg') }}" alt="Singa" class="w-full h-60 object-cover">
+            <img src="{{ asset('images/cheetah.jpg') }}" alt="Cheetah" class="w-full h-60 object-cover">
             <div class="p-4 bg-white">
                 <h3 class="font-semibold text-lg">Cheetah</h3>
-                <p class="text-sm text-gray-600">Hewan tercepat di darat (bisa 100 km/jam), tubuh ramping, berburu dengan kecepatan.</p>
+                <p class="text-sm text-gray-600">Hewan tercepat di darat, bisa berlari 100 km/jam.</p>
             </div>
         </div>
 
-         <!-- beruang madu -->
+        <!-- Beruang Madu -->
         <div class="rounded-xl overflow-hidden border-4 border-white shadow-lg hover:scale-105 hover:shadow-2xl transition">
-            <img src="{{ asset('../images/beruangmadu.webp') }}" alt="Panda" class="w-full h-60 object-cover">
+            <img src="{{ asset('images/beruangmadu.webp') }}" alt="Beruang Madu" class="w-full h-60 object-cover">
             <div class="p-4 bg-white">
                 <h3 class="font-semibold text-lg">Beruang Madu</h3>
-                <p class="text-sm text-gray-600">Beruang terkecil, ada di Asia Tenggara, suka madu, kukunya panjang untuk memanjat.</p>
+                <p class="text-sm text-gray-600">Beruang terkecil di dunia, suka madu, pandai memanjat.</p>
             </div>
         </div>
 
-         <!-- Harimau Sumatra -->
+        <!-- Harimau Sumatra -->
         <div class="rounded-xl overflow-hidden border-4 border-white shadow-lg hover:scale-105 hover:shadow-2xl transition">
-            <img src="{{ asset('../images/harimausumatra.jpg') }}" alt="Panda" class="w-full h-60 object-cover">
+            <img src="{{ asset('images/harimausumatra.jpg') }}" alt="Harimau Sumatra" class="w-full h-60 object-cover">
             <div class="p-4 bg-white">
                 <h3 class="font-semibold text-lg">Harimau Sumatra</h3>
-                <p class="text-sm text-gray-600">Harimau terkecil di dunia, asli Indonesia, soliter, pandai berenang.</p>
+                <p class="text-sm text-gray-600">Harimau terkecil di dunia, asli Indonesia.</p>
             </div>
         </div>
-         <div class="rounded-xl overflow-hidden border-4 border-white shadow-lg hover:scale-105 hover:shadow-2xl transition">
-            <img src="{{ asset('../images/harimauputih.jpg') }}" alt="Panda" class="w-full h-60 object-cover">
+
+        <!-- Harimau Putih -->
+        <div class="rounded-xl overflow-hidden border-4 border-white shadow-lg hover:scale-105 hover:shadow-2xl transition">
+            <img src="{{ asset('images/harimauputih.jpg') }}" alt="Harimau Putih" class="w-full h-60 object-cover">
             <div class="p-4 bg-white">
                 <h3 class="font-semibold text-lg">Harimau Putih</h3>
-                <p class="text-sm text-gray-600">Varian harimau Bengal dengan gen resesif, bulu putih dengan belang hitam.</p>
+                <p class="text-sm text-gray-600">Varian Bengal dengan gen resesif, bulu putih belang hitam.</p>
             </div>
         </div>
-         <div class="rounded-xl overflow-hidden border-4 border-white shadow-lg hover:scale-105 hover:shadow-2xl transition">
-            <img src="{{ asset('../images/hyena.jpg') }}" alt="Singa" class="w-full h-60 object-cover">
+
+        <!-- Hyena -->
+        <div class="rounded-xl overflow-hidden border-4 border-white shadow-lg hover:scale-105 hover:shadow-2xl transition">
+            <img src="{{ asset('images/hyena.jpg') }}" alt="Hyena" class="w-full h-60 object-cover">
             <div class="p-4 bg-white">
                 <h3 class="font-semibold text-lg">Hyena</h3>
-                <p class="text-sm text-gray-600">Punya rahang super kuat, pemakan bangkai, tapi juga pemburu ulung.</p>
+                <p class="text-sm text-gray-600">Rahang kuat, pemakan bangkai sekaligus pemburu ulung.</p>
             </div>
         </div>
+
+        <!-- Serigala -->
         <div class="rounded-xl overflow-hidden border-4 border-white shadow-lg hover:scale-105 hover:shadow-2xl transition">
-            <img src="{{ asset('../images/serigala.jpeg') }}" alt="Singa" class="w-full h-60 object-cover">
+            <img src="{{ asset('images/serigala.jpeg') }}" alt="Serigala" class="w-full h-60 object-cover">
             <div class="p-4 bg-white">
-                <h3 class="font-semibold text-lg">Serigala  </h3>
-                <p class="text-sm text-gray-600">Hidup berkelompok (pack), dikenal setia dengan kelompoknya, karnivora oportunis.</p>
+                <h3 class="font-semibold text-lg">Serigala</h3>
+                <p class="text-sm text-gray-600">Hidup berkelompok (pack), setia dengan kawanan.</p>
             </div>
         </div>
-        <div class="rounded-xl overflow-hidden border-4 border-white shadow-lg hover:scale-105 hover:shadow-2xl transition">
-            <img src="{{ asset('../images/komodo.jpeg') }}" alt="Singa" class="w-full h-60 object-cover">
-            <div class="p-4 bg-white">
-                <h3 class="font-semibold text-lg">Komodo</h3>
-                <p class="text-sm text-gray-600">Kadal terbesar di dunia, hanya ada di Indonesia, berbisa, mangsa bisa kerbau.</p>
-            </div>
-        </div>
-        
     </div>
 
     {{-- 🐘 Herbivora --}}
@@ -78,7 +76,7 @@
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
         <!-- Gajah -->
         <div class="rounded-xl overflow-hidden border-4 border-white shadow-lg hover:scale-105 hover:shadow-2xl transition">
-            <img src="{{ asset('../images/pg10.jpg') }}" alt="Gajah" class="w-full h-60 object-cover">
+            <img src="{{ asset('images/pg10.jpg') }}" alt="Gajah" class="w-full h-60 object-cover">
             <div class="p-4 bg-white">
                 <h3 class="font-semibold text-lg">Gajah</h3>
                 <p class="text-sm text-gray-600">Raksasa lembut dari Asia.</p>
@@ -87,90 +85,28 @@
 
         <!-- Zebra -->
         <div class="rounded-xl overflow-hidden border-4 border-white shadow-lg hover:scale-105 hover:shadow-2xl transition">
-            <img src="{{ asset('../images/pg3.jpeg') }}" alt="Zebra" class="w-full h-60 object-cover">
+            <img src="{{ asset('images/pg3.jpeg') }}" alt="Zebra" class="w-full h-60 object-cover">
             <div class="p-4 bg-white">
                 <h3 class="font-semibold text-lg">Zebra</h3>
                 <p class="text-sm text-gray-600">Kuda belang khas Afrika.</p>
             </div>
         </div>
 
-        <!-- Kelinci -->
+        <!-- Unta -->
         <div class="rounded-xl overflow-hidden border-4 border-white shadow-lg hover:scale-105 hover:shadow-2xl transition">
-            <img src="{{ asset('../images/pg1.jpeg') }}" alt="Kelinci" class="w-full h-60 object-cover">
+            <img src="{{ asset('images/unta.webp') }}" alt="Unta" class="w-full h-60 object-cover">
             <div class="p-4 bg-white">
-                <h3 class="font-semibold text-lg">Kelinci</h3>
-                <p class="text-sm text-gray-600">Hewan imut favorit anak-anak.</p>
+                <h3 class="font-semibold text-lg">Unta</h3>
+                <p class="text-sm text-gray-600">Hidup di gurun, mampu bertahan tanpa air lama.</p>
             </div>
         </div>
 
-        <!-- Capibara -->
+        <!-- Jerapah -->
         <div class="rounded-xl overflow-hidden border-4 border-white shadow-lg hover:scale-105 hover:shadow-2xl transition">
-            <img src="{{ asset('../images/capibara.jpeg') }}" alt="Capibara" class="w-full h-60 object-cover">
-            <div class="p-4 bg-white">
-                <h3 class="font-semibold text-lg">Capibara</h3>
-                <p class="text-sm text-gray-600">Rodensia terbesar di dunia, jinak, hidup berkelompok dekat air.</p>
-            </div>
-        </div>
-
-        <!-- Llama -->
-        <div class="rounded-xl overflow-hidden border-4 border-white shadow-lg hover:scale-105 hover:shadow-2xl transition">
-            <img src="{{ asset('../images/llama.jpeg') }}" alt="Llama" class="w-full h-60 object-cover">
-            <div class="p-4 bg-white">
-                <h3 class="font-semibold text-lg">Llama</h3>
-                <p class="text-sm text-gray-600">Hewan gunung Andes, kuat & dipakai sebagai hewan angkut.</p>
-            </div>
-        </div>
-
-        <!-- Alpaka -->
-        <div class="rounded-xl overflow-hidden border-4 border-white shadow-lg hover:scale-105 hover:shadow-2xl transition">
-            <img src="{{ asset('../images/alpaka.jpeg') }}" alt="Alpaka" class="w-full h-60 object-cover">
-            <div class="p-4 bg-white">
-                <h3 class="font-semibold text-lg">Alpaka</h3>
-                <p class="text-sm text-gray-600">Hewan gunung Andes, berbulu tebal, jinak.</p>
-            </div>
-        </div>
-
-        <!-- Panda -->
-        <div class="rounded-xl overflow-hidden border-4 border-white shadow-lg hover:scale-105 hover:shadow-2xl transition">
-            <img src="{{ asset('../images/panda.jpeg') }}" alt="Panda" class="w-full h-60 object-cover">
-            <div class="p-4 bg-white">
-                <h3 class="font-semibold text-lg">Panda</h3>
-                <p class="text-sm text-gray-600">Pemakan bambu, simbol konservasi dunia.</p>
-            </div>
-        </div>
-
-        <!-- Kuda Nil -->
-        <div class="rounded-xl overflow-hidden border-4 border-white shadow-lg hover:scale-105 hover:shadow-2xl transition">
-            <img src="{{ asset('../images/kudanil.jpg') }}" alt="Panda" class="w-full h-60 object-cover">
-            <div class="p-4 bg-white">
-                <h3 class="font-semibold text-lg">Kuda Nil</h3>
-                <p class="text-sm text-gray-600">Hewan semi-akuatik, hidup di air sungai, sangat agresif walau herbivora.</p>
-            </div>
-        </div>
-
-        <!-- Rusa -->
-        <div class="rounded-xl overflow-hidden border-4 border-white shadow-lg hover:scale-105 hover:shadow-2xl transition">
-            <img src="{{ asset('../images/rusa.jpg') }}" alt="Panda" class="w-full h-60 object-cover">
-            <div class="p-4 bg-white">
-                <h3 class="font-semibold text-lg">Rusa</h3>
-                <p class="text-sm text-gray-600">Mamalia pemakan rumput, pejantan punya tanduk bercabang.</p>
-            </div>
-        </div>
-
-        <!-- buffalo-->
-        <div class="rounded-xl overflow-hidden border-4 border-white shadow-lg hover:scale-105 hover:shadow-2xl transition">
-            <img src="{{ asset('../images/buffalo.jpg') }}" alt="Panda" class="w-full h-60 object-cover">
-            <div class="p-4 bg-white">
-                <h3 class="font-semibold text-lg">Kerbau Afrika</h3>
-                <p class="text-sm text-gray-600">Hewan tangguh di padang rumput Afrika, suka hidup berkelompok.</p>
-            </div>
-        </div>
-        <!-- Jerapah-->
-        <div class="rounded-xl overflow-hidden border-4 border-white shadow-lg hover:scale-105 hover:shadow-2xl transition">
-            <img src="{{ asset('../images/jerapah.jpg') }}" alt="Panda" class="w-full h-60 object-cover">
+            <img src="{{ asset('images/jerapah.jpg') }}" alt="Jerapah" class="w-full h-60 object-cover">
             <div class="p-4 bg-white">
                 <h3 class="font-semibold text-lg">Jerapah</h3>
-                <p class="text-sm text-gray-600">Hewan tertinggi di dunia, leher panjang untuk meraih daun tinggi.</p>
+                <p class="text-sm text-gray-600">Hewan tertinggi di dunia, makan daun pohon tinggi.</p>
             </div>
         </div>
     </div>
@@ -178,64 +114,48 @@
     {{-- 🐒 Primata --}}
     <h3 class="text-2xl font-semibold mb-4 mt-10">🐒 Primata</h3>
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
-        <!-- Monyet Ekor Panjang -->
-        <div class="rounded-xl overflow-hidden border-4 border-white shadow-lg hover:scale-105 hover:shadow-2xl transition">
-            <img src="{{ asset('../images/monyet.jpeg') }}" alt="Monyet Ekor Panjang" class="w-full h-60 object-cover">
-            <div class="p-4 bg-white">
-                <h3 class="font-semibold text-lg">Monyet Ekor Panjang</h3>
-                <p class="text-sm text-gray-600">Sering dijumpai di Indonesia, pintar & suka hidup dekat manusia.</p>
-            </div>
-        </div>
-
-        <!-- Koala -->
-        <div class="rounded-xl overflow-hidden border-4 border-white shadow-lg hover:scale-105 hover:shadow-2xl transition">
-            <img src="{{ asset('../images/koala.jpeg') }}" alt="Koala" class="w-full h-60 object-cover">
-            <div class="p-4 bg-white">
-                <h3 class="font-semibold text-lg">Koala</h3>
-                <p class="text-sm text-gray-600">Marsupial, suka makan daun eukaliptus, tidur hingga 20 jam/hari.</p>
-            </div>
-        </div>
-
-        <!-- Kanguru -->
-        <div class="rounded-xl overflow-hidden border-4 border-white shadow-lg hover:scale-105 hover:shadow-2xl transition">
-            <img src="{{ asset('../images/kanguru.jpeg') }}" alt="Kanguru" class="w-full h-60 object-cover">
-            <div class="p-4 bg-white">
-                <h3 class="font-semibold text-lg">Kanguru</h3>
-                <p class="text-sm text-gray-600">Marsupial dari Australia, punya kantong untuk anaknya.</p>
-            </div>
-        </div>
-
-        <!-- simpanse -->
-        <div class="rounded-xl overflow-hidden border-4 border-white shadow-lg hover:scale-105 hover:shadow-2xl transition">
-            <img src="{{ asset('../images/simpanse.webp') }}" alt="Kanguru" class="w-full h-60 object-cover">
-            <div class="p-4 bg-white">
-                <h3 class="font-semibold text-lg">Simpanse</h3>
-                <p class="text-sm text-gray-600">Cerdas, bisa pakai alat, mirip perilaku manusia.</p>
-            </div>
-        </div>
-
         <!-- Orang Utan -->
         <div class="rounded-xl overflow-hidden border-4 border-white shadow-lg hover:scale-105 hover:shadow-2xl transition">
-            <img src="{{ asset('../images/orangutan.jpg') }}" alt="Kanguru" class="w-full h-60 object-cover">
+            <img src="{{ asset('images/orangutan.jpg') }}" alt="Orang Utan" class="w-full h-60 object-cover">
             <div class="p-4 bg-white">
                 <h3 class="font-semibold text-lg">Orang Utan</h3>
-                <p class="text-sm text-gray-600">Primata asli Indonesia (Sumatra & Kalimantan), pintar, arboreal, hidup soliter.</p>
+                <p class="text-sm text-gray-600">Primata asli Indonesia, sangat pintar.</p>
+            </div>
+        </div>
+
+        <!-- Simpanse -->
+        <div class="rounded-xl overflow-hidden border-4 border-white shadow-lg hover:scale-105 hover:shadow-2xl transition">
+            <img src="{{ asset('images/simpanse.webp') }}" alt="Simpanse" class="w-full h-60 object-cover">
+            <div class="p-4 bg-white">
+                <h3 class="font-semibold text-lg">Simpanse</h3>
+                <p class="text-sm text-gray-600">Cerdas, bisa gunakan alat, mirip manusia.</p>
+            </div>
+        </div>
+
+        <!-- Gorilla -->
+        <div class="rounded-xl overflow-hidden border-4 border-white shadow-lg hover:scale-105 hover:shadow-2xl transition">
+            <img src="{{ asset('images/gorila.jpg') }}" alt="Gorilla" class="w-full h-60 object-cover">
+            <div class="p-4 bg-white">
+                <h3 class="font-semibold text-lg">Gorilla</h3>
+                <p class="text-sm text-gray-600">Primata terbesar, dipimpin pejantan silverback.</p>
             </div>
         </div>
 
         <!-- Bekantan -->
         <div class="rounded-xl overflow-hidden border-4 border-white shadow-lg hover:scale-105 hover:shadow-2xl transition">
-            <img src="{{ asset('../images/Bekantan.jpeg') }}" alt="Kanguru" class="w-full h-60 object-cover">
+            <img src="{{ asset('images/Bekantan.jpeg') }}" alt="Gorilla" class="w-full h-60 object-cover">
             <div class="p-4 bg-white">
                 <h3 class="font-semibold text-lg">Bekantan</h3>
                 <p class="text-sm text-gray-600">Monyet berhidung panjang, hidup di hutan mangrove Kalimantan.</p>
             </div>
         </div>
+
+        <!-- Lutung -->
         <div class="rounded-xl overflow-hidden border-4 border-white shadow-lg hover:scale-105 hover:shadow-2xl transition">
-            <img src="{{ asset('../images/gorila.jpg') }}" alt="Kanguru" class="w-full h-60 object-cover">
+            <img src="{{ asset('images/Lutung.jpeg') }}" alt="Gorilla" class="w-full h-60 object-cover">
             <div class="p-4 bg-white">
-                <h3 class="font-semibold text-lg">Gorilla</h3>
-                <p class="text-sm text-gray-600">Primata terbesar, hidup berkelompok dengan pemimpin jantan "silverback".</p>
+                <h3 class="font-semibold text-lg">Lutung</h3>
+                <p class="text-sm text-gray-600">Primata pemakan daun, bulu sering hitam atau keemasan.</p>
             </div>
         </div>
     </div>
@@ -243,39 +163,30 @@
     {{-- 🐍 Reptil & Amfibi --}}
     <h3 class="text-2xl font-semibold mb-4 mt-10">🐍 Reptil & Amfibi</h3>
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
-        <!-- Buaya -->
+        <!-- Komodo -->
         <div class="rounded-xl overflow-hidden border-4 border-white shadow-lg hover:scale-105 hover:shadow-2xl transition">
-            <img src="{{ asset('../images/buaya.jpeg') }}" alt="Buaya Muara" class="w-full h-60 object-cover">
+            <img src="{{ asset('images/komodo.jpeg') }}" alt="Komodo" class="w-full h-60 object-cover">
             <div class="p-4 bg-white">
-                <h3 class="font-semibold text-lg">Buaya Muara</h3>
-                <p class="text-sm text-gray-600">Reptil purba, hidup di air tawar, predator penyergap.</p>
+                <h3 class="font-semibold text-lg">Komodo</h3>
+                <p class="text-sm text-gray-600">Kadal terbesar di dunia, hanya ada di Indonesia.</p>
             </div>
         </div>
 
-        <!-- Iguana -->
+        <!-- Buaya -->
         <div class="rounded-xl overflow-hidden border-4 border-white shadow-lg hover:scale-105 hover:shadow-2xl transition">
-            <img src="{{ asset('../images/iguana.jpeg') }}" alt="Iguana" class="w-full h-60 object-cover">
+            <img src="{{ asset('images/buaya.jpeg') }}" alt="Buaya" class="w-full h-60 object-cover">
+            <div class="p-4 bg-white">
+                <h3 class="font-semibold text-lg">Buaya</h3>
+                <p class="text-sm text-gray-600">Reptil purba, predator penyergap di air.</p>
+            </div>
+        </div>
+
+        <!-- Iguanan -->
+        <div class="rounded-xl overflow-hidden border-4 border-white shadow-lg hover:scale-105 hover:shadow-2xl transition">
+            <img src="{{ asset('images/iguana.jpeg') }}" alt="Buaya" class="w-full h-60 object-cover">
             <div class="p-4 bg-white">
                 <h3 class="font-semibold text-lg">Iguana</h3>
                 <p class="text-sm text-gray-600">Kadal besar, suka berjemur, pemakan tumbuhan.</p>
-            </div>
-        </div>
-
-        <!-- Kura-kura -->
-        <div class="rounded-xl overflow-hidden border-4 border-white shadow-lg hover:scale-105 hover:shadow-2xl transition">
-            <img src="{{ asset('../images/kura.jpeg') }}" alt="Kura-kura" class="w-full h-60 object-cover">
-            <div class="p-4 bg-white">
-                <h3 class="font-semibold text-lg">Kura-kura</h3>
-                <p class="text-sm text-gray-600">Hidup ratusan tahun, herbivora, geraknya lambat.</p>
-            </div>
-        </div>
-
-        <!-- Ular -->
-        <div class="rounded-xl overflow-hidden border-4 border-white shadow-lg hover:scale-105 hover:shadow-2xl transition">
-            <img src="{{ asset('../images/ular.jpeg') }}" alt="Ular" class="w-full h-60 object-cover">
-            <div class="p-4 bg-white">
-                <h3 class="font-semibold text-lg">Ular</h3>
-                <p class="text-sm text-gray-600">Ular besar tidak berbisa, membunuh mangsa dengan lilitan.</p>
             </div>
         </div>
     </div>
@@ -283,6 +194,7 @@
     {{-- 🐦 Burung --}}
     <h3 class="text-2xl font-semibold mb-4 mt-10">🐦 Burung</h3>
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+        <!-- Flamingo -->
         <!-- Sanctuary Burung -->
         <div class="rounded-xl overflow-hidden border-4 border-white shadow-lg hover:scale-105 hover:shadow-2xl transition">
             <img src="{{ asset('../images/pg6.jpeg') }}" alt="Burung" class="w-full h-60 object-cover">
@@ -344,10 +256,11 @@
                 <h3 class="font-semibold text-lg">Burung Unta</h3>
                 <p class="text-sm text-gray-600">Burung terbesar di dunia, tidak bisa terbang, larinya sangat cepat</p>
             </div>
-        </div>
+        </div> 
+        
     </div>
 
-    {{-- 🦓 Lainnya --}}
+     {{-- 🦓 Lainnya --}}
     <h3 class="text-2xl font-semibold mb-4 mt-10">🦓 Lainnya</h3>
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
         <!-- Aquarium -->
@@ -360,5 +273,4 @@
         </div>
     </div>
 
-</div>
 @endsection

@@ -7,6 +7,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ScrollSmoother } from 'gsap/ScrollSmoother';
 import { TextPlugin } from 'gsap/TextPlugin';
 
+
 // Alpine JS
 window.Alpine = Alpine;
 Alpine.start();

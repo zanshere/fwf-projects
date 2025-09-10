@@ -49,7 +49,7 @@
 @endif
 
 
-            <form action="{{ route('tickets.store') }}" method="POST">
+            <form action="{{ route('tickets.index') }}" method="POST">
                 @csrf
                 <div class="mb-4">
                     <label class="block font-semibold mb-1">Nama Lengkap</label>
