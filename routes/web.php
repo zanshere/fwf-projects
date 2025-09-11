@@ -15,6 +15,10 @@ Route::get('/tiket', function () {
     return view('pages.tiket');
 })->name('tiket');
 
+Route::get('/ticket', [TicketController::class, 'index'])->name('tickets.index');
+Route::post('/tickets', [TicketController::class, 'store'])->name('tickets.store');
+
+
 
 Route::get('/dashboard', function () {
     return view('dashboard');
