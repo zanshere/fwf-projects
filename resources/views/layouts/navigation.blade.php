@@ -4,11 +4,11 @@
         <div class="flex justify-between items-center py-4">
             <!-- Logo -->
             <div class="flex items-center space-x-3 gsap-fade-left">
-                <div class="bg-white rounded-full p-2 shadow-lg magnetic">
+                <a href="{{ url('/') }}" class="bg-white rounded-full p-2 shadow-lg magnetic">
                     <div class="w-12 h-12 bg-gradient-to-br from-green-600 to-green-800 rounded-full flex items-center justify-center">
                         <i data-lucide="mountain" class="w-6 h-6 text-white"></i>
                     </div>
-                </div>
+                </a>
                 <div class="text-white">
                     <div class="text-xl font-black text-reveal">FAJAR</div>
                     <div class="text-xs text-green-200">WORLD</div>
@@ -17,35 +17,35 @@
 
             <!-- Desktop Navigation -->
             <div class="hidden lg:flex items-center space-x-8 gsap-fade-up">
-                <a href="#home" class="nav-link text-white font-bold text-lg hover:text-yellow-400 transition-colors relative group magnetic">
+                <a href="{{ url('/') }}#home" class="nav-link text-white font-bold text-lg hover:text-yellow-400 transition-colors relative group magnetic">
                     <span class="flex items-center gap-2">
                         <i data-lucide="home" class="w-4 h-4"></i>
                         HOME
                     </span>
                     <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-yellow-400 transition-all duration-300 group-hover:w-full"></span>
                 </a>
-                <a href="#about" class="nav-link text-white font-bold text-lg hover:text-yellow-400 transition-colors relative group magnetic">
+                <a href="{{ url('/') }}#about" class="nav-link text-white font-bold text-lg hover:text-yellow-400 transition-colors relative group magnetic">
                     <span class="flex items-center gap-2">
                         <i data-lucide="info" class="w-4 h-4"></i>
                         ABOUT US
                     </span>
                     <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-yellow-400 transition-all duration-300 group-hover:w-full"></span>
                 </a>
-                <a href="#tickets" class="nav-link text-white font-bold text-lg hover:text-yellow-400 transition-colors relative group magnetic">
+                <a href="{{ route('tickets.index') }}" class="nav-link text-white font-bold text-lg hover:text-yellow-400 transition-colors relative group magnetic">
                     <span class="flex items-center gap-2">
                         <i data-lucide="ticket" class="w-4 h-4"></i>
                         TICKETS
                     </span>
                     <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-yellow-400 transition-all duration-300 group-hover:w-full"></span>
                 </a>
-                <a href="#gallery" class="nav-link text-white font-bold text-lg hover:text-yellow-400 transition-colors relative group magnetic">
+                <a href="{{ url('/') }}#gallery" class="nav-link text-white font-bold text-lg hover:text-yellow-400 transition-colors relative group magnetic">
                     <span class="flex items-center gap-2">
                         <i data-lucide="image" class="w-4 h-4"></i>
                         GALLERY
                     </span>
                     <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-yellow-400 transition-all duration-300 group-hover:w-full"></span>
                 </a>
-                <a href="#contact" class="nav-link text-white font-bold text-lg hover:text-yellow-400 transition-colors relative group magnetic">
+                <a href="{{ url('/') }}#contact" class="nav-link text-white font-bold text-lg hover:text-yellow-400 transition-colors relative group magnetic">
                     <span class="flex items-center gap-2">
                         <i data-lucide="phone" class="w-4 h-4"></i>
                         CONTACT
@@ -56,12 +56,12 @@
 
             <!-- CTA Button -->
             <div class="hidden lg:block gsap-fade-right">
-                <button class="bg-yellow-400 hover:bg-yellow-300 text-green-900 font-bold py-3 px-6 rounded-full transform hover:scale-105 transition-all duration-300 shadow-lg magnetic" id="cta-button">
+                <a href="{{ route('tickets.index') }}" class="bg-yellow-400 hover:bg-yellow-300 text-green-900 font-bold py-3 px-6 rounded-full transform hover:scale-105 transition-all duration-300 shadow-lg magnetic" id="cta-button">
                     <span class="flex items-center gap-2">
                         <i data-lucide="shopping-cart" class="w-4 h-4"></i>
                         Beli Tiket
                     </span>
-                </button>
+                </a>
             </div>
 
             <!-- Mobile Menu Button -->
@@ -74,43 +74,43 @@
         <div class="lg:hidden hidden" id="mobile-menu">
             <div class="bg-white/95 backdrop-blur-md rounded-2xl mt-4 p-6 shadow-2xl gsap-scale">
                 <div class="space-y-4">
-                    <a href="#home" class="mobile-nav-link block text-green-800 font-bold text-lg hover:text-green-600 transition-colors">
+                    <a href="{{ url('/') }}#home" class="mobile-nav-link block text-green-800 font-bold text-lg hover:text-green-600 transition-colors">
                         <span class="flex items-center gap-3">
                             <i data-lucide="home" class="w-5 h-5"></i>
                             HOME
                         </span>
                     </a>
-                    <a href="#about" class="mobile-nav-link block text-green-800 font-bold text-lg hover:text-green-600 transition-colors">
+                    <a href="{{ url('/') }}#about" class="mobile-nav-link block text-green-800 font-bold text-lg hover:text-green-600 transition-colors">
                         <span class="flex items-center gap-3">
                             <i data-lucide="info" class="w-5 h-5"></i>
                             ABOUT US
                         </span>
                     </a>
-                    <a href="#tickets" class="mobile-nav-link block text-green-800 font-bold text-lg hover:text-green-600 transition-colors">
+                    <a href="{{ route('tickets.index') }}" class="mobile-nav-link block text-green-800 font-bold text-lg hover:text-green-600 transition-colors">
                         <span class="flex items-center gap-3">
                             <i data-lucide="ticket" class="w-5 h-5"></i>
                             TICKETS
                         </span>
                     </a>
-                    <a href="#gallery" class="mobile-nav-link block text-green-800 font-bold text-lg hover:text-green-600 transition-colors">
+                    <a href="{{ url('/') }}#gallery" class="mobile-nav-link block text-green-800 font-bold text-lg hover:text-green-600 transition-colors">
                         <span class="flex items-center gap-3">
                             <i data-lucide="image" class="w-5 h-5"></i>
                             GALLERY
                         </span>
                     </a>
-                    <a href="#contact" class="mobile-nav-link block text-green-800 font-bold text-lg hover:text-green-600 transition-colors">
+                    <a href="{{ url('/') }}#contact" class="mobile-nav-link block text-green-800 font-bold text-lg hover:text-green-600 transition-colors">
                         <span class="flex items-center gap-3">
                             <i data-lucide="phone" class="w-5 h-5"></i>
                             CONTACT
                         </span>
                     </a>
                     <div class="pt-4 border-t border-green-200">
-                        <button class="w-full bg-yellow-400 hover:bg-yellow-300 text-green-900 font-bold py-3 px-6 rounded-full transition-all duration-300 magnetic">
+                        <a href="{{ route('tickets.index') }}" class="w-full bg-yellow-400 hover:bg-yellow-300 text-green-900 font-bold py-3 px-6 rounded-full transition-all duration-300 magnetic block text-center">
                             <span class="flex items-center justify-center gap-2">
                                 <i data-lucide="shopping-cart" class="w-4 h-4"></i>
                                 Beli Tiket
                             </span>
-                        </button>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -411,20 +411,24 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // Smooth scroll to sections
+    // Smooth scroll to sections on the same page
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
-            e.preventDefault();
-            const target = document.querySelector(this.getAttribute('href'));
-            if (target) {
-                gsap.to(window, {
-                    duration: 1.2,
-                    scrollTo: {
-                        y: target.offsetTop - 100,
-                        autoKill: false
-                    },
-                    ease: "power3.inOut"
-                });
+            // Only handle if it's on the same page
+            if (this.getAttribute('href').startsWith('#') && 
+                window.location.pathname === '/') {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    gsap.to(window, {
+                        duration: 1.2,
+                        scrollTo: {
+                            y: target.offsetTop - 100,
+                            autoKill: false
+                        },
+                        ease: "power3.inOut"
+                    });
+                }
             }
         });
     });
