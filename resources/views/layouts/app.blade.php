@@ -143,23 +143,6 @@
             outline-offset: 2px;
         }
 
-        /* Cursor effects */
-        .cursor-glow {
-            cursor: none;
-        }
-
-        .custom-cursor {
-            width: 20px;
-            height: 20px;
-            background: #fbbf24;
-            border-radius: 50%;
-            position: fixed;
-            pointer-events: none;
-            z-index: 9999;
-            mix-blend-mode: difference;
-            transition: transform 0.1s ease;
-        }
-
         /* Parallax containers */
         .parallax-container {
             overflow: hidden;
@@ -179,7 +162,7 @@
 
 <body class="font-sans antialiased bg-gray-50 cursor-glow">
     <!-- Custom Cursor -->
-    <div class="custom-cursor" id="cursor"></div>
+    {{-- <div class="custom-cursor" id="cursor"></div> --}}
 
     <!-- Loading Screen -->
     <div class="loading-screen" id="loading-screen">
@@ -276,9 +259,6 @@
         document.addEventListener('DOMContentLoaded', function() {
             // Initialize GSAP
             initializeGSAP();
-
-            // Custom cursor
-            initCustomCursor();
 
             // Magnetic effect
             initMagneticEffect();
@@ -431,36 +411,6 @@
                         end: "bottom top",
                         scrub: true
                     }
-                });
-            });
-        }
-
-        function initCustomCursor() {
-            const cursor = document.getElementById('cursor');
-            if (!cursor) return;
-
-            document.addEventListener('mousemove', (e) => {
-                gsap.to(cursor, {
-                    duration: 0.1,
-                    x: e.clientX - 10,
-                    y: e.clientY - 10
-                });
-            });
-
-            // Scale cursor on hover
-            document.querySelectorAll('a, button, .magnetic').forEach(element => {
-                element.addEventListener('mouseenter', () => {
-                    gsap.to(cursor, {
-                        duration: 0.3,
-                        scale: 2
-                    });
-                });
-
-                element.addEventListener('mouseleave', () => {
-                    gsap.to(cursor, {
-                        duration: 0.3,
-                        scale: 1
-                    });
                 });
             });
         }
