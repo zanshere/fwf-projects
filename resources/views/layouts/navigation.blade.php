@@ -34,6 +34,13 @@
                     </span>
                     <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-yellow-400 transition-all duration-300 group-hover:w-full"></span>
                 </a>
+                <a href="{{ url('/') }}#gallery" class="nav-link text-white font-bold text-lg hover:text-yellow-400 transition-colors relative group magnetic">
+                    <span class="flex items-center gap-2">
+                        <i data-lucide="image" class="w-4 h-4"></i>
+                        GALLERY
+                    </span>
+                    <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-yellow-400 transition-all duration-300 group-hover:w-full"></span>
+                </a>
                 <a href="{{ url('/') }}#tickets" class="nav-link text-white font-bold text-lg hover:text-yellow-400 transition-colors relative group magnetic">
                     <span class="flex items-center gap-2">
                         <i data-lucide="ticket" class="w-4 h-4"></i>
@@ -41,13 +48,6 @@
                     </span>
                     <span
                         class="absolute -bottom-1 left-0 w-0 h-0.5 bg-yellow-400 transition-all duration-300 group-hover:w-full"></span>
-                </a>
-                <a href="{{ url('/') }}#gallery" class="nav-link text-white font-bold text-lg hover:text-yellow-400 transition-colors relative group magnetic">
-                    <span class="flex items-center gap-2">
-                        <i data-lucide="image" class="w-4 h-4"></i>
-                        GALLERY
-                    </span>
-                    <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-yellow-400 transition-all duration-300 group-hover:w-full"></span>
                 </a>
                 <a href="{{ url('/') }}#contact" class="nav-link text-white font-bold text-lg hover:text-yellow-400 transition-colors relative group magnetic">
                     <span class="flex items-center gap-2">
@@ -61,7 +61,7 @@
 
             <!-- CTA Button -->
             <div class="hidden lg:block gsap-fade-right">
-                <button onclick="{{ route('tickets.index') }}" class="bg-yellow-400 hover:bg-yellow-300 text-green-900 font-bold py-3 px-6 rounded-full transform hover:scale-105 transition-all duration-300 shadow-lg magnetic" id="cta-button">
+                <button onclick="window.location.href='{{ route('tickets.index') }}'" class="bg-yellow-400 hover:bg-yellow-300 text-green-900 font-bold py-3 px-6 rounded-full transform hover:scale-105 transition-all duration-300 shadow-lg magnetic" id="cta-button">
                     <span class="flex items-center gap-2">
                         <i data-lucide="shopping-cart" class="w-4 h-4"></i>
                         Beli Tiket
@@ -93,16 +93,16 @@
                             ABOUT US
                         </span>
                     </a>
-                    <a href="{{ url('/') }}#tickets" class="mobile-nav-link block text-green-800 font-bold text-lg hover:text-green-600 transition-colors">
-                        <span class="flex items-center gap-3">
-                            <i data-lucide="ticket" class="w-5 h-5"></i>
-                            TICKETS
-                        </span>
-                    </a>
                     <a href="{{ url('/') }}#gallery" class="mobile-nav-link block text-green-800 font-bold text-lg hover:text-green-600 transition-colors">
                         <span class="flex items-center gap-3">
                             <i data-lucide="image" class="w-5 h-5"></i>
                             GALLERY
+                        </span>
+                    </a>
+                    <a href="{{ url('/') }}#tickets" class="mobile-nav-link block text-green-800 font-bold text-lg hover:text-green-600 transition-colors">
+                        <span class="flex items-center gap-3">
+                            <i data-lucide="ticket" class="w-5 h-5"></i>
+                            TICKETS
                         </span>
                     </a>
                     <a href="{{ url('/') }}#contact" class="mobile-nav-link block text-green-800 font-bold text-lg hover:text-green-600 transition-colors">
@@ -112,7 +112,7 @@
                         </span>
                     </a>
                     <div class="pt-4 border-t border-green-200">
-                        <button onclick="{{ route('tickets.index') }}" class="w-full bg-yellow-400 hover:bg-yellow-300 text-green-900 font-bold py-3 px-6 rounded-full transition-all duration-300 magnetic">
+                        <button onclick="window.location.href='{{ route('tickets.index') }}'" class="w-full bg-yellow-400 hover:bg-yellow-300 text-green-900 font-bold py-3 px-6 rounded-full transition-all duration-300 magnetic">
                             <span class="flex items-center justify-center gap-2">
                                 <i data-lucide="shopping-cart" class="w-4 h-4"></i>
                                 Beli Tiket
