@@ -1,11 +1,13 @@
 {{-- resources/views/layouts/app.blade.php --}}
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <meta name="description" content="Fajar World - Suaka margasatwa yang memadukan konservasi, edukasi, dan hiburan. Jelajahi dunia satwa Indonesia dengan pengalaman yang tak terlupakan.">
+    <meta name="description"
+        content="Fajar World - Suaka margasatwa yang memadukan konservasi, edukasi, dan hiburan. Jelajahi dunia satwa Indonesia dengan pengalaman yang tak terlupakan.">
     <meta name="keywords" content="fajar world, zoo, konservasi, edukasi satwa, wisata keluarga, indonesia">
 
     <title>{{ config('app.name', 'Fajar World') }} - Explore to the Jungle</title>
@@ -16,6 +18,9 @@
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600,700,800,900&display=swap" rel="stylesheet" />
+
+    {{-- Lucide CDN --}}
+    <script src="https://unpkg.com/lucide@latest"></script>
 
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
@@ -171,6 +176,7 @@
         }
     </style>
 </head>
+
 <body class="font-sans antialiased bg-gray-50 cursor-glow">
     <!-- Custom Cursor -->
     <div class="custom-cursor" id="cursor"></div>
@@ -217,7 +223,8 @@
                     </div>
 
                     <p class="text-green-200 mb-4 max-w-2xl mx-auto gsap-fade-up">
-                        Fajar World berkomitmen untuk memberikan pengalaman terbaik dalam konservasi, edukasi, dan hiburan satwa. Mari bersama-sama menjaga kelestarian alam Indonesia.
+                        Fajar World berkomitmen untuk memberikan pengalaman terbaik dalam konservasi, edukasi, dan
+                        hiburan satwa. Mari bersama-sama menjaga kelestarian alam Indonesia.
                     </p>
 
                     <div class="flex justify-center space-x-6 mb-6 gsap-fade-up">
@@ -251,22 +258,21 @@
         </footer>
 
         <!-- Back to Top Button -->
-        <button id="back-to-top" class="fixed bottom-8 right-8 bg-yellow-400 hover:bg-yellow-500 text-green-900 p-3 rounded-full shadow-lg transform translate-y-16 transition-all duration-300 z-40 magnetic">
+        <button id="back-to-top"
+            class="fixed bottom-8 right-8 bg-yellow-400 hover:bg-yellow-500 text-green-900 p-3 rounded-full shadow-lg transform translate-y-16 transition-all duration-300 z-40 magnetic">
             <i data-lucide="arrow-up" class="w-5 h-5"></i>
             <span class="sr-only">Back to top</span>
         </button>
     </div>
 
     <!-- GSAP Animations Script -->
-     <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
 
-<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
-<!-- ScrollSmoother requires ScrollTrigger -->
-<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollSmoother.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/TextPlugin.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
+    <!-- ScrollSmoother requires ScrollTrigger -->
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollSmoother.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/TextPlugin.min.js"></script>
     <script>
-        gsap.registerPlugin(ScrollTrigger, ScrollSmoother, TextPlugin);
-
         document.addEventListener('DOMContentLoaded', function() {
             // Initialize GSAP
             initializeGSAP();
@@ -292,7 +298,9 @@
 
         function initializeGSAP() {
             // Set default ease
-            gsap.defaults({ ease: "power3.out" });
+            gsap.defaults({
+                ease: "power3.out"
+            });
 
             // Fade up animations
             gsap.utils.toArray('.gsap-fade-up').forEach(element => {
@@ -442,11 +450,17 @@
             // Scale cursor on hover
             document.querySelectorAll('a, button, .magnetic').forEach(element => {
                 element.addEventListener('mouseenter', () => {
-                    gsap.to(cursor, { duration: 0.3, scale: 2 });
+                    gsap.to(cursor, {
+                        duration: 0.3,
+                        scale: 2
+                    });
                 });
 
                 element.addEventListener('mouseleave', () => {
-                    gsap.to(cursor, { duration: 0.3, scale: 1 });
+                    gsap.to(cursor, {
+                        duration: 0.3,
+                        scale: 1
+                    });
                 });
             });
         }
@@ -528,7 +542,9 @@
             backToTopButton.addEventListener('click', function() {
                 gsap.to(window, {
                     duration: 1,
-                    scrollTo: { y: 0 },
+                    scrollTo: {
+                        y: 0
+                    },
                     ease: "power2.inOut"
                 });
             });
@@ -536,13 +552,15 @@
 
         function initSmoothScrolling() {
             document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function (e) {
+                anchor.addEventListener('click', function(e) {
                     e.preventDefault();
                     const target = document.querySelector(this.getAttribute('href'));
                     if (target) {
                         gsap.to(window, {
                             duration: 1,
-                            scrollTo: { y: target.offsetTop - 100 },
+                            scrollTo: {
+                                y: target.offsetTop - 100
+                            },
                             ease: "power2.inOut"
                         });
                     }
@@ -576,4 +594,5 @@
     <!-- Additional scripts can be added here -->
     @stack('scripts')
 </body>
+
 </html>
