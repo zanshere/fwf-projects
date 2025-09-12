@@ -12,17 +12,6 @@ Route::get('/', function () {
 Route::resource('tickets', TicketController::class);
 // ini otomatis bikin route dengan nama `tickets.index`, `tickets.store`, dll.
 
-
-// redirect /ticket ke tickets.index
-Route::get('/tickets', function () {
-    return view('pages.tiket');
-})->name('ticket');
-
-Route::get('/ticket', [TicketController::class, 'index'])->name('tickets.index');
-Route::post('/tickets', [TicketController::class, 'store'])->name('tickets.store');
-
-
-
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
