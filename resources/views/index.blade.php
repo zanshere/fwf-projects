@@ -50,7 +50,7 @@
                         <div class="gsap-fade-up">
                             <button
                                 class="group bg-yellow-400 hover:bg-yellow-300 text-green-900 font-bold py-4 px-8 rounded-full text-xl shadow-2xl magnetic"
-                                id="hero-cta">
+                                id="hero-cta" onclick="window.location.href='#tickets'">
                                 <span class="flex items-center gap-3">
                                     <i data-lucide="compass" class="w-6 h-6"></i>
                                     Mulai Petualangan
@@ -65,12 +65,14 @@
                     <div class="lg:w-1/2 relative">
                         <div class="grid grid-cols-2 gap-6">
                             <div class="space-y-6">
+                                <!-- Sunrise Adventure -->
                                 <div class="relative group cursor-pointer gsap-scale">
                                     <div
                                         class="bg-gradient-to-br from-orange-400 to-yellow-600 rounded-3xl p-1 shadow-2xl magnetic">
                                         <div
                                             class="bg-orange-100 rounded-2xl p-4 h-64 flex items-center justify-center overflow-hidden">
-                                            <i data-lucide="sunrise" class="w-24 h-24 text-orange-600"></i>
+                                            <img src="{{ asset('images/sunrise.jpg') }}" alt="Sunrise Adventure"
+                                                class="h-full w-full object-cover rounded-2xl">
                                         </div>
                                     </div>
                                     <div
@@ -79,12 +81,14 @@
                                     </div>
                                 </div>
 
+                                <!-- Forest Expedition -->
                                 <div class="relative group cursor-pointer gsap-scale">
                                     <div
                                         class="bg-gradient-to-br from-green-400 to-emerald-600 rounded-3xl p-1 shadow-2xl magnetic">
                                         <div
                                             class="bg-green-100 rounded-2xl p-4 h-48 flex items-center justify-center overflow-hidden">
-                                            <i data-lucide="trees" class="w-20 h-20 text-green-600"></i>
+                                            <img src="{{ asset('images/adventure.jpg') }}" alt="Forest Expedition"
+                                                class="h-full w-full object-cover rounded-2xl">
                                         </div>
                                     </div>
                                     <div
@@ -95,17 +99,16 @@
                             </div>
 
                             <div class="pt-12">
+                                <!-- Wildlife Photography -->
                                 <div class="relative group cursor-pointer gsap-scale">
                                     <div
                                         class="bg-gradient-to-br from-amber-400 to-orange-600 rounded-3xl p-1 shadow-2xl magnetic">
                                         <div
                                             class="bg-amber-100 rounded-2xl p-4 h-80 flex items-center justify-center overflow-hidden">
-                                            <div class="text-center">
-                                                <i data-lucide="mountain" class="w-32 h-32 text-amber-600 mx-auto mb-4"></i>
-                                                <div
-                                                    class="bg-amber-600 rounded-full w-16 h-16 mx-auto flex items-center justify-center">
-                                                    <i data-lucide="camera" class="w-8 h-8 text-white"></i>
-                                                </div>
+                                            <div class="text-center w-full h-full">
+                                                <img src="{{ asset('images/wildlife-photography.png') }}"
+                                                    alt="Wildlife Photography"
+                                                    class="h-full w-full object-cover rounded-2xl mb-4">
                                             </div>
                                         </div>
                                     </div>
@@ -117,6 +120,7 @@
                             </div>
                         </div>
                     </div>
+
                 </div>
             </div>
 
@@ -154,10 +158,11 @@
                             <span class="text-reveal">FAJAR WORLD</span>
                         </h2>
 
-                    <div class="space-y-6 text-lg text-green-700 leading-relaxed">
-                        <p class="gsap-fade-up">
-                            Terletak di tengah rimbunnya pepohonan Indonesia, terdapat sebuah surga tempat satwa liar berkeliaran bebas, dan manusia dapat menjelajahi dunia mereka.
-                        </p>
+                        <div class="space-y-6 text-lg text-green-700 leading-relaxed">
+                            <p class="gsap-fade-up">
+                                Terletak di tengah rimbunnya pepohonan Indonesia, terdapat sebuah surga tempat satwa liar
+                                berkeliaran bebas, dan manusia dapat menjelajahi dunia mereka.
+                            </p>
 
                             <p class="gsap-fade-up">
                                 Suaka margasatwa ini, yang dikenal sebagai <span class="font-bold text-green-800">Fajar
@@ -188,30 +193,39 @@
                     <div class="lg:w-1/2">
                         <div class="grid grid-cols-2 gap-6">
                             <div class="space-y-4">
-                                <div class="group bg-white rounded-3xl p-6 shadow-xl cursor-pointer gsap-scale magnetic">
-                                    <div class="bg-gradient-to-br from-orange-400 to-red-500 rounded-2xl p-4 mb-4">
-                                        <i data-lucide="crown" class="w-12 h-12 text-white mx-auto"></i>
+                                <!-- Raja Hutan -->
+                                <div
+                                    class="group bg-white rounded-3xl shadow-xl cursor-pointer gsap-scale magnetic overflow-hidden">
+                                    <img src="{{ asset('images/singa.png') }}" alt="Raja Hutan"
+                                        class="w-full h-64 object-cover rounded-3xl mb-4">
+                                    <div class="p-6">
+                                        <h3 class="text-xl font-bold text-gray-800 mb-2">Raja Hutan</h3>
+                                        <p class="text-gray-600">Saksikan keagungan singa dalam habitat alaminya</p>
                                     </div>
-                                    <h3 class="text-xl font-bold text-gray-800 mb-2">Raja Hutan</h3>
-                                    <p class="text-gray-600">Saksikan keagungan singa dalam habitat alaminya</p>
                                 </div>
 
-                                <div class="group bg-white rounded-3xl p-6 shadow-xl cursor-pointer gsap-scale magnetic">
-                                    <div class="bg-gradient-to-br from-yellow-400 to-orange-500 rounded-2xl p-4 mb-4">
-                                        <i data-lucide="zap" class="w-12 h-12 text-white mx-auto"></i>
+                                <!-- Jerapah Tinggi -->
+                                <div
+                                    class="group bg-white rounded-3xl shadow-xl cursor-pointer gsap-scale magnetic overflow-hidden">
+                                    <img src="{{ asset('images/jerapah.jpg') }}" alt="Jerapah Tinggi"
+                                        class="w-full h-64 object-cover rounded-3xl mb-4">
+                                    <div class="p-6">
+                                        <h3 class="text-xl font-bold text-gray-800 mb-2">Jerapah Tinggi</h3>
+                                        <p class="text-gray-600">Berinteraksi dengan jerapah yang ramah</p>
                                     </div>
-                                    <h3 class="text-xl font-bold text-gray-800 mb-2">Jerapah Tinggi</h3>
-                                    <p class="text-gray-600">Berinteraksi dengan jerapah yang ramah</p>
                                 </div>
                             </div>
 
                             <div class="pt-8">
-                                <div class="group bg-white rounded-3xl p-6 shadow-xl cursor-pointer gsap-scale magnetic">
-                                    <div class="bg-gradient-to-br from-gray-700 to-black rounded-2xl p-4 mb-4">
-                                        <i data-lucide="heart" class="w-12 h-12 text-white mx-auto"></i>
+                                <!-- Panda Lucu -->
+                                <div
+                                    class="group bg-white rounded-3xl shadow-xl cursor-pointer gsap-scale magnetic overflow-hidden">
+                                    <img src="{{ asset('images/panda.jpeg') }}" alt="Panda Lucu"
+                                        class="w-full h-64 object-cover rounded-3xl mb-4">
+                                    <div class="p-6">
+                                        <h3 class="text-xl font-bold text-gray-800 mb-2">Panda Lucu</h3>
+                                        <p class="text-gray-600">Nikmati kelucuan panda yang menggemaskan</p>
                                     </div>
-                                    <h3 class="text-xl font-bold text-gray-800 mb-2">Panda Lucu</h3>
-                                    <p class="text-gray-600">Nikmati kelucuan panda yang menggemaskan</p>
                                 </div>
                             </div>
                         </div>
@@ -236,10 +250,10 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     <!-- Gallery items will be animated -->
                     <div class="gallery-item group cursor-pointer gsap-fade-up">
-                        <div class="bg-gradient-to-br from-blue-400 to-cyan-500 rounded-3xl p-1 shadow-xl magnetic">
-                            <div class="bg-blue-100 rounded-2xl h-64 flex items-center justify-center overflow-hidden">
-                                <i data-lucide="fish" class="w-24 h-24 text-blue-600"></i>
-                            </div>
+                        <div
+                            class="bg-gradient-to-br from-blue-400 to-cyan-500 rounded-3xl p-1 shadow-xl magnetic overflow-hidden">
+                            <img src="{{ asset('images/pg8.png') }}" alt="Aquarium Spektakuler"
+                                class="w-full h-64 object-cover rounded-2xl">
                         </div>
                         <div class="text-center mt-4">
                             <h3 class="text-white font-bold text-lg">Aquarium Spektakuler</h3>
@@ -248,10 +262,10 @@
                     </div>
 
                     <div class="gallery-item group cursor-pointer gsap-fade-up">
-                        <div class="bg-gradient-to-br from-purple-400 to-pink-500 rounded-3xl p-1 shadow-xl magnetic">
-                            <div class="bg-purple-100 rounded-2xl h-64 flex items-center justify-center overflow-hidden">
-                                <i data-lucide="rabbit" class="w-24 h-24 text-purple-600"></i>
-                            </div>
+                        <div
+                            class="bg-gradient-to-br from-purple-400 to-pink-500 rounded-3xl p-1 shadow-xl magnetic overflow-hidden">
+                            <img src="{{ asset('images/rabbit-park.png') }}" alt="Taman Kelinci"
+                                class="w-full h-64 object-cover rounded-2xl">
                         </div>
                         <div class="text-center mt-4">
                             <h3 class="text-white font-bold text-lg">Taman Kelinci</h3>
@@ -260,29 +274,30 @@
                     </div>
 
                     <div class="gallery-item group cursor-pointer gsap-fade-up">
-                        <div class="bg-gradient-to-br from-green-400 to-teal-500 rounded-3xl p-1 shadow-xl magnetic">
-                            <div class="bg-green-100 rounded-2xl h-64 flex items-center justify-center overflow-hidden">
-                                <i data-lucide="bird" class="w-24 h-24 text-green-600"></i>
-                            </div>
+                        <div
+                            class="bg-gradient-to-br from-green-400 to-teal-500 rounded-3xl p-1 shadow-xl magnetic overflow-hidden">
+                            <img src="{{ asset('images/bird-sanctuary.png') }}" alt="Sanctuary Burung"
+                                class="w-full h-64 object-cover rounded-2xl">
                         </div>
                         <div class="text-center mt-4">
                             <h3 class="text-white font-bold text-lg">Sanctuary Burung</h3>
                             <p class="text-green-200">Koleksi burung langka Indonesia</p>
                         </div>
                     </div>
-                </div>
 
-                <div class="text-center mt-12">
-                    <button
-                        class="bg-yellow-400 hover:bg-yellow-300 text-green-900 font-bold py-4 px-8 rounded-full shadow-xl magnetic gsap-fade-up">
-                        <span class="flex items-center gap-3">
-                            <i data-lucide="image" class="w-5 h-5"></i>
-                            Lihat Semua Foto
-                            <i data-lucide="arrow-right" class="w-4 h-4"></i>
-                        </span>
-                    </button>
+
+                    <div class="text-center mt-12">
+                        <button
+                            class="bg-yellow-400 hover:bg-yellow-300 text-green-900 font-bold py-4 px-8 rounded-full shadow-xl magnetic gsap-fade-up"
+                            onclick="window.location.href='{{ route('gallery') }}'">
+                            <span class="flex items-center gap-3">
+                                <i data-lucide="image" class="w-5 h-5"></i>
+                                Lihat Semua Foto
+                                <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                            </span>
+                        </button>
+                    </div>
                 </div>
-            </div>
         </section>
 
         <!-- Ticket Pricing Section -->
@@ -345,25 +360,30 @@
                                 </div>
                             </div>
 
-                        <button onclick="window.location.href=('ticket')" class="w-full bg-gradient-to-r from-green-600 to-green-800 hover:from-green-700 hover:to-green-900 text-white font-bold py-4 px-8 rounded-2xl shadow-xl magnetic">
-                            <span class="flex items-center justify-center gap-3">
-                                <i data-lucide="shopping-cart" class="w-5 h-5"></i>
-                                BELI SEKARANG
-                            </span>
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Premium Ticket -->
-                <div class="ticket-card group relative gsap-fade-right">
-                    <div class="absolute inset-0 bg-gradient-to-r from-purple-500 to-pink-500 rounded-3xl blur-xl opacity-75 group-hover:opacity-100 transition-opacity"></div>
-                    <div class="relative bg-white rounded-3xl p-8 shadow-2xl border-4 border-gradient-to-r from-purple-400 to-pink-400 magnetic">
-                        <div class="absolute -top-4 left-1/2 transform -translate-x-1/2">
-                            <div class="bg-gradient-to-r from-purple-600 to-pink-600 text-white px-6 py-2 rounded-full font-bold shadow-lg">
-                                <i data-lucide="star" class="w-4 h-4 inline mr-2"></i>
-                                POPULER
-                            </div>
+                            <button onclick="window.location.href=('ticket')"
+                                class="w-full bg-gradient-to-r from-green-600 to-green-800 hover:from-green-700 hover:to-green-900 text-white font-bold py-4 px-8 rounded-2xl shadow-xl magnetic">
+                                <span class="flex items-center justify-center gap-3">
+                                    <i data-lucide="shopping-cart" class="w-5 h-5"></i>
+                                    BELI SEKARANG
+                                </span>
+                            </button>
                         </div>
+                    </div>
+
+                    <!-- Premium Ticket -->
+                    <div class="ticket-card group relative gsap-fade-right">
+                        <div
+                            class="absolute inset-0 bg-gradient-to-r from-purple-500 to-pink-500 rounded-3xl blur-xl opacity-75 group-hover:opacity-100 transition-opacity">
+                        </div>
+                        <div
+                            class="relative bg-white rounded-3xl p-8 shadow-2xl border-4 border-gradient-to-r from-purple-400 to-pink-400 magnetic">
+                            <div class="absolute -top-4 left-1/2 transform -translate-x-1/2">
+                                <div
+                                    class="bg-gradient-to-r from-purple-600 to-pink-600 text-white px-6 py-2 rounded-full font-bold shadow-lg">
+                                    <i data-lucide="star" class="w-4 h-4 inline mr-2"></i>
+                                    POPULER
+                                </div>
+                            </div>
 
                             <div class="text-center mb-8 mt-4">
                                 <div
@@ -405,52 +425,55 @@
                                 </div>
                             </div>
 
-                        <button onclick="window.location.href=('ticket')" class="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-bold py-4 px-8 rounded-2xl shadow-xl magnetic">
-                            <span class="flex items-center justify-center gap-3">
-                                <i data-lucide="crown" class="w-5 h-5"></i>
-                                BELI SEKARANG
-                            </span>
-                        </button>
+                            <button onclick="window.location.href=('ticket')"
+                                class="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-bold py-4 px-8 rounded-2xl shadow-xl magnetic">
+                                <span class="flex items-center justify-center gap-3">
+                                    <i data-lucide="crown" class="w-5 h-5"></i>
+                                    BELI SEKARANG
+                                </span>
+                            </button>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="text-center mt-16">
-                <p class="text-white/80 text-lg mb-6 gsap-fade-up">Ingin pengalaman yang lebih personal?</p>
-                <button class="bg-yellow-400 hover:bg-yellow-300 text-green-900 font-bold py-3 px-8 rounded-full shadow-xl magnetic gsap-fade-up">
-                    <span class="flex items-center gap-2">
-                        <i data-lucide="phone" class="w-5 h-5"></i>
-                        Hubungi Kami untuk Paket Khusus
-                    </span>
-                </button>
+                <div class="text-center mt-16">
+                    <p class="text-white/80 text-lg mb-6 gsap-fade-up">Ingin pengalaman yang lebih personal?</p>
+                    <button
+                        class="bg-yellow-400 hover:bg-yellow-300 text-green-900 font-bold py-3 px-8 rounded-full shadow-xl magnetic gsap-fade-up"
+                        onclick="window.location.href='{{ route('tickets.index') }}'">
+                        <span class="flex items-center gap-2">
+                            <i data-lucide="phone" class="w-5 h-5"></i>
+                            Hubungi Kami untuk Paket Khusus
+                        </span>
+                    </button>
+                </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Contact Section -->
-    <section id="contact" class="py-20 bg-gradient-to-r from-yellow-100 to-orange-100">
-        <div class="container mx-auto px-4">
-            <div class="text-center mb-16">
-                <h2 class="text-5xl font-black text-green-800 mb-4 gsap-fade-up">
-                    <span class="text-reveal">HUBUNGI KAMI</span>
-                </h2>
-                <p class="text-green-700 text-xl gsap-fade-up">Siap memulai petualangan di Fajar World?</p>
-                <div class="w-32 h-1 bg-green-600 mx-auto rounded-full mt-4 gsap-scale"></div>
-            </div>
+        <!-- Contact Section -->
+        <section id="contact" class="py-20 bg-gradient-to-r from-yellow-100 to-orange-100">
+            <div class="container mx-auto px-4">
+                <div class="text-center mb-16">
+                    <h2 class="text-5xl font-black text-green-800 mb-4 gsap-fade-up">
+                        <span class="text-reveal">HUBUNGI KAMI</span>
+                    </h2>
+                    <p class="text-green-700 text-xl gsap-fade-up">Siap memulai petualangan di Fajar World?</p>
+                    <div class="w-32 h-1 bg-green-600 mx-auto rounded-full mt-4 gsap-scale"></div>
+                </div>
 
-            <div class="grid lg:grid-cols-3 gap-12">
-                <!-- Contact Info -->
-                <div class="lg:col-span-1">
-                    <div class="bg-white rounded-3xl p-8 shadow-xl gsap-fade-left magnetic">
-                        <div class="mb-8">
-                            <div class="bg-green-600 rounded-2xl p-4 w-16 h-16 mx-auto mb-4">
-                                <i data-lucide="map-pin" class="w-8 h-8 text-white mx-auto"></i>
+                <div class="grid lg:grid-cols-3 gap-12">
+                    <!-- Contact Info -->
+                    <div class="lg:col-span-1">
+                        <div class="bg-white rounded-3xl p-8 shadow-xl gsap-fade-left magnetic">
+                            <div class="mb-8">
+                                <div class="bg-green-600 rounded-2xl p-4 w-16 h-16 mx-auto mb-4">
+                                    <i data-lucide="map-pin" class="w-8 h-8 text-white mx-auto"></i>
+                                </div>
+                                <h3 class="text-2xl font-black text-green-800 mb-4 text-center">LOKASI</h3>
+                                <p class="text-green-700 text-center">
+                                    Jl. Raya Cileungsi-Jonggol, Kec. Cileungsi, Kab. Bogor
+                                </p>
                             </div>
-                            <h3 class="text-2xl font-black text-green-800 mb-4 text-center">LOKASI</h3>
-                            <p class="text-green-700 text-center">
-                                Jl. Raya Cileungsi-Jonggol, Kec. Cileungsi, Kab. Bogor
-                            </p>
-                        </div>
 
                             <div class="mb-8">
                                 <div class="bg-blue-600 rounded-2xl p-4 w-16 h-16 mx-auto mb-4">
@@ -493,73 +516,80 @@
                         </div>
                     </div>
 
-                <!-- Contact Form & Info -->
-                <div class="lg:col-span-2">
-                    <div class="bg-white rounded-3xl p-8 shadow-xl gsap-fade-right magnetic">
-                        <div class="grid md:grid-cols-2 gap-8">
-                            <div>
-                                <h3 class="text-2xl font-black text-green-800 mb-6">TENTANG KAMI</h3>
-                                <p class="text-green-700 leading-relaxed mb-6">
-                                    Fajar World adalah destinasi wisata keluarga yang menggabungkan konservasi satwa, edukasi lingkungan, dan hiburan berkelanjutan. Kami berkomitmen untuk memberikan pengalaman tak terlupakan sambil melindungi keanekaragaman hayati Indonesia.
-                                </p>
-                                <div class="space-y-4">
-                                    <div class="flex items-center gap-3">
-                                        <div class="bg-green-100 p-2 rounded-lg">
-                                            <i data-lucide="clock" class="w-5 h-5 text-green-600"></i>
+                    <!-- Contact Form & Info -->
+                    <div class="lg:col-span-2">
+                        <div class="bg-white rounded-3xl p-8 shadow-xl gsap-fade-right magnetic">
+                            <div class="grid md:grid-cols-2 gap-8">
+                                <div>
+                                    <h3 class="text-2xl font-black text-green-800 mb-6">TENTANG KAMI</h3>
+                                    <p class="text-green-700 leading-relaxed mb-6">
+                                        Fajar World adalah destinasi wisata keluarga yang menggabungkan konservasi satwa,
+                                        edukasi lingkungan, dan hiburan berkelanjutan. Kami berkomitmen untuk memberikan
+                                        pengalaman tak terlupakan sambil melindungi keanekaragaman hayati Indonesia.
+                                    </p>
+                                    <div class="space-y-4">
+                                        <div class="flex items-center gap-3">
+                                            <div class="bg-green-100 p-2 rounded-lg">
+                                                <i data-lucide="clock" class="w-5 h-5 text-green-600"></i>
+                                            </div>
+                                            <div>
+                                                <p class="font-semibold text-gray-800">Jam Operasional</p>
+                                                <p class="text-gray-600">08:00 - 17:00 WIB</p>
+                                            </div>
                                         </div>
-                                        <div>
-                                            <p class="font-semibold text-gray-800">Jam Operasional</p>
-                                            <p class="text-gray-600">08:00 - 17:00 WIB</p>
+                                        <div class="flex items-center gap-3">
+                                            <div class="bg-blue-100 p-2 rounded-lg">
+                                                <i data-lucide="calendar" class="w-5 h-5 text-blue-600"></i>
+                                            </div>
+                                            <div>
+                                                <p class="font-semibold text-gray-800">Buka Setiap Hari</p>
+                                                <p class="text-gray-600">Senin - Minggu</p>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="flex items-center gap-3">
-                                        <div class="bg-blue-100 p-2 rounded-lg">
-                                            <i data-lucide="calendar" class="w-5 h-5 text-blue-600"></i>
-                                        </div>
-                                        <div>
-                                            <p class="font-semibold text-gray-800">Buka Setiap Hari</p>
-                                            <p class="text-gray-600">Senin - Minggu</p>
-                                        </div>
-                                    </div>
-                                    <div class="flex items-center gap-3">
-                                        <div class="bg-yellow-100 p-2 rounded-lg">
-                                            <i data-lucide="users" class="w-5 h-5 text-yellow-600"></i>
-                                        </div>
-                                        <div>
-                                            <p class="font-semibold text-gray-800">Grup Rombongan</p>
-                                            <p class="text-gray-600">Diskon khusus tersedia</p>
+                                        <div class="flex items-center gap-3">
+                                            <div class="bg-yellow-100 p-2 rounded-lg">
+                                                <i data-lucide="users" class="w-5 h-5 text-yellow-600"></i>
+                                            </div>
+                                            <div>
+                                                <p class="font-semibold text-gray-800">Grup Rombongan</p>
+                                                <p class="text-gray-600">Diskon khusus tersedia</p>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
 
-                            <div>
-                                <h3 class="text-2xl font-black text-green-800 mb-6">QUICK CONTACT</h3>
-                                <form class="space-y-4" id="quick-contact-form">
-                                    <div>
-                                        <input type="text" placeholder="Nama Lengkap" class="w-full p-4 border border-gray-200 rounded-xl focus:border-green-500 focus:ring-2 focus:ring-green-200 transition-all">
-                                    </div>
-                                    <div>
-                                        <input type="email" placeholder="Email" class="w-full p-4 border border-gray-200 rounded-xl focus:border-green-500 focus:ring-2 focus:ring-green-200 transition-all">
-                                    </div>
-                                    <div>
-                                        <input type="tel" placeholder="Nomor WhatsApp" class="w-full p-4 border border-gray-200 rounded-xl focus:border-green-500 focus:ring-2 focus:ring-green-200 transition-all">
-                                    </div>
-                                    <div>
-                                        <textarea placeholder="Pesan Anda" rows="4" class="w-full p-4 border border-gray-200 rounded-xl focus:border-green-500 focus:ring-2 focus:ring-green-200 transition-all resize-none"></textarea>
-                                    </div>
-                                    <button type="submit" class="w-full bg-gradient-to-r from-green-600 to-green-800 hover:from-green-700 hover:to-green-900 text-white font-bold py-4 px-8 rounded-xl shadow-lg magnetic">
-                                        <span class="flex items-center justify-center gap-3">
-                                            <i data-lucide="send" class="w-5 h-5"></i>
-                                            Kirim Pesan
-                                        </span>
-                                    </button>
-                                </form>
+                                <div>
+                                    <h3 class="text-2xl font-black text-green-800 mb-6">QUICK CONTACT</h3>
+                                    <form class="space-y-4" id="quick-contact-form">
+                                        <div>
+                                            <input type="text" placeholder="Nama Lengkap"
+                                                class="w-full p-4 border border-gray-200 rounded-xl focus:border-green-500 focus:ring-2 focus:ring-green-200 transition-all">
+                                        </div>
+                                        <div>
+                                            <input type="email" placeholder="Email"
+                                                class="w-full p-4 border border-gray-200 rounded-xl focus:border-green-500 focus:ring-2 focus:ring-green-200 transition-all">
+                                        </div>
+                                        <div>
+                                            <input type="tel" placeholder="Nomor WhatsApp"
+                                                class="w-full p-4 border border-gray-200 rounded-xl focus:border-green-500 focus:ring-2 focus:ring-green-200 transition-all">
+                                        </div>
+                                        <div>
+                                            <textarea placeholder="Pesan Anda" rows="4"
+                                                class="w-full p-4 border border-gray-200 rounded-xl focus:border-green-500 focus:ring-2 focus:ring-green-200 transition-all resize-none"></textarea>
+                                        </div>
+                                        <button type="submit"
+                                            class="w-full bg-gradient-to-r from-green-600 to-green-800 hover:from-green-700 hover:to-green-900 text-white font-bold py-4 px-8 rounded-xl shadow-lg magnetic">
+                                            <span class="flex items-center justify-center gap-3">
+                                                <i data-lucide="send" class="w-5 h-5"></i>
+                                                Kirim Pesan
+                                            </span>
+                                        </button>
+                                    </form>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
                 <!-- Member Logos -->
                 <div class="mt-16 text-center">
@@ -628,19 +658,19 @@
             animation-delay: 1s;
         }
 
-/* Gallery hover effects */
-.gallery-item:hover .magnetic {
-    transform: translateY(-10px) scale(1.05);
-}
+        /* Gallery hover effects */
+        .gallery-item:hover .magnetic {
+            transform: translateY(-10px) scale(1.05);
+        }
 
-.gallery-item:hover i {
-    transform: scale(1.2) rotate(10deg);
-}
+        .gallery-item:hover i {
+            transform: scale(1.2) rotate(10deg);
+        }
 
-/* Ticket card hover effects */
-.ticket-card:hover {
-    transform: translateY(-5px);
-}
+        /* Ticket card hover effects */
+        .ticket-card:hover {
+            transform: translateY(-5px);
+        }
 
         /* Text typing effect */
         .typewriter {
@@ -720,270 +750,275 @@
             box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.2);
         }
 
-/* Smooth transitions for all interactive elements */
-.magnetic, .gallery-item, .ticket-card, button, a {
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-</style>
+        /* Smooth transitions for all interactive elements */
+        .magnetic,
+        .gallery-item,
+        .ticket-card,
+        button,
+        a {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+    </style>
 
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    // Enhanced GSAP Animations
-    initAdvancedAnimations();
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Enhanced GSAP Animations
+            initAdvancedAnimations();
 
-    // Interactive elements
-    initInteractiveElements();
+            // Interactive elements
+            initInteractiveElements();
 
-    // Form handling
-    initFormAnimations();
+            // Form handling
+            initFormAnimations();
 
-    // Parallax effects
-    initParallaxEffects();
-});
-
-function initAdvancedAnimations() {
-    // Hero CTA button special animation
-    const heroCTA = document.getElementById('hero-cta');
-    if (heroCTA) {
-        gsap.to(heroCTA, {
-            scale: 1.05,
-            duration: 2,
-            repeat: -1,
-            yoyo: true,
-            ease: "power2.inOut"
+            // Parallax effects
+            initParallaxEffects();
         });
-    }
 
-    // Gallery items stagger animation
-    gsap.utils.toArray('.gallery-item').forEach((item, index) => {
-        gsap.fromTo(item, {
-            opacity: 0,
-            y: 50,
-            scale: 0.8
-        }, {
-            opacity: 1,
-            y: 0,
-            scale: 1,
-            duration: 0.8,
-            delay: index * 0.2,
-            scrollTrigger: {
-                trigger: item,
-                start: "top 85%",
-                end: "top 50%",
-                toggleActions: "play none none reverse"
+        function initAdvancedAnimations() {
+            // Hero CTA button special animation
+            const heroCTA = document.getElementById('hero-cta');
+            if (heroCTA) {
+                gsap.to(heroCTA, {
+                    scale: 1.05,
+                    duration: 2,
+                    repeat: -1,
+                    yoyo: true,
+                    ease: "power2.inOut"
+                });
             }
-        });
-    });
 
-    // Ticket cards with special effects
-    gsap.utils.toArray('.ticket-card').forEach(card => {
-        const tl = gsap.timeline({
-            scrollTrigger: {
-                trigger: card,
-                start: "top 80%",
-                end: "top 40%",
-                toggleActions: "play none none reverse"
-            }
-        });
-
-        tl.fromTo(card, {
-            opacity: 0,
-            y: 80,
-            rotationX: -15
-        }, {
-            opacity: 1,
-            y: 0,
-            rotationX: 0,
-            duration: 1,
-            ease: "back.out(1.7)"
-        });
-    });
-
-    // Floating elements continuous animation
-    gsap.utils.toArray('.floating-element').forEach((element, index) => {
-        gsap.to(element, {
-            y: -20,
-            rotation: 360,
-            duration: 4 + index,
-            repeat: -1,
-            yoyo: true,
-            ease: "power2.inOut",
-            delay: index * 0.5
-        });
-    });
-
-    // Text reveal with stagger
-    gsap.utils.toArray('.text-reveal').forEach(container => {
-        const chars = container.textContent.split('');
-        container.innerHTML = '';
-
-        chars.forEach(char => {
-            const span = document.createElement('span');
-            span.textContent = char === ' ' ? '\u00A0' : char;
-            span.style.display = 'inline-block';
-            container.appendChild(span);
-        });
-
-        gsap.fromTo(container.children, {
-            opacity: 0,
-            y: 50,
-            rotationX: -90
-        }, {
-            opacity: 1,
-            y: 0,
-            rotationX: 0,
-            duration: 0.8,
-            stagger: {
-                amount: 0.5,
-                from: "start"
-            },
-            ease: "back.out(1.7)",
-            scrollTrigger: {
-                trigger: container,
-                start: "top 80%",
-                end: "top 50%",
-                toggleActions: "play none none reverse"
-            }
-        });
-    });
-}
-
-function initInteractiveElements() {
-    // Enhanced magnetic effect for all magnetic elements
-    document.querySelectorAll('.magnetic').forEach(element => {
-        element.addEventListener('mousemove', (e) => {
-            const rect = element.getBoundingClientRect();
-            const x = e.clientX - rect.left - rect.width / 2;
-            const y = e.clientY - rect.top - rect.height / 2;
-
-            gsap.to(element, {
-                duration: 0.4,
-                x: x * 0.3,
-                y: y * 0.3,
-                rotation: x * 0.1,
-                scale: 1.1,
-                ease: "power3.out"
-            });
-        });
-
-            gsap.utils.toArray('.gsap-fade-right').forEach(el => {
-                gsap.to(el, {
+            // Gallery items stagger animation
+            gsap.utils.toArray('.gallery-item').forEach((item, index) => {
+                gsap.fromTo(item, {
+                    opacity: 0,
+                    y: 50,
+                    scale: 0.8
+                }, {
                     opacity: 1,
-                    x: 0,
-                    duration: 1,
+                    y: 0,
+                    scale: 1,
+                    duration: 0.8,
+                    delay: index * 0.2,
                     scrollTrigger: {
-                        trigger: el,
-                        start: 'top 80%',
-                        end: 'bottom 20%',
-                        toggleActions: 'play none none reverse'
+                        trigger: item,
+                        start: "top 85%",
+                        end: "top 50%",
+                        toggleActions: "play none none reverse"
                     }
                 });
             });
 
-            gsap.utils.toArray('.gsap-scale').forEach(el => {
-                gsap.to(el, {
-                    opacity: 1,
-                    scale: 1,
-                    duration: 1,
+            // Ticket cards with special effects
+            gsap.utils.toArray('.ticket-card').forEach(card => {
+                const tl = gsap.timeline({
                     scrollTrigger: {
-                        trigger: el,
-                        start: 'top 80%',
-                        end: 'bottom 20%',
-                        toggleActions: 'play none none reverse'
+                        trigger: card,
+                        start: "top 80%",
+                        end: "top 40%",
+                        toggleActions: "play none none reverse"
+                    }
+                });
+
+                tl.fromTo(card, {
+                    opacity: 0,
+                    y: 80,
+                    rotationX: -15
+                }, {
+                    opacity: 1,
+                    y: 0,
+                    rotationX: 0,
+                    duration: 1,
+                    ease: "back.out(1.7)"
+                });
+            });
+
+            // Floating elements continuous animation
+            gsap.utils.toArray('.floating-element').forEach((element, index) => {
+                gsap.to(element, {
+                    y: -20,
+                    rotation: 360,
+                    duration: 4 + index,
+                    repeat: -1,
+                    yoyo: true,
+                    ease: "power2.inOut",
+                    delay: index * 0.5
+                });
+            });
+
+            // Text reveal with stagger
+            gsap.utils.toArray('.text-reveal').forEach(container => {
+                const chars = container.textContent.split('');
+                container.innerHTML = '';
+
+                chars.forEach(char => {
+                    const span = document.createElement('span');
+                    span.textContent = char === ' ' ? '\u00A0' : char;
+                    span.style.display = 'inline-block';
+                    container.appendChild(span);
+                });
+
+                gsap.fromTo(container.children, {
+                    opacity: 0,
+                    y: 50,
+                    rotationX: -90
+                }, {
+                    opacity: 1,
+                    y: 0,
+                    rotationX: 0,
+                    duration: 0.8,
+                    stagger: {
+                        amount: 0.5,
+                        from: "start"
+                    },
+                    ease: "back.out(1.7)",
+                    scrollTrigger: {
+                        trigger: container,
+                        start: "top 80%",
+                        end: "top 50%",
+                        toggleActions: "play none none reverse"
                     }
                 });
             });
+        }
 
-        item.addEventListener('mouseleave', () => {
-            gsap.to(icon, {
-                scale: 1,
-                rotation: 0,
-                duration: 0.4,
-                ease: "back.out(1.7)"
-            });
-        });
-    });
-}
+        function initInteractiveElements() {
+            // Enhanced magnetic effect for all magnetic elements
+            document.querySelectorAll('.magnetic').forEach(element => {
+                element.addEventListener('mousemove', (e) => {
+                    const rect = element.getBoundingClientRect();
+                    const x = e.clientX - rect.left - rect.width / 2;
+                    const y = e.clientY - rect.top - rect.height / 2;
 
-function initFormAnimations() {
-    const form = document.getElementById('quick-contact-form');
-    if (form) {
-        const inputs = form.querySelectorAll('input, textarea');
+                    gsap.to(element, {
+                        duration: 0.4,
+                        x: x * 0.3,
+                        y: y * 0.3,
+                        rotation: x * 0.1,
+                        scale: 1.1,
+                        ease: "power3.out"
+                    });
+                });
 
-        inputs.forEach((input, index) => {
-            gsap.fromTo(input, {
-                opacity: 0,
-                x: -30
-            }, {
-                opacity: 1,
-                x: 0,
-                duration: 0.6,
-                delay: index * 0.1,
-                scrollTrigger: {
-                    trigger: form,
-                    start: "top 80%"
-                }
-            });
+                gsap.utils.toArray('.gsap-fade-right').forEach(el => {
+                    gsap.to(el, {
+                        opacity: 1,
+                        x: 0,
+                        duration: 1,
+                        scrollTrigger: {
+                            trigger: el,
+                            start: 'top 80%',
+                            end: 'bottom 20%',
+                            toggleActions: 'play none none reverse'
+                        }
+                    });
+                });
 
-            // Focus animations
-            input.addEventListener('focus', () => {
-                gsap.to(input, {
-                    scale: 1.02,
-                    borderColor: "#059669",
-                    duration: 0.3,
-                    ease: "power2.out"
+                gsap.utils.toArray('.gsap-scale').forEach(el => {
+                    gsap.to(el, {
+                        opacity: 1,
+                        scale: 1,
+                        duration: 1,
+                        scrollTrigger: {
+                            trigger: el,
+                            start: 'top 80%',
+                            end: 'bottom 20%',
+                            toggleActions: 'play none none reverse'
+                        }
+                    });
+                });
+
+                item.addEventListener('mouseleave', () => {
+                    gsap.to(icon, {
+                        scale: 1,
+                        rotation: 0,
+                        duration: 0.4,
+                        ease: "back.out(1.7)"
+                    });
                 });
             });
+        }
 
-            input.addEventListener('blur', () => {
-                gsap.to(input, {
-                    scale: 1,
-                    duration: 0.3,
-                    ease: "power2.out"
+        function initFormAnimations() {
+            const form = document.getElementById('quick-contact-form');
+            if (form) {
+                const inputs = form.querySelectorAll('input, textarea');
+
+                inputs.forEach((input, index) => {
+                    gsap.fromTo(input, {
+                        opacity: 0,
+                        x: -30
+                    }, {
+                        opacity: 1,
+                        x: 0,
+                        duration: 0.6,
+                        delay: index * 0.1,
+                        scrollTrigger: {
+                            trigger: form,
+                            start: "top 80%"
+                        }
+                    });
+
+                    // Focus animations
+                    input.addEventListener('focus', () => {
+                        gsap.to(input, {
+                            scale: 1.02,
+                            borderColor: "#059669",
+                            duration: 0.3,
+                            ease: "power2.out"
+                        });
+                    });
+
+                    input.addEventListener('blur', () => {
+                        gsap.to(input, {
+                            scale: 1,
+                            duration: 0.3,
+                            ease: "power2.out"
+                        });
+                    });
                 });
-            });
-        });
 
-        // Form submission animation
-        form.addEventListener('submit', (e) => {
-            e.preventDefault();
+                // Form submission animation
+                form.addEventListener('submit', (e) => {
+                    e.preventDefault();
 
-            const button = form.querySelector('button');
-            const originalText = button.innerHTML;
+                    const button = form.querySelector('button');
+                    const originalText = button.innerHTML;
 
-            gsap.to(button, {
-                scale: 0.95,
-                duration: 0.1,
-                yoyo: true,
-                repeat: 1,
-                onComplete: () => {
-                    button.innerHTML = '<i data-lucide="check" class="w-5 h-5 mr-2"></i>Terkirim!';
-                    lucide.createIcons();
+                    gsap.to(button, {
+                        scale: 0.95,
+                        duration: 0.1,
+                        yoyo: true,
+                        repeat: 1,
+                        onComplete: () => {
+                            button.innerHTML =
+                                '<i data-lucide="check" class="w-5 h-5 mr-2"></i>Terkirim!';
+                            lucide.createIcons();
 
-                    setTimeout(() => {
-                        button.innerHTML = originalText;
-                        lucide.createIcons();
-                    }, 2000);
-                }
-            });
-        });
-    }
-}
-
-function initParallaxEffects() {
-    // Parallax background elements
-    gsap.utils.toArray('.parallax-element').forEach(element => {
-        gsap.to(element, {
-            yPercent: -30,
-            ease: "none",
-            scrollTrigger: {
-                trigger: element.closest('section'),
-                start: "top bottom",
-                end: "bottom top",
-                scrub: 1
+                            setTimeout(() => {
+                                button.innerHTML = originalText;
+                                lucide.createIcons();
+                            }, 2000);
+                        }
+                    });
+                });
             }
-        });
-    });
+        }
+
+        function initParallaxEffects() {
+            // Parallax background elements
+            gsap.utils.toArray('.parallax-element').forEach(element => {
+                gsap.to(element, {
+                    yPercent: -30,
+                    ease: "none",
+                    scrollTrigger: {
+                        trigger: element.closest('section'),
+                        start: "top bottom",
+                        end: "bottom top",
+                        scrub: 1
+                    }
+                });
+            });
 
             // Text reveal animation for headings
             gsap.utils.toArray('h1, h2, h3').forEach(heading => {
