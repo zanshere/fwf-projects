@@ -19,9 +19,6 @@
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600,700,800,900&display=swap" rel="stylesheet" />
 
-    {{-- Lucide CDN --}}
-    <script src="https://unpkg.com/lucide@latest"></script>
-
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
@@ -524,19 +521,6 @@
                     this.src = '/images/placeholder.jpg';
                     this.alt = 'Image not available';
                 });
-            });
-        }
-
-        // Service worker registration for PWA (optional)
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', function() {
-                navigator.serviceWorker.register('/sw.js')
-                    .then(function(registration) {
-                        console.log('ServiceWorker registration successful');
-                    })
-                    .catch(function(err) {
-                        console.log('ServiceWorker registration failed');
-                    });
             });
         }
     </script>
