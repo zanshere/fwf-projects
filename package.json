@@ -19,6 +19,7 @@
         "vite": "^7.0.4"
     },
     "dependencies": {
+        "lucide": "^0.544.0",
         "preline": "^3.2.3"
     }
 }
