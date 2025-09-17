@@ -3,116 +3,252 @@
     <div class="container mx-auto px-4">
         <div class="flex justify-between items-center py-4">
             <!-- Logo -->
-            <div class="flex items-center space-x-3 gsap-fade-left">
-                <div class="bg-white rounded-full p-2 shadow-lg magnetic">
+            <div class="flex items-center space-x-3">
+                <div class="bg-white rounded-full p-2 shadow-lg">
                     <div class="w-12 h-12 bg-gradient-to-br from-green-600 to-green-800 rounded-full flex items-center justify-center">
                         <i data-lucide="mountain" class="w-6 h-6 text-white"></i>
                     </div>
                 </div>
                 <div class="text-white">
-                    <div class="text-xl font-black text-reveal">FAJAR</div>
+                    <div class="text-xl font-black">FAJAR</div>
                     <div class="text-xs text-green-200">WORLD</div>
                 </div>
             </div>
 
             <!-- Desktop Navigation -->
-            <div class="hidden lg:flex items-center space-x-8 gsap-fade-up">
+            <div class="hidden lg:flex items-center space-x-8">
                 <a href="{{ url('/') }}#home"
-                    class="nav-link text-white font-bold text-lg hover:text-yellow-400 transition-colors relative group magnetic">
+                    class="nav-link text-white font-bold text-lg hover:text-yellow-400 transition-all duration-300 relative group">
                     <span class="flex items-center gap-2">
-                        <i data-lucide="home" class="w-4 h-4"></i>
+                        <i data-lucide="home" class="w-4 h-4 transition-transform duration-300 group-hover:scale-110"></i>
                         HOME
                     </span>
-                    <span
-                        class="absolute -bottom-1 left-0 w-0 h-0.5 bg-yellow-400 transition-all duration-300 group-hover:w-full"></span>
+                    <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-yellow-400 transition-all duration-300 group-hover:w-full"></span>
                 </a>
                 <a href="{{ url('/') }}#about"
-                    class="nav-link text-white font-bold text-lg hover:text-yellow-400 transition-colors relative group magnetic">
+                    class="nav-link text-white font-bold text-lg hover:text-yellow-400 transition-all duration-300 relative group">
                     <span class="flex items-center gap-2">
-                        <i data-lucide="info" class="w-4 h-4"></i>
+                        <i data-lucide="info" class="w-4 h-4 transition-transform duration-300 group-hover:scale-110"></i>
                         ABOUT US
                     </span>
                     <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-yellow-400 transition-all duration-300 group-hover:w-full"></span>
                 </a>
-                <a href="{{ url('/') }}#gallery" class="nav-link text-white font-bold text-lg hover:text-yellow-400 transition-colors relative group magnetic">
+                <a href="{{ url('/') }}#gallery" 
+                    class="nav-link text-white font-bold text-lg hover:text-yellow-400 transition-all duration-300 relative group">
                     <span class="flex items-center gap-2">
-                        <i data-lucide="image" class="w-4 h-4"></i>
+                        <i data-lucide="image" class="w-4 h-4 transition-transform duration-300 group-hover:scale-110"></i>
                         GALLERY
                     </span>
                     <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-yellow-400 transition-all duration-300 group-hover:w-full"></span>
                 </a>
-                <a href="{{ url('/') }}#tickets" class="nav-link text-white font-bold text-lg hover:text-yellow-400 transition-colors relative group magnetic">
+                <a href="{{ url('/') }}#tickets" 
+                    class="nav-link text-white font-bold text-lg hover:text-yellow-400 transition-all duration-300 relative group">
                     <span class="flex items-center gap-2">
-                        <i data-lucide="ticket" class="w-4 h-4"></i>
+                        <i data-lucide="ticket" class="w-4 h-4 transition-transform duration-300 group-hover:scale-110"></i>
                         TICKETS
                     </span>
-                    <span
-                        class="absolute -bottom-1 left-0 w-0 h-0.5 bg-yellow-400 transition-all duration-300 group-hover:w-full"></span>
+                    <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-yellow-400 transition-all duration-300 group-hover:w-full"></span>
                 </a>
-                <a href="{{ url('/') }}#contact" class="nav-link text-white font-bold text-lg hover:text-yellow-400 transition-colors relative group magnetic">
+                <a href="{{ url('/') }}#contact" 
+                    class="nav-link text-white font-bold text-lg hover:text-yellow-400 transition-all duration-300 relative group">
                     <span class="flex items-center gap-2">
-                        <i data-lucide="phone" class="w-4 h-4"></i>
+                        <i data-lucide="phone" class="w-4 h-4 transition-transform duration-300 group-hover:scale-110"></i>
                         CONTACT
                     </span>
-                    <span
-                        class="absolute -bottom-1 left-0 w-0 h-0.5 bg-yellow-400 transition-all duration-300 group-hover:w-full"></span>
+                    <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-yellow-400 transition-all duration-300 group-hover:w-full"></span>
                 </a>
             </div>
 
-            <!-- CTA Button -->
-            <div class="hidden lg:block gsap-fade-right">
-                <button onclick="window.location.href='{{ route('tickets.index') }}'" class="bg-yellow-400 hover:bg-yellow-300 text-green-900 font-bold py-3 px-6 rounded-full transform hover:scale-105 transition-all duration-300 shadow-lg magnetic" id="cta-button">
-                    <span class="flex items-center gap-2">
-                        <i data-lucide="shopping-cart" class="w-4 h-4"></i>
-                        Beli Tiket
+            <!-- CTA Buttons & User Menu -->
+            <div class="hidden lg:flex items-center space-x-4">
+                @auth
+                    <!-- User Dropdown Menu -->
+                    <div class="hs-dropdown relative inline-flex">
+                        <button id="hs-dropdown-with-header" type="button" 
+                                class="hs-dropdown-toggle flex items-center space-x-2 text-white hover:text-yellow-400 transition-colors duration-300">
+                            <div class="w-10 h-10 bg-gradient-to-br from-yellow-400 to-yellow-600 rounded-full flex items-center justify-center shadow-lg">
+                                <i data-lucide="user" class="w-5 h-5 text-green-900"></i>
+                            </div>
+                            <span class="font-semibold">{{ Auth::user()->name }}</span>
+                            <i data-lucide="chevron-down" class="w-4 h-4 transition-transform duration-300 hs-dropdown-open:rotate-180"></i>
+                        </button>
+
+                        <div class="hs-dropdown-menu transition-[opacity,margin] duration hs-dropdown-open:opacity-100 opacity-0 hidden min-w-60 bg-white/95 backdrop-blur-md shadow-2xl rounded-2xl p-2 mt-2 border border-white/20"
+                             aria-labelledby="hs-dropdown-with-header">
+                            <!-- User Info -->
+                            <div class="py-3 px-4 border-b border-green-100">
+                                <div class="flex items-center space-x-3">
+                                    <div class="w-12 h-12 bg-gradient-to-br from-green-600 to-green-800 rounded-full flex items-center justify-center">
+                                        <i data-lucide="user" class="w-6 h-6 text-white"></i>
+                                    </div>
+                                    <div>
+                                        <p class="font-bold text-green-800">{{ Auth::user()->name }}</p>
+                                        <p class="text-sm text-green-600">{{ Auth::user()->email }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Menu Items -->
+                            <div class="py-2">
+                                <a href="{{ route('dashboard') }}" 
+                                   class="flex items-center space-x-3 px-4 py-2 text-sm text-green-800 hover:bg-green-50 rounded-lg transition-colors duration-200">
+                                    <i data-lucide="layout-dashboard" class="w-4 h-4"></i>
+                                    <span>Dashboard</span>
+                                </a>
+                                <a href="{{ route('profile.edit') }}" 
+                                   class="flex items-center space-x-3 px-4 py-2 text-sm text-green-800 hover:bg-green-50 rounded-lg transition-colors duration-200">
+                                    <i data-lucide="settings" class="w-4 h-4"></i>
+                                    <span>Profile Settings</span>
+                                </a>
+                                <a href="{{ route('tickets.index') }}" 
+                                   class="flex items-center space-x-3 px-4 py-2 text-sm text-green-800 hover:bg-green-50 rounded-lg transition-colors duration-200">
+                                    <i data-lucide="ticket" class="w-4 h-4"></i>
+                                    <span>My Tickets</span>
+                                </a>
+                            </div>
+                            
+                            <!-- Logout -->
+                            <div class="py-2 border-t border-green-100">
+                                <form method="POST" action="{{ route('logout') }}">
+                                    @csrf
+                                    <button type="submit" 
+                                            class="w-full flex items-center space-x-3 px-4 py-2 text-sm text-red-600 hover:bg-red-50 rounded-lg transition-colors duration-200">
+                                        <i data-lucide="log-out" class="w-4 h-4"></i>
+                                        <span>Logout</span>
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                @else
+                    <!-- Login Button -->
+                    <button onclick="window.location.href='{{ route('login') }}'" 
+                            class="group relative overflow-hidden bg-white/10 backdrop-blur-sm border border-white/20 text-white font-bold py-2.5 px-5 rounded-full hover:bg-white hover:text-green-800 transition-all duration-500 shadow-lg">
+                        <span class="relative z-10 flex items-center gap-2">
+                            <i data-lucide="log-in" class="w-4 h-4 transition-transform duration-300 group-hover:rotate-12"></i>
+                            <span>Login</span>
+                        </span>
+                        <!-- Animated background -->
+                        <div class="absolute inset-0 bg-gradient-to-r from-white to-yellow-100 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></div>
+                        <!-- Shimmer effect -->
+                        <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent transform -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
+                    </button>
+                @endauth
+                
+                <!-- Buy Ticket Button - Same style as Login -->
+                <button onclick="window.location.href='{{ route('tickets.index') }}'" 
+                        class="group relative overflow-hidden bg-yellow-400/20 backdrop-blur-sm border border-yellow-400/30 text-yellow-400 font-bold py-2.5 px-5 rounded-full hover:bg-yellow-400 hover:text-green-900 transition-all duration-500 shadow-lg">
+                    <span class="relative z-10 flex items-center gap-2">
+                        <i data-lucide="shopping-cart" class="w-4 h-4 transition-transform duration-300 group-hover:rotate-12"></i>
+                        <span>Beli Tiket</span>
                     </span>
+                    <!-- Animated background -->
+                    <div class="absolute inset-0 bg-gradient-to-r from-yellow-400 to-yellow-300 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></div>
+                    <!-- Shimmer effect -->
+                    <div class="absolute inset-0 bg-gradient-to-r from-transparent via-yellow-300/30 to-transparent transform -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
                 </button>
             </div>
 
             <!-- Mobile Menu Button -->
-            <button class="lg:hidden text-white p-2 magnetic gsap-fade-right" id="mobile-menu-button">
-                <i data-lucide="menu" class="w-6 h-6" id="menu-icon"></i>
+            <button class="lg:hidden text-white p-2" id="mobile-menu-toggle">
+                <i data-lucide="menu" class="w-6 h-6" id="mobile-menu-icon"></i>
             </button>
         </div>
 
         <!-- Mobile Navigation -->
         <div class="lg:hidden hidden" id="mobile-menu">
-            <div class="bg-white/95 backdrop-blur-md rounded-2xl mt-4 p-6 shadow-2xl gsap-scale">
+            <div class="bg-white/95 backdrop-blur-md rounded-2xl mt-4 p-6 shadow-2xl border border-white/10">
                 <div class="space-y-4">
+                    <!-- Mobile Navigation Links -->
                     <a href="{{ url('/') }}#home"
-                        class="mobile-nav-link block text-green-800 font-bold text-lg hover:text-green-600 transition-colors">
+                        class="mobile-nav-link block text-green-800 font-bold text-lg hover:text-green-600 transition-colors duration-200">
                         <span class="flex items-center gap-3">
                             <i data-lucide="home" class="w-5 h-5"></i>
                             HOME
                         </span>
                     </a>
                     <a href="{{ url('/') }}#about"
-                        class="mobile-nav-link block text-green-800 font-bold text-lg hover:text-green-600 transition-colors">
+                        class="mobile-nav-link block text-green-800 font-bold text-lg hover:text-green-600 transition-colors duration-200">
                         <span class="flex items-center gap-3">
                             <i data-lucide="info" class="w-5 h-5"></i>
                             ABOUT US
                         </span>
                     </a>
-                    <a href="{{ url('/') }}#gallery" class="mobile-nav-link block text-green-800 font-bold text-lg hover:text-green-600 transition-colors">
+                    <a href="{{ url('/') }}#gallery" 
+                        class="mobile-nav-link block text-green-800 font-bold text-lg hover:text-green-600 transition-colors duration-200">
                         <span class="flex items-center gap-3">
                             <i data-lucide="image" class="w-5 h-5"></i>
                             GALLERY
                         </span>
                     </a>
-                    <a href="{{ url('/') }}#tickets" class="mobile-nav-link block text-green-800 font-bold text-lg hover:text-green-600 transition-colors">
+                    <a href="{{ url('/') }}#tickets" 
+                        class="mobile-nav-link block text-green-800 font-bold text-lg hover:text-green-600 transition-colors duration-200">
                         <span class="flex items-center gap-3">
                             <i data-lucide="ticket" class="w-5 h-5"></i>
                             TICKETS
                         </span>
                     </a>
-                    <a href="{{ url('/') }}#contact" class="mobile-nav-link block text-green-800 font-bold text-lg hover:text-green-600 transition-colors">
+                    <a href="{{ url('/') }}#contact" 
+                        class="mobile-nav-link block text-green-800 font-bold text-lg hover:text-green-600 transition-colors duration-200">
                         <span class="flex items-center gap-3">
                             <i data-lucide="phone" class="w-5 h-5"></i>
                             CONTACT
                         </span>
                     </a>
+                    
+                    <!-- Mobile User Section -->
                     <div class="pt-4 border-t border-green-200">
-                        <button onclick="window.location.href='{{ route('tickets.index') }}'" class="w-full bg-yellow-400 hover:bg-yellow-300 text-green-900 font-bold py-3 px-6 rounded-full transition-all duration-300 magnetic">
+                        @auth
+                            <!-- User Info -->
+                            <div class="flex items-center space-x-3 mb-4 p-3 bg-green-50 rounded-xl">
+                                <div class="w-10 h-10 bg-gradient-to-br from-green-600 to-green-800 rounded-full flex items-center justify-center">
+                                    <i data-lucide="user" class="w-5 h-5 text-white"></i>
+                                </div>
+                                <div>
+                                    <p class="font-bold text-green-800">{{ Auth::user()->name }}</p>
+                                    <p class="text-xs text-green-600">{{ Auth::user()->email }}</p>
+                                </div>
+                            </div>
+                            
+                            <!-- User Actions -->
+                            <div class="space-y-2 mb-4">
+                                <a href="{{ route('dashboard') }}" 
+                                   class="w-full flex items-center gap-3 p-3 bg-green-50 hover:bg-green-100 text-green-800 rounded-lg transition-colors duration-200">
+                                    <i data-lucide="layout-dashboard" class="w-4 h-4"></i>
+                                    <span>Dashboard</span>
+                                </a>
+                                <a href="{{ route('profile.edit') }}" 
+                                   class="w-full flex items-center gap-3 p-3 bg-green-50 hover:bg-green-100 text-green-800 rounded-lg transition-colors duration-200">
+                                    <i data-lucide="settings" class="w-4 h-4"></i>
+                                    <span>Profile Settings</span>
+                                </a>
+                            </div>
+                            
+                            <!-- Logout Button -->
+                            <form method="POST" action="{{ route('logout') }}" class="mb-4">
+                                @csrf
+                                <button type="submit" 
+                                        class="w-full bg-red-500 hover:bg-red-600 text-white font-bold py-3 px-6 rounded-full transition-all duration-300 shadow-lg">
+                                    <span class="flex items-center justify-center gap-2">
+                                        <i data-lucide="log-out" class="w-4 h-4"></i>
+                                        Logout
+                                    </span>
+                                </button>
+                            </form>
+                        @else
+                            <!-- Mobile Login Button -->
+                            <button onclick="window.location.href='{{ route('login') }}'" 
+                                    class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-full transition-all duration-300 shadow-lg mb-4">
+                                <span class="flex items-center justify-center gap-2">
+                                    <i data-lucide="log-in" class="w-4 h-4"></i>
+                                    Login
+                                </span>
+                            </button>
+                        @endauth
+                        
+                        <!-- Buy Ticket Button -->
+                        <button onclick="window.location.href='{{ route('tickets.index') }}'" 
+                                class="w-full bg-yellow-400 hover:bg-yellow-300 text-green-900 font-bold py-3 px-6 rounded-full transition-all duration-300 shadow-lg">
                             <span class="flex items-center justify-center gap-2">
                                 <i data-lucide="shopping-cart" class="w-4 h-4"></i>
                                 Beli Tiket
@@ -141,135 +277,53 @@
         color: #fbbf24;
     }
 
-    /* Mobile menu animations */
-    .mobile-menu-enter {
+    /* Mobile menu transition */
+    #mobile-menu {
+        transition: all 0.3s ease-in-out;
+        transform: translateY(-10px);
         opacity: 0;
-        transform: translateY(-10px) scale(0.95);
     }
 
-    .mobile-menu-enter-active {
+    #mobile-menu.show {
+        transform: translateY(0);
         opacity: 1;
-        transform: translateY(0) scale(1);
-        transition: all 0.3s ease-out;
     }
 
-    .mobile-menu-exit {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-    }
-
-    .mobile-menu-exit-active {
-        opacity: 0;
-        transform: translateY(-10px) scale(0.95);
-        transition: all 0.2s ease-in;
-    }
-
-    /* Navigation link hover effects */
+    /* Remove magnetic effects and simplify navigation links */
     .nav-link {
         position: relative;
-        overflow: hidden;
     }
 
-    .nav-link::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: -100%;
-        width: 100%;
-        height: 100%;
-        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
-        transition: left 0.5s;
+    /* Smooth icon transitions */
+    .nav-link i {
+        transition: transform 0.3s ease;
     }
 
-    .nav-link:hover::before {
-        left: 100%;
-    }
-
-    /* CTA Button pulse effect */
-    @keyframes pulse-glow {
-
-        0%,
-        100% {
-            box-shadow: 0 0 20px rgba(251, 191, 36, 0.3);
-        }
-
-        50% {
-            box-shadow: 0 0 30px rgba(251, 191, 36, 0.6);
-        }
-    }
-
-    .cta-glow {
-        animation: pulse-glow 2s infinite;
-    }
-
-    /* Mobile navigation link stagger animation */
-    .mobile-nav-link {
-        opacity: 0;
-        transform: translateX(-20px);
-    }
-
-    .mobile-nav-link.animate {
-        opacity: 1;
-        transform: translateX(0);
-        transition: all 0.3s ease-out;
+    .nav-link:hover i {
+        transform: scale(1.1);
     }
 </style>
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         const navbar = document.getElementById('navbar');
-        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
         const mobileMenu = document.getElementById('mobile-menu');
-        const menuIcon = document.getElementById('menu-icon');
-        const ctaButton = document.getElementById('cta-button');
+        const mobileMenuIcon = document.getElementById('mobile-menu-icon');
+        
+        let mobileMenuOpen = false;
 
-        // Initialize navbar animations
-        initNavbarAnimations();
-
-        // Navbar scroll effect with GSAP
-        ScrollTrigger.create({
-            trigger: "body",
-            start: "50px top",
-            onUpdate: self => {
-                if (self.direction === 1 && self.progress > 0) {
-                    // Scrolling down
-                    gsap.to(navbar, {
-                        duration: 0.3,
-                        backgroundColor: "rgba(34, 197, 94, 0.95)",
-                        backdropFilter: "blur(10px)",
-                        boxShadow: "0 4px 20px rgba(0, 0, 0, 0.1)",
-                        ease: "power2.out"
-                    });
-                    navbar.classList.add('navbar-scrolled');
-                } else if (self.direction === -1 && self.progress === 0) {
-                    // Scrolling up to top
-                    gsap.to(navbar, {
-                        duration: 0.3,
-                        backgroundColor: "transparent",
-                        backdropFilter: "none",
-                        boxShadow: "none",
-                        ease: "power2.out"
-                    });
-                    navbar.classList.remove('navbar-scrolled');
-                }
+        // Navbar scroll effect
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 50) {
+                navbar.classList.add('navbar-scrolled');
+            } else {
+                navbar.classList.remove('navbar-scrolled');
             }
         });
 
-        // CTA Button pulse effect
-        if (ctaButton) {
-            gsap.to(ctaButton, {
-                boxShadow: "0 0 30px rgba(251, 191, 36, 0.6)",
-                duration: 2,
-                repeat: -1,
-                yoyo: true,
-                ease: "power2.inOut"
-            });
-        }
-
-        // Mobile menu toggle with GSAP
-        let mobileMenuOpen = false;
-
-        mobileMenuButton.addEventListener('click', function() {
+        // Mobile menu toggle
+        mobileMenuToggle.addEventListener('click', function() {
             if (!mobileMenuOpen) {
                 openMobileMenu();
             } else {
@@ -280,70 +334,29 @@
         function openMobileMenu() {
             mobileMenuOpen = true;
             mobileMenu.classList.remove('hidden');
-
-            // Animate menu icon
-            gsap.to(menuIcon, {
-                rotation: 180,
-                duration: 0.3,
-                ease: "power2.out",
-                onComplete: () => {
-                    menuIcon.setAttribute('data-lucide', 'x');
-                    lucide.createIcons();
-                }
-            });
-
-            // Animate menu container
-            gsap.fromTo(mobileMenu, {
-                opacity: 0,
-                y: -20,
-                scale: 0.95
-            }, {
-                opacity: 1,
-                y: 0,
-                scale: 1,
-                duration: 0.4,
-                ease: "back.out(1.7)"
-            });
-
-            // Stagger animate menu links
-            gsap.fromTo('.mobile-nav-link', {
-                opacity: 0,
-                x: -30
-            }, {
-                opacity: 1,
-                x: 0,
-                duration: 0.3,
-                stagger: 0.1,
-                delay: 0.2,
-                ease: "power2.out"
-            });
+            
+            // Change icon to X
+            mobileMenuIcon.setAttribute('data-lucide', 'x');
+            lucide.createIcons();
+            
+            // Show menu with transition
+            setTimeout(() => {
+                mobileMenu.classList.add('show');
+            }, 10);
         }
 
         function closeMobileMenu() {
             mobileMenuOpen = false;
-
-            // Animate menu icon
-            gsap.to(menuIcon, {
-                rotation: 0,
-                duration: 0.3,
-                ease: "power2.out",
-                onComplete: () => {
-                    menuIcon.setAttribute('data-lucide', 'menu');
-                    lucide.createIcons();
-                }
-            });
-
-            // Animate menu out
-            gsap.to(mobileMenu, {
-                opacity: 0,
-                y: -10,
-                scale: 0.95,
-                duration: 0.2,
-                ease: "power2.in",
-                onComplete: () => {
-                    mobileMenu.classList.add('hidden');
-                }
-            });
+            mobileMenu.classList.remove('show');
+            
+            // Change icon back to menu
+            mobileMenuIcon.setAttribute('data-lucide', 'menu');
+            lucide.createIcons();
+            
+            // Hide menu after transition
+            setTimeout(() => {
+                mobileMenu.classList.add('hidden');
+            }, 300);
         }
 
         // Close mobile menu when clicking on links
@@ -355,93 +368,26 @@
 
         // Close mobile menu when clicking outside
         document.addEventListener('click', function(e) {
-            if (mobileMenuOpen && !mobileMenu.contains(e.target) && !mobileMenuButton.contains(e
-                .target)) {
+            if (mobileMenuOpen && 
+                !mobileMenu.contains(e.target) && 
+                !mobileMenuToggle.contains(e.target)) {
                 closeMobileMenu();
             }
         });
 
-        function initNavbarAnimations() {
-            // Animate navbar on load
-            gsap.fromTo(navbar, {
-                y: -100,
-                opacity: 0
-            }, {
-                y: 0,
-                opacity: 1,
-                duration: 1,
-                ease: "power3.out",
-                delay: 0.5
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    const offsetTop = target.offsetTop - 100;
+                    window.scrollTo({
+                        top: offsetTop,
+                        behavior: 'smooth'
+                    });
+                }
             });
-
-            // Add hover animations to navigation links
-            document.querySelectorAll('.nav-link').forEach(link => {
-                const icon = link.querySelector('i');
-
-                link.addEventListener('mouseenter', () => {
-                    gsap.to(icon, {
-                        scale: 1.2,
-                        rotation: 10,
-                        duration: 0.3,
-                        ease: "back.out(1.7)"
-                    });
-                });
-
-                link.addEventListener('mouseleave', () => {
-                    gsap.to(icon, {
-                        scale: 1,
-                        rotation: 0,
-                        duration: 0.3,
-                        ease: "back.out(1.7)"
-                    });
-                });
-            });
-
-            // Add magnetic effect to logo
-            const logo = document.querySelector('.magnetic');
-            if (logo) {
-                logo.addEventListener('mousemove', (e) => {
-                    const rect = logo.getBoundingClientRect();
-                    const x = e.clientX - rect.left - rect.width / 2;
-                    const y = e.clientY - rect.top - rect.height / 2;
-
-                    gsap.to(logo, {
-                        duration: 0.3,
-                        x: x * 0.1,
-                        y: y * 0.1,
-                        rotation: x * 0.1,
-                        ease: "power2.out"
-                    });
-                });
-
-                logo.addEventListener('mouseleave', () => {
-                    gsap.to(logo, {
-                        duration: 0.5,
-                        x: 0,
-                        y: 0,
-                        rotation: 0,
-                        ease: "elastic.out(1, 0.3)"
-                    });
-                });
-            }
-        }
-
-    // Smooth scroll to sections
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            e.preventDefault();
-            const target = document.querySelector(this.getAttribute('href'));
-            if (target) {
-                gsap.to(window, {
-                    duration: 1.2,
-                    scrollTo: {
-                        y: target.offsetTop - 100,
-                        autoKill: false
-                    },
-                    ease: "power3.inOut"
-                });
-            }
         });
     });
-});
 </script>
