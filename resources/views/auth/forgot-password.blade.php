@@ -450,8 +450,8 @@
             });
         });
 
-        // Button hover effects
-        document.querySelectorAll('button, .group').forEach(button => {
+        // Button hover effects - sama seperti login
+        document.querySelectorAll('button').forEach(button => {
             button.addEventListener('mouseenter', () => {
                 gsap.to(button, {
                     scale: 1.05,
