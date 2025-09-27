@@ -328,7 +328,7 @@
                                 </h3>
 
                                 <div class="space-y-3">
-                                    <button onclick="window.location.href='{{ route('tickets.index') }}'"
+                                    <button onclick="window.location.href='{{ route('tickets.create') }}'"
                                         class="group w-full flex items-center gap-3 p-3 lg:p-4 bg-gradient-to-r from-blue-50 to-cyan-50 rounded-xl hover:shadow-lg transition-all duration-300">
                                         <div
                                             class="w-10 h-10 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-xl flex items-center justify-center flex-shrink-0">
