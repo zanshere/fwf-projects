@@ -2,47 +2,106 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
-    /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var list<string>
-     */
     protected $fillable = [
         'name',
         'email',
         'password',
+        'points',
+        'member_level',
+        'total_visits',
+        'member_since',
     ];
 
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var list<string>
-     */
     protected $hidden = [
         'password',
         'remember_token',
     ];
 
-    /**
-     * Get the attributes that should be cast.
-     *
-     * @return array<string, string>
-     */
     protected function casts(): array
     {
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'member_since' => 'date',
         ];
+    }
+
+    public function rewardRedemptions()
+    {
+        return $this->hasMany(RewardRedemption::class);
+    }
+
+    public function activities()
+    {
+        return $this->hasMany(UserActivity::class);
+    }
+
+    public function addPoints($points, $activity = null)
+    {
+        $this->increment('points', $points);
+
+        if ($activity) {
+            $this->activities()->create([
+                'type' => $activity['type'] ?? 'points_added',
+                'description' => $activity['description'] ?? "Earned {$points} points",
+                'points_earned' => $points,
+                'activity_date' => now(),
+            ]);
+        }
+
+        $this->updateMemberLevel();
+    }
+
+    public function deductPoints($points, $activity = null)
+    {
+        $this->decrement('points', $points);
+
+        if ($activity) {
+            $this->activities()->create([
+                'type' => $activity['type'] ?? 'points_used',
+                'description' => $activity['description'] ?? "Used {$points} points",
+                'points_used' => $points,
+                'activity_date' => now(),
+            ]);
+        }
+    }
+
+    public function updateMemberLevel()
+    {
+        $points = $this->points;
+
+        if ($points >= 10000) {
+            $level = 'Platinum';
+        } elseif ($points >= 5000) {
+            $level = 'Gold';
+        } elseif ($points >= 1000) {
+            $level = 'Silver';
+        } else {
+            $level = 'Bronze';
+        }
+
+        if ($this->member_level !== $level) {
+            $this->update(['member_level' => $level]);
+        }
+    }
+
+    public function recordVisit()
+    {
+        $this->increment('total_visits');
+
+        // Add points for visit
+        $pointsEarned = 50;
+        $this->addPoints($pointsEarned, [
+            'type' => 'visit',
+            'description' => 'Visit to Fajar World - earned ' . $pointsEarned . ' points'
+        ]);
     }
 }
