@@ -34,6 +34,16 @@ class User extends Authenticatable
         ];
     }
 
+    public function tickets()
+    {
+        return $this->hasMany(Ticket::class);
+    }
+
+    public function activeTickets()
+    {
+        return $this->hasMany(Ticket::class)->where('status', 'aktif');
+    }
+
     public function rewardRedemptions()
     {
         return $this->hasMany(RewardRedemption::class);
@@ -97,7 +107,6 @@ class User extends Authenticatable
     {
         $this->increment('total_visits');
 
-        // Add points for visit
         $pointsEarned = 50;
         $this->addPoints($pointsEarned, [
             'type' => 'visit',
