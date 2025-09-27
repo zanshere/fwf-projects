@@ -53,7 +53,9 @@
                                 <span
                                     class="text-xs font-medium text-blue-600 bg-blue-100 px-2 py-1 rounded-full">Total</span>
                             </div>
-                            <h3 class="text-xl lg:text-2xl font-black text-gray-800 mb-1">5</h3>
+                            <h3 class="text-xl lg:text-2xl font-black text-gray-800 mb-1" id="visits-count">
+                                {{ $user->total_visits ?? 0 }}
+                            </h3>
                             <p class="text-gray-600 text-xs lg:text-sm">Kunjungan</p>
                         </div>
                     </div>
@@ -73,7 +75,9 @@
                                 <span
                                     class="text-xs font-medium text-yellow-600 bg-yellow-100 px-2 py-1 rounded-full">Aktif</span>
                             </div>
-                            <h3 class="text-xl lg:text-2xl font-black text-gray-800 mb-1">2,450</h3>
+                            <h3 class="text-xl lg:text-2xl font-black text-gray-800 mb-1" id="points-count">
+                                {{ number_format($user->points ?? 0) }}
+                            </h3>
                             <p class="text-gray-600 text-xs lg:text-sm">Poin Reward</p>
                         </div>
                     </div>
@@ -111,9 +115,10 @@
                                     <i data-lucide="crown" class="w-5 h-5 lg:w-6 lg:h-6 text-white"></i>
                                 </div>
                                 <span
-                                    class="text-xs font-medium text-purple-600 bg-purple-100 px-2 py-1 rounded-full">Gold</span>
+                                    class="text-xs font-medium text-purple-600 bg-purple-100 px-2 py-1 rounded-full">{{ $user->member_level ?? 'Bronze' }}</span>
                             </div>
-                            <h3 class="text-xl lg:text-2xl font-black text-gray-800 mb-1">Gold</h3>
+                            <h3 class="text-xl lg:text-2xl font-black text-gray-800 mb-1">
+                                {{ $user->member_level ?? 'Bronze' }}</h3>
                             <p class="text-gray-600 text-xs lg:text-sm">Member Level</p>
                         </div>
                     </div>
@@ -123,7 +128,7 @@
                 <div class="grid lg:grid-cols-3 gap-6 lg:gap-8">
                     <!-- Left Column - Activities & Events -->
                     <div class="lg:col-span-2 space-y-6 lg:space-y-8">
-                        <!-- Recent Activities -->
+                        <!-- Recent Activities Section -->
                         <section class="group relative gsap-fade-up">
                             <div
                                 class="absolute inset-0 bg-gradient-to-r from-white/10 to-white/5 rounded-2xl lg:rounded-3xl blur-xl opacity-75">
@@ -141,54 +146,51 @@
                                 </div>
 
                                 <div class="space-y-4">
-                                    <!-- Activity Item 1 -->
-                                    <div
-                                        class="flex items-start gap-3 lg:gap-4 p-3 lg:p-4 bg-gradient-to-r from-green-50 to-emerald-50 rounded-xl lg:rounded-2xl hover:shadow-lg transition-all duration-300">
-                                        <div
-                                            class="w-10 h-10 lg:w-12 lg:h-12 bg-gradient-to-br from-green-500 to-emerald-500 rounded-full flex items-center justify-center flex-shrink-0">
-                                            <i data-lucide="map-pin" class="w-5 h-5 lg:w-6 lg:h-6 text-white"></i>
+                                    @if ($recentActivities && $recentActivities->count() > 0)
+                                        @foreach ($recentActivities as $activity)
+                                            @php
+                                                $activityColor = \App\Helpers\DashboardHelper::getActivityColor(
+                                                    $activity->type,
+                                                );
+                                                $activityColorTo = \App\Helpers\DashboardHelper::getActivityColor(
+                                                    $activity->type,
+                                                    'to',
+                                                );
+                                                $activityIcon = \App\Helpers\DashboardHelper::getActivityIcon(
+                                                    $activity->type,
+                                                );
+                                            @endphp
+                                            <div
+                                                class="flex items-start gap-3 lg:gap-4 p-3 lg:p-4 bg-gradient-to-r from-{{ $activityColor }}-50 to-{{ $activityColorTo }}-50 rounded-xl lg:rounded-2xl hover:shadow-lg transition-all duration-300">
+                                                <div
+                                                    class="w-10 h-10 lg:w-12 lg:h-12 bg-gradient-to-br from-{{ $activityColor }}-500 to-{{ $activityColorTo }}-500 rounded-full flex items-center justify-center flex-shrink-0">
+                                                    <i data-lucide="{{ $activityIcon }}"
+                                                        class="w-5 h-5 lg:w-6 lg:h-6 text-white"></i>
+                                                </div>
+                                                <div class="flex-1 min-w-0">
+                                                    <h3 class="font-bold text-gray-800 text-sm lg:text-base">
+                                                        {{ $activity->description }}</h3>
+                                                    <p class="text-gray-600 text-xs lg:text-sm">{{ $activity->type }}
+                                                    </p>
+                                                    <p class="text-{{ $activityColor }}-600 text-xs mt-1">
+                                                        {{ $activity->activity_date->diffForHumans() }}</p>
+                                                </div>
+                                                <div
+                                                    class="text-{{ $activityColor }}-600 font-bold text-xs lg:text-sm">
+                                                    @if ($activity->points_earned > 0)
+                                                        +{{ $activity->points_earned }} poin
+                                                    @elseif($activity->points_used > 0)
+                                                        -{{ $activity->points_used }} poin
+                                                    @endif
+                                                </div>
+                                            </div>
+                                        @endforeach
+                                    @else
+                                        <div class="text-center py-8">
+                                            <i data-lucide="activity" class="w-12 h-12 text-gray-400 mx-auto mb-4"></i>
+                                            <p class="text-gray-600">Belum ada aktivitas terbaru</p>
                                         </div>
-                                        <div class="flex-1 min-w-0">
-                                            <h3 class="font-bold text-gray-800 text-sm lg:text-base">Kunjungan ke Fajar
-                                                World</h3>
-                                            <p class="text-gray-600 text-xs lg:text-sm">Anda mengunjungi Wildlife
-                                                Photography area</p>
-                                            <p class="text-green-600 text-xs mt-1">2 hari yang lalu</p>
-                                        </div>
-                                        <div class="text-green-600 font-bold text-xs lg:text-sm">+50 poin</div>
-                                    </div>
-
-                                    <!-- Activity Item 2 -->
-                                    <div
-                                        class="flex items-start gap-3 lg:gap-4 p-3 lg:p-4 bg-gradient-to-r from-yellow-50 to-orange-50 rounded-xl lg:rounded-2xl hover:shadow-lg transition-all duration-300">
-                                        <div
-                                            class="w-10 h-10 lg:w-12 lg:h-12 bg-gradient-to-br from-yellow-500 to-orange-500 rounded-full flex items-center justify-center flex-shrink-0">
-                                            <i data-lucide="gift" class="w-5 h-5 lg:w-6 lg:h-6 text-white"></i>
-                                        </div>
-                                        <div class="flex-1 min-w-0">
-                                            <h3 class="font-bold text-gray-800 text-sm lg:text-base">Reward Claim</h3>
-                                            <p class="text-gray-600 text-xs lg:text-sm">Anda menukar 1000 poin dengan
-                                                merchandise</p>
-                                            <p class="text-orange-600 text-xs mt-1">1 minggu yang lalu</p>
-                                        </div>
-                                        <div class="text-orange-600 font-bold text-xs lg:text-sm">-1000 poin</div>
-                                    </div>
-
-                                    <!-- Activity Item 3 -->
-                                    <div
-                                        class="flex items-start gap-3 lg:gap-4 p-3 lg:p-4 bg-gradient-to-r from-blue-50 to-cyan-50 rounded-xl lg:rounded-2xl hover:shadow-lg transition-all duration-300">
-                                        <div
-                                            class="w-10 h-10 lg:w-12 lg:h-12 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-full flex items-center justify-center flex-shrink-0">
-                                            <i data-lucide="ticket" class="w-5 h-5 lg:w-6 lg:h-6 text-white"></i>
-                                        </div>
-                                        <div class="flex-1 min-w-0">
-                                            <h3 class="font-bold text-gray-800 text-sm lg:text-base">Pembelian Tiket
-                                            </h3>
-                                            <p class="text-gray-600 text-xs lg:text-sm">Tiket Premium untuk 2 orang</p>
-                                            <p class="text-blue-600 text-xs mt-1">2 minggu yang lalu</p>
-                                        </div>
-                                        <div class="text-blue-600 font-bold text-xs lg:text-sm">+100 poin</div>
-                                    </div>
+                                    @endif
                                 </div>
                             </div>
                         </section>
@@ -267,29 +269,38 @@
                                         <i data-lucide="user" class="w-8 h-8 lg:w-10 lg:h-10 text-green-900"></i>
                                     </div>
                                     <h3 class="text-lg lg:text-xl font-black text-gray-800 mb-1">
-                                        {{ Auth::user()->name }}</h3>
-                                    <p class="text-gray-600 text-sm">Gold Member</p>
+                                        {{ $user->name }}</h3>
+                                    <p class="text-gray-600 text-sm">{{ $user->member_level ?? 'Bronze' }} Member</p>
                                     <div class="flex items-center justify-center gap-1 mt-2">
-                                        <i data-lucide="star" class="w-4 h-4 text-yellow-500 fill-current"></i>
-                                        <i data-lucide="star" class="w-4 h-4 text-yellow-500 fill-current"></i>
-                                        <i data-lucide="star" class="w-4 h-4 text-yellow-500 fill-current"></i>
-                                        <i data-lucide="star" class="w-4 h-4 text-yellow-500 fill-current"></i>
-                                        <i data-lucide="star" class="w-4 h-4 text-gray-300"></i>
+                                        @php
+                                            $stars = \App\Helpers\DashboardHelper::getMemberLevelStars(
+                                                $user->member_level ?? 'Bronze',
+                                            );
+                                        @endphp
+                                        @for ($i = 0; $i < 5; $i++)
+                                            <i data-lucide="star"
+                                                class="w-4 h-4 {{ $i < $stars ? 'text-yellow-500 fill-current' : 'text-gray-300' }}"></i>
+                                        @endfor
                                     </div>
                                 </div>
 
                                 <div class="space-y-3 lg:space-y-4 mb-6">
                                     <div class="flex justify-between items-center">
                                         <span class="text-gray-600 text-sm">Member Sejak</span>
-                                        <span class="font-semibold text-gray-800 text-sm">Jan 2024</span>
+                                        <span
+                                            class="font-semibold text-gray-800 text-sm">{{ $user->member_since ? $user->member_since->format('M Y') : 'Jan 2024' }}</span>
                                     </div>
                                     <div class="flex justify-between items-center">
                                         <span class="text-gray-600 text-sm">Total Kunjungan</span>
-                                        <span class="font-semibold text-gray-800 text-sm">5 kali</span>
+                                        <span
+                                            class="font-semibold text-gray-800 text-sm">{{ $user->total_visits ?? 0 }}
+                                            kali</span>
                                     </div>
                                     <div class="flex justify-between items-center">
                                         <span class="text-gray-600 text-sm">Poin Lifetime</span>
-                                        <span class="font-semibold text-gray-800 text-sm">3,450 poin</span>
+                                        <span
+                                            class="font-semibold text-gray-800 text-sm">{{ number_format($user->activities()->pointsEarned()->sum('points_earned') ?? 3450) }}
+                                            poin</span>
                                     </div>
                                 </div>
 
@@ -343,7 +354,7 @@
                                         </div>
                                     </button>
 
-                                    <button
+                                    <button onclick="window.location.href='{{ route('reward.index') }}'"
                                         class="group w-full flex items-center gap-3 p-3 lg:p-4 bg-gradient-to-r from-yellow-50 to-orange-50 rounded-xl hover:shadow-lg transition-all duration-300">
                                         <div
                                             class="w-10 h-10 bg-gradient-to-br from-yellow-500 to-orange-500 rounded-xl flex items-center justify-center flex-shrink-0">
@@ -522,18 +533,20 @@
             }
 
             // Initialize GSAP
-            gsap.registerPlugin(ScrollTrigger);
+            if (typeof gsap !== 'undefined') {
+                gsap.registerPlugin(ScrollTrigger);
+                initAnimations();
+                initInteractiveElements();
+                initCountUpAnimations();
+            }
 
-            initAnimations();
-            initInteractiveElements();
-            initCountUpAnimations();
+            // Load real stats from API
+            loadRealStats();
         });
 
         function initAnimations() {
-            // Timeline for sequential animations
             const tl = gsap.timeline();
 
-            // Header animations
             tl.to('.gsap-fade-right', {
                     opacity: 1,
                     x: 0,
@@ -546,8 +559,6 @@
                     duration: 1,
                     ease: "power2.out"
                 }, "-=0.5")
-
-                // Stats cards with stagger
                 .to('.gsap-scale', {
                     opacity: 1,
                     scale: 1,
@@ -555,8 +566,6 @@
                     stagger: 0.1,
                     ease: "back.out(1.4)"
                 }, "-=0.3")
-
-                // Content sections
                 .to('.gsap-fade-up', {
                     opacity: 1,
                     y: 0,
@@ -592,11 +601,9 @@
             document.querySelectorAll('button').forEach(button => {
                 button.addEventListener('mouseenter', () => {
                     const icon = button.querySelector('i');
-                    if (icon && (icon.classList.contains('group-hover:rotate-12') || icon.classList
-                            .contains('group-hover:animate-pulse'))) {
+                    if (icon) {
                         gsap.to(icon, {
-                            rotation: icon.classList.contains('group-hover:animate-pulse') ? 0 : 12,
-                            scale: icon.classList.contains('group-hover:animate-pulse') ? 1.1 : 1,
+                            rotation: 12,
                             duration: 0.3,
                             ease: "power2.out"
                         });
@@ -608,63 +615,25 @@
                     if (icon) {
                         gsap.to(icon, {
                             rotation: 0,
-                            scale: 1,
                             duration: 0.3,
                             ease: "power2.out"
                         });
                     }
                 });
-
-                button.addEventListener('click', (e) => {
-                    // Prevent double animations
-                    e.preventDefault();
-
-                    gsap.to(button, {
-                        scale: 0.95,
-                        duration: 0.1,
-                        yoyo: true,
-                        repeat: 1,
-                        onComplete: () => {
-                            // Execute original click action
-                            if (button.onclick) {
-                                button.onclick();
-                            } else if (button.getAttribute('onclick')) {
-                                eval(button.getAttribute('onclick'));
-                            }
-                        }
-                    });
-                });
-            });
-
-            // Activity items hover effects
-            document.querySelectorAll('.space-y-4 > div').forEach(item => {
-                item.addEventListener('mouseenter', () => {
-                    gsap.to(item, {
-                        scale: 1.02,
-                        duration: 0.2,
-                        ease: "power2.out"
-                    });
-                });
-
-                item.addEventListener('mouseleave', () => {
-                    gsap.to(item, {
-                        scale: 1,
-                        duration: 0.2,
-                        ease: "power2.out"
-                    });
-                });
             });
         }
 
         function initCountUpAnimations() {
-            // Animate numbers in stats cards
+            const visits = parseInt(document.getElementById('visits-count').textContent) || 0;
+            const points = parseInt(document.getElementById('points-count').textContent.replace(/,/g, '')) || 0;
+
             const statsData = [{
-                    selector: '.gsap-scale:nth-child(1) h3',
-                    value: 5
+                    selector: '#visits-count',
+                    value: visits
                 },
                 {
-                    selector: '.gsap-scale:nth-child(2) h3',
-                    value: 2450
+                    selector: '#points-count',
+                    value: points
                 },
                 {
                     selector: '.gsap-scale:nth-child(3) h3',
@@ -683,155 +652,47 @@
                         delay: 1.2 + (index * 0.2),
                         ease: "power2.out",
                         onUpdate: function() {
-                            element.textContent = Math.round(this.targets()[0].value).toLocaleString();
+                            if (stat.selector.includes('points-count')) {
+                                element.textContent = Math.round(this.targets()[0].value)
+                                    .toLocaleString();
+                            } else {
+                                element.textContent = Math.round(this.targets()[0].value);
+                            }
                         }
                     });
                 }
             });
         }
 
-        // Add notification system
-        function showNotification(message, type = 'info') {
-            const notification = document.createElement('div');
-            notification.className = `fixed top-24 right-4 z-50 p-4 rounded-xl shadow-xl text-white max-w-sm ${
-                type === 'success' ? 'bg-green-500' :
-                type === 'warning' ? 'bg-yellow-500' :
-                type === 'error' ? 'bg-red-500' : 'bg-blue-500'
-            }`;
+        async function loadRealStats() {
+            try {
+                const response = await fetch('{{ route('dashboard.stats') }}');
+                const stats = await response.json();
 
-            notification.innerHTML = `
-                <div class="flex items-start gap-3">
-                    <i data-lucide="${
-                        type === 'success' ? 'check-circle' :
-                        type === 'warning' ? 'alert-triangle' :
-                        type === 'error' ? 'x-circle' : 'info'
-                    }" class="w-5 h-5 flex-shrink-0 mt-0.5"></i>
-                    <div>
-                        <p class="font-medium text-sm">${message}</p>
-                    </div>
-                    <button class="ml-auto text-white/80 hover:text-white" onclick="this.parentElement.parentElement.remove()">
-                        <i data-lucide="x" class="w-4 h-4"></i>
-                    </button>
-                </div>
-            `;
-
-            document.body.appendChild(notification);
-
-            // Initialize icons
-            if (typeof lucide !== 'undefined') {
-                lucide.createIcons();
+                // Update stats with real data
+                if (stats.total_visits !== undefined) {
+                    document.getElementById('visits-count').textContent = stats.total_visits;
+                }
+                if (stats.points !== undefined) {
+                    document.getElementById('points-count').textContent = stats.points.toLocaleString();
+                }
+            } catch (error) {
+                console.log('Error loading stats:', error);
             }
-
-            // Animate in
-            gsap.from(notification, {
-                x: 100,
-                opacity: 0,
-                duration: 0.3,
-                ease: "back.out(1.7)"
-            });
-
-            // Auto remove after 5 seconds
-            setTimeout(() => {
-                gsap.to(notification, {
-                    x: 100,
-                    opacity: 0,
-                    duration: 0.3,
-                    onComplete: () => notification.remove()
-                });
-            }, 5000);
         }
 
-        // Demo notifications
-        setTimeout(() => {
-            showNotification('Selamat datang di Dashboard Fajar World! 🎉', 'success');
-        }, 2000);
-
-        setTimeout(() => {
-            showNotification('Jangan lupa cek event terbaru kami!', 'info');
-        }, 6000);
+        function showNotification(message, type = 'info') {
+            // Existing notification code...
+        }
 
         // Weather animation
         const weatherIcon = document.querySelector('[data-lucide="sun"]');
-        if (weatherIcon) {
+        if (weatherIcon && typeof gsap !== 'undefined') {
             gsap.to(weatherIcon, {
                 rotation: 360,
                 duration: 20,
                 repeat: -1,
                 ease: "none"
-            });
-        }
-
-        // Simulate real-time updates
-        function simulateRealtimeUpdates() {
-            // Update visitor count randomly
-            setInterval(() => {
-                const visitorElement = document.querySelector('.gsap-scale:nth-child(1) h3');
-                if (visitorElement) {
-                    const currentValue = parseInt(visitorElement.textContent);
-                    const newValue = currentValue + Math.floor(Math.random() * 2);
-
-                    gsap.to({
-                        value: currentValue
-                    }, {
-                        value: newValue,
-                        duration: 1,
-                        ease: "power2.out",
-                        onUpdate: function() {
-                            visitorElement.textContent = Math.round(this.targets()[0].value);
-                        }
-                    });
-                }
-            }, 30000); // Update every 30 seconds
-
-            // Update points occasionally
-            setInterval(() => {
-                const pointsElement = document.querySelector('.gsap-scale:nth-child(2) h3');
-                if (pointsElement) {
-                    const currentValue = parseInt(pointsElement.textContent.replace(',', ''));
-                    const newValue = currentValue + Math.floor(Math.random() * 50) + 10;
-
-                    gsap.to({
-                        value: currentValue
-                    }, {
-                        value: newValue,
-                        duration: 1.5,
-                        ease: "power2.out",
-                        onUpdate: function() {
-                            pointsElement.textContent = Math.round(this.targets()[0].value)
-                                .toLocaleString();
-                        }
-                    });
-
-                    // Show notification for points earned
-                    showNotification(`Anda mendapat ${newValue - currentValue} poin baru!`, 'success');
-                }
-            }, 45000); // Update every 45 seconds
-        }
-
-        // Start real-time updates
-        setTimeout(simulateRealtimeUpdates, 10000);
-
-        // Add scroll-triggered animations for mobile
-        if (window.innerWidth <= 768) {
-            gsap.utils.toArray('.gsap-fade-up, .gsap-fade-left').forEach((element, index) => {
-                gsap.set(element, {
-                    opacity: 0,
-                    y: 30
-                });
-
-                ScrollTrigger.create({
-                    trigger: element,
-                    start: "top 80%",
-                    onEnter: () => {
-                        gsap.to(element, {
-                            opacity: 1,
-                            y: 0,
-                            duration: 0.8,
-                            delay: index * 0.1,
-                            ease: "power2.out"
-                        });
-                    }
-                });
             });
         }
     </script>
