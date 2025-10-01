@@ -7,37 +7,81 @@
     <title>Manajemen Tiket - Admin</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-gray-100">
+<body class="bg-gradient-to-br from-green-100 to-green-200 min-h-screen">
 
     <!-- Header -->
-    <div class="bg-white shadow p-4 flex justify-between items-center">
-        <h1 class="text-2xl font-bold text-gray-800">Manajemen Tiket</h1>
-        <a href="{{ route('admin.dashboard') }}" class="text-blue-600 hover:underline">← Kembali ke Dashboard</a>
+    <div class="bg-white shadow p-4 flex justify-between items-center rounded-b-2xl">
+        <h1 class="text-2xl font-bold text-gray-800 flex items-center space-x-2">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V4a2 2 0 10-4 0v1.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/>
+            </svg>
+            <span>Manajemen Tiket</span>
+        </h1>
+        <a href="{{ route('admin.dashboard') }}" class="text-green-600 hover:underline font-medium">← Kembali ke Dashboard</a>
     </div>
 
-    <div class="max-w-7xl mx-auto py-6 px-4">
+    <div class="max-w-7xl mx-auto py-8 px-4">
         <!-- Stats -->
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
-            <div class="bg-white p-4 rounded shadow">
-                <p class="text-sm text-gray-600">Total Tickets</p>
-                <p class="text-2xl font-semibold">{{ $stats['total'] }}</p>
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+            <!-- Total Ticket -->
+            <div class="bg-white p-6 rounded-2xl shadow flex items-center space-x-4">
+                <div class="bg-green-100 p-3 rounded-full">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path d="M3 6a1 1 0 011-1h2a1 1 0 011 1v12a1 1 0 01-1 1H4a1 1 0 01-1-1V6zM9 6h12a1 1 0 011 1v3h-2a1 1 0 100 2h2v3h-2a1 1 0 100 2h2v3a1 1 0 01-1 1H9V6z"/>
+                    </svg>
+                </div>
+                <div>
+                    <p class="text-sm text-gray-500">Total Tiket</p>
+                    <p class="text-2xl font-bold text-gray-800">{{ $stats['total'] }}</p>
+                </div>
             </div>
-            <div class="bg-white p-4 rounded shadow">
-                <p class="text-sm text-gray-600">Pending</p>
-                <p class="text-2xl font-semibold">{{ $stats['pending'] }}</p>
+
+            <!-- Pending -->
+            <div class="bg-white p-6 rounded-2xl shadow flex items-center space-x-4">
+                <div class="bg-yellow-100 p-3 rounded-full">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-yellow-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path d="M12 8v4l3 3m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                    </svg>
+                </div>
+                <div>
+                    <p class="text-sm text-gray-500">Pending</p>
+                    <p class="text-2xl font-bold text-gray-800">{{ $stats['pending'] }}</p>
+                </div>
             </div>
-            <div class="bg-white p-4 rounded shadow">
-                <p class="text-sm text-gray-600">Active</p>
-                <p class="text-2xl font-semibold">{{ $stats['active'] }}</p>
+
+            <!-- Active -->
+            <div class="bg-white p-6 rounded-2xl shadow flex items-center space-x-4">
+                <div class="bg-blue-100 p-3 rounded-full">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path d="M9 17v-6h13v6M9 5v6h13V5M5 5h.01M5 11h.01M5 17h.01"/>
+                    </svg>
+                </div>
+                <div>
+                    <p class="text-sm text-gray-500">Aktif</p>
+                    <p class="text-2xl font-bold text-gray-800">{{ $stats['active'] }}</p>
+                </div>
             </div>
-            <div class="bg-white p-4 rounded shadow">
-                <p class="text-sm text-gray-600">Used</p>
-                <p class="text-2xl font-semibold">{{ $stats['used'] }}</p>
+
+            <!-- Used -->
+            <div class="bg-white p-6 rounded-2xl shadow flex items-center space-x-4">
+                <div class="bg-gray-100 p-3 rounded-full">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path d="M9 12h6m-6 4h6M5 8h14M5 16h14M5 12h14M5 20h14"/>
+                    </svg>
+                </div>
+                <div>
+                    <p class="text-sm text-gray-500">Terpakai</p>
+                    <p class="text-2xl font-bold text-gray-800">{{ $stats['used'] }}</p>
+                </div>
             </div>
         </div>
 
         <!-- Tickets Table -->
-        <div class="bg-white shadow rounded-lg overflow-hidden">
+        <div class="bg-white shadow rounded-2xl overflow-hidden">
+            <div class="px-6 py-4 border-b border-gray-200 flex justify-between items-center">
+                <h2 class="text-lg font-semibold text-gray-800">Daftar Tiket</h2>
+            </div>
+
             <table class="min-w-full divide-y divide-gray-200">
                 <thead class="bg-gray-50">
                     <tr>
