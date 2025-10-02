@@ -296,7 +296,7 @@ class AdminController extends Controller
             ->orderBy('created_at', 'desc')
             ->paginate(15);
 
-        return view('admin.rewards.redemptions', compact('redemptions', 'status'));
+        return view('admin.redemptions.index', compact('redemptions', 'status'));
     }
 
     /**

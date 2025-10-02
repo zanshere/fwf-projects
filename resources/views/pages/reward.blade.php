@@ -208,7 +208,7 @@
 
                                         <!-- Redeem Button -->
                                         @if($userPoints >= $reward['points'])
-                                        <form method="POST" action="{{ route('reward', $reward['id']) }}" class="redeem-form">
+                                        <form method="POST" action="{{ route('reward.index', $reward['id']) }}" class="redeem-form">
                                             @csrf
                                             <button type="submit"
                                                 class="w-full group/btn bg-gradient-to-r {{ $reward['color'] }} text-white font-bold py-3 px-4 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105">
