@@ -186,11 +186,13 @@
                                                     Menunggu Konfirmasi
                                                 </button>
                                             @elseif($ticket->status == 'aktif')
-                                                <button type="button"
-                                                    class="text-green-600 hover:text-green-900 mr-3 view-ticket"
+                                               <button type="button"
+                                                    class="flex items-center text-green-600 hover:text-green-900 mr-3 view-ticket"
                                                     data-ticket-id="{{ $ticket->id }}">
-                                                    <i data-lucide="eye" class="w-4 h-4"></i> Lihat Tiket
-                                                </button>
+                                                <i data-lucide="eye" class="w-4 h-4 mr-1"></i>
+                                                <span>Lihat Tiket</span>
+                                            </button>
+
                                             @else
                                                 <span class="text-gray-400">-</span>
                                             @endif
