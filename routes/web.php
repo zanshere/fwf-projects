@@ -6,6 +6,7 @@ use App\Http\Controllers\TicketController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\RewardController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\Admin\UserManagementController;
 
 /*
 |--------------------------------------------------------------------------
@@ -60,9 +61,12 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('dashboard');
 
         // User Management
-        Route::get('/users', [AdminController::class, 'users'])->name('users.index');
-        Route::get('/users/{user}', [AdminController::class, 'userDetail'])->name('users.detail');
-        Route::post('/users/{user}/points', [AdminController::class, 'updateUserPoints'])->name('users.update-points');
+        Route::get('/users', [UserManagementController::class, 'index'])->name('users.index');
+        Route::get('/users/{user}', [UserManagementController::class, 'show'])->name('users.show');
+        Route::get('/users/{user}/edit', [UserManagementController::class, 'edit'])->name('users.edit');
+        Route::put('/users/{user}', [UserManagementController::class, 'update'])->name('users.update');
+        Route::delete('/users/{user}', [UserManagementController::class, 'destroy'])->name('users.destroy');
+        Route::post('/users/{user}/points', [UserManagementController::class, 'updatePoints'])->name('users.update-points');
 
         // Ticket Management
         Route::get('/tickets', [AdminController::class, 'tickets'])->name('tickets.index');
