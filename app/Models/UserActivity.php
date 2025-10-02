@@ -15,13 +15,11 @@ class UserActivity extends Model
         'description',
         'points_earned',
         'points_used',
-        'metadata',
-        'activity_date',
+        'activity_date'
     ];
 
     protected $casts = [
-        'activity_date' => 'datetime',
-        'metadata' => 'array',
+        'activity_date' => 'date',
     ];
 
     public function user()
@@ -29,9 +27,9 @@ class UserActivity extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function scopeRecent($query, $limit = 10)
+    public function scopeRecent($query, $limit = 5)
     {
-        return $query->orderBy('activity_date', 'desc')->limit($limit);
+        return $query->orderBy('created_at', 'desc')->limit($limit);
     }
 
     public function scopePointsEarned($query)
