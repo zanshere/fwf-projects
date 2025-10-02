@@ -6,9 +6,6 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
         Schema::create('reward_redemptions', function (Blueprint $table) {
@@ -16,17 +13,15 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->foreignId('reward_id')->constrained()->onDelete('cascade');
             $table->integer('points_used');
-            $table->string('status')->default('pending'); // pending, approved, rejected, completed
+            $table->enum('status', ['pending', 'approved', 'rejected', 'completed'])->default('pending');
             $table->text('notes')->nullable();
             $table->timestamp('redeemed_at');
             $table->timestamp('processed_at')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
         Schema::dropIfExists('reward_redemptions');
