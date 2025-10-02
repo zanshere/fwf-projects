@@ -6,20 +6,20 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 
-class DummyUserSeeder extends Seeder
+class AdminUserSeeder extends Seeder
 {
     public function run(): void
     {
         User::create([
-            'name' => 'User',
-            'email' => 'user@fajarworld.com',
+            'name' => 'Administrator',
+            'email' => 'admin@fajarworld.com',
             'password' => Hash::make('zanshere'),
-            'role' => 'user',
+            'role' => 'admin',
             'member_since' => now(),
         ]);
 
         $this->command->info('Admin user created successfully!');
-        $this->command->info('Email: user@fajarworld.com');
+        $this->command->info('Email: admin@fajarworld.com');
         $this->command->info('Password: zanshere');
     }
 }
