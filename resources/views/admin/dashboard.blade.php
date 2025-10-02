@@ -1,5 +1,5 @@
 @extends('layouts.app')
-            
+
 
 @section('content')
 <div class="min-h-screen bg-gradient-to-br from-green-600 to-green-800 py-10 px-6">
@@ -93,7 +93,7 @@
         <div class="bg-white p-6 rounded-2xl shadow-lg">
             <div class="flex justify-between items-center mb-4">
                 <h2 class="text-lg font-semibold text-gray-800">Reward Menunggu Konfirmasi</h2>
-                <a href="{{ route('admin.reward-redemptions.index') }}" class="text-green-600 text-sm">Kelola Semua</a>
+                <a href="{{ route('admin.rewards.redemptions') }}" class="text-green-600 text-sm">Kelola Semua</a>
             </div>
             <table class="w-full text-sm text-left">
                 <thead class="bg-gray-100 text-gray-600">
