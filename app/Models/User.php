@@ -14,6 +14,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'role',
         'points',
         'member_level',
         'total_visits',
@@ -32,6 +33,30 @@ class User extends Authenticatable
             'password' => 'hashed',
             'member_since' => 'date',
         ];
+    }
+
+    /**
+     * Scope untuk mendapatkan user biasa
+     */
+    public function scopeRegularUsers($query)
+    {
+        return $query->where('role', 'user');
+    }
+
+    /**
+     * Cek apakah user adalah admin
+     */
+    public function isAdmin()
+    {
+        return $this->role === 'admin';
+    }
+
+    /**
+     * Cek apakah user adalah regular user
+     */
+    public function isRegularUser()
+    {
+        return $this->role === 'user';
     }
 
     public function tickets()
