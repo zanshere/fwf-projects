@@ -40,13 +40,90 @@ class AdminController extends Controller
             $pendingRedemptions = RewardRedemption::with(['user', 'reward'])
                 ->where('status', 'pending')
                 ->get();
+            
+                 $chart = [
+            'labels' => ['Sen', 'Sel', 'Rab', 'Kam', 'Jum', 'Sab', 'Min'],
+            'data' => [65, 78, 90, 81, 86, 55, 40],
+        ];
 
-            return view('admin.dashboard', compact('stats', 'recentTickets', 'pendingRedemptions'));
+            return view('admin.dashboard', compact('stats', 'recentTickets', 'pendingRedemptions', 'chart'));
 
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Error loading dashboard: ' . $e->getMessage());
         }
     }
+
+    
+// Menampilkan daftar reward
+public function rewards()
+{
+    $rewards = Reward::all();
+    return view('admin.rewards.redemptions', compact('rewards'));
+}
+
+
+// Show detail reward
+public function showReward(Reward $reward)
+{
+    return view('admin.rewards.show', compact('reward'));
+}
+
+// Form edit reward
+public function editReward(Reward $reward)
+{
+    return view('admin.rewards.edit', compact('reward'));
+}
+
+// Update reward
+public function updateReward(Request $request, Reward $reward)
+{
+    $request->validate([
+        'name' => 'required|string|max:255',
+        'points' => 'required|integer',
+        'description' => 'nullable|string',
+    ]);
+
+    $reward->update($request->all());
+
+    return redirect()->route('admin.rewards.index')->with('success', 'Reward berhasil diperbarui.');
+}
+
+// Hapus reward
+public function destroyReward(Reward $reward)
+{
+    $reward->delete();
+    return redirect()->route('admin.rewards.index')->with('success', 'Reward berhasil dihapus.');
+}
+
+public function exportRewards()
+{
+    $rewards = Reward::all();
+
+    $filename = "rewards_" . now()->format('Y-m-d_H-i-s') . ".csv";
+
+    $handle = fopen('php://output', 'w');
+    ob_start();
+
+    // Header CSV
+    fputcsv($handle, ['ID', 'Nama Reward', 'Poin', 'Deskripsi', 'Dibuat']);
+
+    foreach ($rewards as $reward) {
+        fputcsv($handle, [
+            $reward->id,
+            $reward->name,
+            $reward->points,
+            $reward->description,
+            $reward->created_at->format('Y-m-d H:i:s'),
+        ]);
+    }
+
+    $content = ob_get_clean();
+    fclose($handle);
+
+    return response($content)
+        ->header('Content-Type', 'text/csv')
+        ->header('Content-Disposition', "attachment; filename={$filename}");
+}
 
     /**
      * Manajemen User - Tampilkan semua user
