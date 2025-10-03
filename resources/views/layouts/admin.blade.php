@@ -24,7 +24,7 @@
                 <i data-lucide="ticket" class="w-5 h-5 mr-3 text-green-600"></i>
                 <span>Tickets</span>
             </a>
-            <a href="#"
+           <a href="{{ route('admin.rewards.redemptions') }}"
                class="flex items-center p-3 rounded-lg hover:bg-green-50 transition">
                 <i data-lucide="gift" class="w-5 h-5 mr-3 text-green-600"></i>
                 <span>Rewards</span>
@@ -38,9 +38,7 @@
         <header class="bg-white shadow px-6 py-4 flex justify-between items-center sticky top-0 z-50">
             <h2 class="text-xl font-semibold">@yield('page-title', 'Dashboard')</h2>
             <div class="flex items-center space-x-4">
-                <div class="w-10 h-10 rounded-full bg-green-500 text-white flex items-center justify-center">
-                    <i data-lucide="user"></i>
-                </div>
+                
             </div>
         </header>
 
