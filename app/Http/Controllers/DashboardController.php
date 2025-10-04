@@ -35,7 +35,7 @@ class DashboardController extends Controller
         $stats = [
             'total_visits' => $user->total_visits,
             'points' => $user->points,
-            'active_tickets' => 3, // You can replace with actual ticket count
+            'active_tickets' => $user->tickets, 
             'member_level' => $user->member_level,
             'lifetime_points' => $user->activities()->pointsEarned()->sum('points_earned'),
         ];

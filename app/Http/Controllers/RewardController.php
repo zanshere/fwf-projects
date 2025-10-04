@@ -7,6 +7,7 @@ use App\Models\RewardRedemption;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
+
 class RewardController extends Controller
 {
     public function index()
@@ -24,30 +25,36 @@ class RewardController extends Controller
 
     public function redeem(Request $request, $rewardId)
     {
-        $reward = Reward::findOrFail($rewardId);
-        $user = Auth::user();
+        try {
+            $reward = Reward::findOrFail($rewardId);
+            $user = Auth::user();
 
-        if (!$reward->canBeRedeemedBy($user)) {
-            return redirect()->back()->with('error', 'Reward cannot be redeemed. Check your points or reward availability.');
+            // Validasi apakah reward bisa ditebus
+            if (!$reward->canBeRedeemedBy($user)) {
+                return redirect()->back()->with('error', 'Reward tidak dapat ditebus. Periksa poin atau ketersediaan reward.');
+            }
+
+            // Buat record redemption
+            $redemption = RewardRedemption::create([
+                'user_id' => $user->id,
+                'reward_id' => $reward->id,
+                'points_used' => $reward->points_required,
+                'status' => 'pending',
+                'redeemed_at' => now(),
+            ]);
+
+            // Kurangi poin user
+            $user->deductPoints($reward->points_required, [
+                'type' => 'reward_redemption',
+                'description' => 'Menukarkan reward: ' . $reward->name
+            ]);
+
+            return redirect()->route('reward.index')
+                ->with('success', 'Reward berhasil ditukarkan! Silakan tunggu persetujuan.');
+
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
         }
-
-        // Create redemption record
-        $redemption = RewardRedemption::create([
-            'user_id' => $user->id,
-            'reward_id' => $reward->id,
-            'points_used' => $reward->points_required,
-            'status' => 'pending',
-            'redeemed_at' => now(),
-        ]);
-
-        // Deduct points from user
-        $user->deductPoints($reward->points_required, [
-            'type' => 'reward_redemption',
-            'description' => 'Redeemed reward: ' . $reward->name
-        ]);
-
-        return redirect()->route('reward.index')
-            ->with('success', 'Reward redeemed successfully! Please wait for approval.');
     }
 
     public function redemptionHistory()
@@ -58,7 +65,7 @@ class RewardController extends Controller
             ->orderBy('created_at', 'desc')
             ->paginate(10);
 
-        return view('reward-history', compact('redemptions'));
+        return view('pages.reward-history', compact('redemptions'));
     }
 
     public function seedRewards()
