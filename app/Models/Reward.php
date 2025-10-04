@@ -49,4 +49,12 @@ class Reward extends Model
     {
         return $query->active()->where('stock', '>', 0);
     }
+
+    // Method untuk mengurangi stock
+    public function decreaseStock()
+    {
+        if ($this->stock > 0) {
+            $this->decrement('stock');
+        }
+    }
 }
