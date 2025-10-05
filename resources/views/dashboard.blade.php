@@ -382,39 +382,105 @@
                                 </div>
                             </div>
                         </section>
+                    </div>
+                </div>
 
-                        <!-- Weather Widget -->
-                        <section class="group relative gsap-fade-left">
-                            <div
-                                class="absolute inset-0 bg-gradient-to-r from-white/10 to-white/5 rounded-2xl lg:rounded-3xl blur-xl opacity-75">
-                            </div>
-                            <div
-                                class="relative bg-white/95 backdrop-blur-sm rounded-2xl lg:rounded-3xl p-6 lg:p-8 shadow-xl border border-white/20">
-                                <h3 class="text-lg lg:text-xl font-black text-gray-800 mb-4 flex items-center gap-2">
-                                    <i data-lucide="cloud-sun" class="w-5 h-5 text-blue-600"></i>
-                                    Cuaca Hari Ini
-                                </h3>
+                <!-- Weather Section - Full Width -->
+                <section class="group relative gsap-fade-up mt-6 lg:mt-8">
+                    <div
+                        class="absolute inset-0 bg-gradient-to-r from-white/10 to-white/5 rounded-2xl lg:rounded-3xl blur-xl opacity-75">
+                    </div>
+                    <div
+                        class="relative bg-white/95 backdrop-blur-sm rounded-2xl lg:rounded-3xl p-6 lg:p-8 shadow-xl border border-white/20 w-full">
+                        <h3 class="text-lg lg:text-xl font-black text-gray-800 mb-6 flex items-center gap-2">
+                            <i data-lucide="cloud-sun" class="w-5 h-5 text-blue-600"></i>
+                            Cuaca Hari Ini & Besok (Fajar World Fantasy)
+                        </h3>
 
-                                <div class="text-center">
-                                    <div class="flex items-center justify-center gap-4 mb-4">
-                                        <i data-lucide="sun"
-                                            class="w-10 h-10 lg:w-12 lg:h-12 text-yellow-500 animate-spin-slow"></i>
-                                        <div>
-                                            <div class="text-2xl lg:text-3xl font-black text-gray-800">28°C</div>
-                                            <div class="text-gray-600 text-sm">Cerah</div>
-                                        </div>
+                        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8" id="weather-content">
+                            <!-- Today's Weather -->
+                            <div class="text-center bg-gradient-to-br from-blue-50 to-cyan-50 rounded-xl lg:rounded-2xl p-6 lg:p-8">
+                                <h4 class="font-bold text-gray-800 mb-4 text-sm lg:text-base">Hari Ini</h4>
+                                <div class="flex items-center justify-center gap-4 mb-4">
+                                    <i id="weather-icon-today" data-lucide="sun"
+                                        class="w-12 h-12 lg:w-16 lg:h-16 text-yellow-500"></i>
+                                    <div>
+                                        <div id="weather-temp-today" class="text-2xl lg:text-3xl font-black text-gray-800">--°C</div>
+                                        <div id="weather-desc-today" class="text-gray-600 text-sm">Memuat...</div>
                                     </div>
-                                    <div class="bg-gradient-to-r from-green-100 to-emerald-100 rounded-xl p-4">
-                                        <p class="text-green-800 font-semibold text-sm">
-                                            <i data-lucide="check-circle" class="w-4 h-4 inline mr-1"></i>
-                                            Cuaca sempurna untuk adventure!
-                                        </p>
+                                </div>
+                                <div class="grid grid-cols-2 gap-3 text-xs lg:text-sm">
+                                    <div class="text-center">
+                                        <i data-lucide="thermometer" class="w-4 h-4 text-orange-500 mx-auto mb-1"></i>
+                                        <div id="temp-min-today" class="text-gray-600">Min: --°C</div>
+                                    </div>
+                                    <div class="text-center">
+                                        <i data-lucide="thermometer" class="w-4 h-4 text-red-500 mx-auto mb-1"></i>
+                                        <div id="temp-max-today" class="text-gray-600">Max: --°C</div>
                                     </div>
                                 </div>
                             </div>
-                        </section>
+
+                            <!-- Weather Details -->
+                            <div class="bg-gradient-to-br from-green-50 to-emerald-50 rounded-xl lg:rounded-2xl p-6 lg:p-8">
+                                <h4 class="font-bold text-gray-800 mb-4 text-sm lg:text-base">Detail Cuaca</h4>
+                                <div class="space-y-4">
+                                    <div class="flex items-center justify-between">
+                                        <div class="flex items-center gap-2">
+                                            <i data-lucide="wind" class="w-4 h-4 text-blue-500"></i>
+                                            <span class="text-gray-600 text-sm">Kecepatan Angin</span>
+                                        </div>
+                                        <span id="wind-speed" class="font-semibold text-gray-800 text-sm">-- km/h</span>
+                                    </div>
+                                    <div class="flex items-center justify-between">
+                                        <div class="flex items-center gap-2">
+                                            <i data-lucide="droplets" class="w-4 h-4 text-cyan-500"></i>
+                                            <span class="text-gray-600 text-sm">Kelembapan</span>
+                                        </div>
+                                        <span id="humidity" class="font-semibold text-gray-800 text-sm">--%</span>
+                                    </div>
+                                    <div class="flex items-center justify-between">
+                                        <div class="flex items-center gap-2">
+                                            <i data-lucide="eye" class="w-4 h-4 text-purple-500"></i>
+                                            <span class="text-gray-600 text-sm">Kondisi</span>
+                                        </div>
+                                        <span id="conditions" class="font-semibold text-gray-800 text-sm">--</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Tomorrow's Weather -->
+                            <div class="text-center bg-gradient-to-br from-purple-50 to-pink-50 rounded-xl lg:rounded-2xl p-6 lg:p-8">
+                                <h4 class="font-bold text-gray-800 mb-4 text-sm lg:text-base">Besok</h4>
+                                <div class="flex items-center justify-center gap-4 mb-4">
+                                    <i id="weather-icon-tomorrow" data-lucide="cloud"
+                                        class="w-12 h-12 lg:w-16 lg:h-16 text-gray-500"></i>
+                                    <div>
+                                        <div id="weather-temp-tomorrow" class="text-2xl lg:text-3xl font-black text-gray-800">--°C</div>
+                                        <div id="weather-desc-tomorrow" class="text-gray-600 text-sm">Memuat...</div>
+                                    </div>
+                                </div>
+                                <div class="grid grid-cols-2 gap-3 text-xs lg:text-sm">
+                                    <div class="text-center">
+                                        <i data-lucide="thermometer" class="w-4 h-4 text-orange-500 mx-auto mb-1"></i>
+                                        <div id="temp-min-tomorrow" class="text-gray-600">Min: --°C</div>
+                                    </div>
+                                    <div class="text-center">
+                                        <i data-lucide="thermometer" class="w-4 h-4 text-red-500 mx-auto mb-1"></i>
+                                        <div id="temp-max-tomorrow" class="text-gray-600">Max: --°C</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Weather Summary -->
+                        <div id="weather-summary"
+                            class="bg-gradient-to-r from-green-100 to-emerald-100 rounded-xl p-4 mt-6 text-green-800 font-semibold text-sm text-center">
+                            <i data-lucide="loader" class="w-4 h-4 inline mr-1 animate-spin"></i>
+                            Mengambil data cuaca...
+                        </div>
                     </div>
-                </div>
+                </section>
             </main>
         </div>
     </div>
@@ -542,6 +608,9 @@
 
             // Load real stats from API
             loadRealStats();
+
+            // Load weather data
+            loadWeatherData();
         });
 
         function initAnimations() {
@@ -681,19 +750,139 @@
             }
         }
 
-        function showNotification(message, type = 'info') {
-            // Existing notification code...
+        async function loadWeatherData() {
+            const LAT = -6.3971493;
+            const LON = 6.9650053;
+
+            const mapWeatherCode = (code) => {
+                const map = {
+                    0: {
+                        text: 'Cerah',
+                        icon: 'sun',
+                        color: 'text-yellow-500'
+                    },
+                    1: {
+                        text: 'Cerah Berawan',
+                        icon: 'cloud-sun',
+                        color: 'text-yellow-400'
+                    },
+                    2: {
+                        text: 'Berawan',
+                        icon: 'cloud',
+                        color: 'text-gray-500'
+                    },
+                    3: {
+                        text: 'Mendung',
+                        icon: 'cloud',
+                        color: 'text-gray-600'
+                    },
+                    45: {
+                        text: 'Kabut',
+                        icon: 'cloud-fog',
+                        color: 'text-gray-400'
+                    },
+                    61: {
+                        text: 'Hujan Ringan',
+                        icon: 'cloud-drizzle',
+                        color: 'text-blue-500'
+                    },
+                    63: {
+                        text: 'Hujan Sedang',
+                        icon: 'cloud-rain',
+                        color: 'text-blue-600'
+                    },
+                    65: {
+                        text: 'Hujan Lebat',
+                        icon: 'cloud-rain',
+                        color: 'text-blue-700'
+                    },
+                    80: {
+                        text: 'Hujan Lokal',
+                        icon: 'cloud-rain',
+                        color: 'text-blue-600'
+                    },
+                    95: {
+                        text: 'Badai Petir',
+                        icon: 'cloud-lightning',
+                        color: 'text-yellow-600'
+                    },
+                };
+                return map[code] || {
+                    text: 'Tidak Diketahui',
+                    icon: 'cloud',
+                    color: 'text-gray-500'
+                };
+            };
+
+            const url = `https://api.open-meteo.com/v1/forecast?latitude=${LAT}&longitude=${LON}&hourly=temperature_2m,relativehumidity_2m,windspeed_10m,weathercode&daily=temperature_2m_max,temperature_2m_min,weathercode&forecast_days=2&timezone=Asia%2FJakarta&windspeed_unit=kmh`;
+
+            try {
+                const res = await fetch(url);
+                const data = await res.json();
+
+                const today = {
+                    tempMin: data.daily.temperature_2m_min[0],
+                    tempMax: data.daily.temperature_2m_max[0],
+                    wc: data.daily.weathercode[0],
+                    humidity: Math.round(data.hourly.relativehumidity_2m.slice(0, 24).reduce((a, b) => a + b) / 24),
+                    wind: Math.round(data.hourly.windspeed_10m.slice(0, 24).reduce((a, b) => a + b) / 24)
+                };
+                const tomorrow = {
+                    tempMin: data.daily.temperature_2m_min[1],
+                    tempMax: data.daily.temperature_2m_max[1],
+                    wc: data.daily.weathercode[1],
+                    humidity: Math.round(data.hourly.relativehumidity_2m.slice(24, 48).reduce((a, b) => a + b) / 24),
+                    wind: Math.round(data.hourly.windspeed_10m.slice(24, 48).reduce((a, b) => a + b) / 24)
+                };
+
+                const nowAvg = Math.round((today.tempMin + today.tempMax) / 2);
+                const wcToday = mapWeatherCode(today.wc);
+                const wcTomorrow = mapWeatherCode(tomorrow.wc);
+
+                // Update Today's Weather
+                document.getElementById('weather-icon-today').setAttribute("data-lucide", wcToday.icon);
+                document.getElementById('weather-icon-today').className = `w-12 h-12 lg:w-16 lg:h-16 ${wcToday.color}`;
+                document.getElementById('weather-temp-today').textContent = `${nowAvg}°C`;
+                document.getElementById('weather-desc-today').textContent = wcToday.text;
+                document.getElementById('temp-min-today').textContent = `Min: ${today.tempMin}°C`;
+                document.getElementById('temp-max-today').textContent = `Max: ${today.tempMax}°C`;
+
+                // Update Tomorrow's Weather
+                const tomorrowAvg = Math.round((tomorrow.tempMin + tomorrow.tempMax) / 2);
+                document.getElementById('weather-icon-tomorrow').setAttribute("data-lucide", wcTomorrow.icon);
+                document.getElementById('weather-icon-tomorrow').className = `w-12 h-12 lg:w-16 lg:h-16 ${wcTomorrow.color}`;
+                document.getElementById('weather-temp-tomorrow').textContent = `${tomorrowAvg}°C`;
+                document.getElementById('weather-desc-tomorrow').textContent = wcTomorrow.text;
+                document.getElementById('temp-min-tomorrow').textContent = `Min: ${tomorrow.tempMin}°C`;
+                document.getElementById('temp-max-tomorrow').textContent = `Max: ${tomorrow.tempMax}°C`;
+
+                // Update Weather Details
+                document.getElementById('wind-speed').textContent = `${today.wind} km/h`;
+                document.getElementById('humidity').textContent = `${today.humidity}%`;
+                document.getElementById('conditions').textContent = wcToday.text;
+
+                // Update Summary
+                document.getElementById('weather-summary').innerHTML = `
+                    <i data-lucide="thermometer" class="w-4 h-4 inline mr-1"></i>
+                    Hari ini ${wcToday.text.toLowerCase()} dengan suhu antara <b>${today.tempMin}°C - ${today.tempMax}°C</b>,
+                    kelembapan rata-rata <b>${today.humidity}%</b>, kecepatan angin <b>${today.wind} km/h</b>.
+                    Besok: suhu <b>${tomorrow.tempMin}°C - ${tomorrow.tempMax}°C</b>, ${wcTomorrow.text.toLowerCase()}.
+                `;
+
+                // Reinitialize Lucide icons
+                lucide.createIcons();
+            } catch (err) {
+                console.error(err);
+                document.getElementById('weather-summary').innerHTML = `
+                    <i data-lucide="alert-triangle" class="w-4 h-4 inline mr-1 text-red-500"></i>
+                    Gagal memuat data cuaca. Silakan refresh halaman.
+                `;
+                lucide.createIcons();
+            }
         }
 
-        // Weather animation
-        const weatherIcon = document.querySelector('[data-lucide="sun"]');
-        if (weatherIcon && typeof gsap !== 'undefined') {
-            gsap.to(weatherIcon, {
-                rotation: 360,
-                duration: 20,
-                repeat: -1,
-                ease: "none"
-            });
+        function showNotification(message, type = 'info') {
+            // Existing notification code...
         }
     </script>
 </x-app-layout>
