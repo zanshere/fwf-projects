@@ -1,0 +1,234 @@
+name: Laravel CI
+
+on:
+  push:
+    branches: [ "main", "develop" ]
+  pull_request:
+    branches: [ "main", "develop" ]
+
+jobs:
+  laravel-tests:
+    runs-on: ubuntu-latest
+    
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_ROOT_PASSWORD: root
+          MYSQL_DATABASE: laravel_test
+        ports:
+          - 3306:3306
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+
+      redis:
+        image: redis:alpine
+        ports:
+          - 6379:6379
+        options: --health-cmd="redis-cli ping" --health-interval=10s --health-timeout=5s --health-retries=3
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: '8.3.26'
+        extensions: mbstring, xml, ctype, iconv, intl, pdo_mysql, redis, gd, zip
+        coverage: xdebug
+        tools: composer
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        cache: 'npm'
+
+    - name: Get Composer cache directory
+      id: composer-cache
+      run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
+
+    - name: Cache Composer packages
+      uses: actions/cache@v3
+      with:
+        path: ${{ steps.composer-cache.outputs.dir }}
+        key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-php-
+
+    - name: Cache NPM packages
+      uses: actions/cache@v3
+      with:
+        path: ~/.npm
+        key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+        restore-keys: |
+          ${{ runner.os }}-node-
+
+    - name: Copy .env
+      run: |
+        cp .env.example .env
+        cp .env.example .env.testing
+
+    - name: Install Composer dependencies
+      run: |
+        composer install --prefer-dist --no-progress --no-interaction --optimize-autoloader
+        composer dump-autoload
+
+    - name: Install NPM dependencies
+      run: npm ci
+
+    - name: Generate application key
+      run: php artisan key:generate
+
+    - name: Generate testing application key
+      run: php artisan key:generate --env=testing
+
+    - name: Create database and update .env
+      run: |
+        mysql -h 127.0.0.1 -u root -proot -e "CREATE DATABASE IF NOT EXISTS laravel_test;"
+        mysql -h 127.0.0.1 -u root -proot -e "CREATE DATABASE IF NOT EXISTS laravel_testing;"
+        
+        # Update .env for testing
+        echo "DB_CONNECTION=mysql" >> .env.testing
+        echo "DB_HOST=127.0.0.1" >> .env.testing
+        echo "DB_PORT=3306" >> .env.testing
+        echo "DB_DATABASE=laravel_testing" >> .env.testing
+        echo "DB_USERNAME=root" >> .env.testing
+        echo "DB_PASSWORD=root" >> .env.testing
+        
+        # Update .env for main
+        echo "DB_CONNECTION=mysql" >> .env
+        echo "DB_HOST=127.0.0.1" >> .env
+        echo "DB_PORT=3306" >> .env
+        echo "DB_DATABASE=laravel_test" >> .env
+        echo "DB_USERNAME=root" >> .env
+        echo "DB_PASSWORD=root" >> .env
+
+    - name: Run database migrations
+      env:
+        DB_CONNECTION: mysql
+        DB_HOST: 127.0.0.1
+        DB_PORT: 3306
+        DB_DATABASE: laravel_test
+        DB_USERNAME: root
+        DB_PASSWORD: root
+      run: |
+        php artisan migrate:fresh --seed --force
+
+    - name: Run database migrations for testing
+      env:
+        APP_ENV: testing
+      run: |
+        php artisan migrate:fresh --env=testing --force
+
+    - name: Execute tests via PHPUnit
+      env:
+        DB_CONNECTION: mysql
+        DB_HOST: 127.0.0.1
+        DB_PORT: 3306
+        DB_DATABASE: laravel_testing
+        DB_USERNAME: root
+        DB_PASSWORD: root
+        REDIS_HOST: 127.0.0.1
+        REDIS_PORT: 6379
+      run: |
+        php artisan config:clear
+        php artisan cache:clear
+        php artisan route:clear
+        vendor/bin/phpunit --coverage-clover=coverage.xml --log-junit=junit.xml
+
+    - name: Run Laravel Pint
+      run: |
+        composer require laravel/pint --dev
+        ./vendor/bin/pint --test
+
+    - name: Build assets
+      run: npm run build
+
+    - name: Upload test results to Codecov
+      uses: codecov/codecov-action@v3
+      with:
+        file: ./coverage.xml
+        flags: unittests
+        name: codecov-laravel
+        fail_ci_if_error: false
+
+    - name: Upload test results
+      uses: actions/upload-artifact@v3
+      if: failure()
+      with:
+        name: test-results
+        path: junit.xml
+
+  security-check:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: '8.3.26'
+        tools: composer
+
+    - name: Install dependencies
+      run: composer install --no-dev --no-progress --no-interaction
+
+    - name: Security check
+      run: |
+        composer require enlightn/security-checker --dev
+        ./vendor/bin/security-checker security:check
+
+  code-style:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: '8.3.26'
+        tools: composer
+
+    - name: Install dependencies
+      run: composer install --no-progress --no-interaction
+
+    - name: Check code style with Laravel Pint
+      run: |
+        composer require laravel/pint --dev
+        ./vendor/bin/pint --verbose
+
+    - name: Check PHPStan
+      run: |
+        composer require nunomaduro/larastan --dev
+        ./vendor/bin/phpstan analyse --memory-limit=1G --no-progress
+
+  deploy-preview:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
+    needs: [laravel-tests, security-check, code-style]
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: '8.3.26'
+
+    - name: Install dependencies
+      run: composer install --no-dev --optimize-autoloader
+
+    - name: Build assets
+      run: |
+        npm ci
+        npm run build
+
+    - name: Show deployment preview
+      run: |
+        echo "✅ All checks passed! Ready for deployment."
+        echo "Branch: ${{ github.head_ref }}"
+        echo "Pull Request: ${{ github.event.pull_request.number }}"
