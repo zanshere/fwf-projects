@@ -54,6 +54,27 @@ class AdminController extends Controller
     }
 
     
+
+    public function editUser(User $user)
+{
+    return view('admin.users.edit', compact('user'));
+}
+
+public function updateUser(Request $request, User $user)
+{
+    $request->validate([
+        'name' => 'required|string|max:255',
+        'email' => 'required|email|unique:users,email,' . $user->id,
+        'points' => 'required|integer|min:0',
+        'member_level' => 'required|string|max:50',
+    ]);
+
+    $user->update($request->only(['name', 'email', 'points', 'member_level']));
+
+    return redirect()->route('admin.users.show', $user->id)->with('success', 'Data pengguna berhasil diperbarui.');
+}
+
+    
 // Menampilkan daftar reward
 public function rewards()
 {
