@@ -13,13 +13,13 @@ class AdminUserSeeder extends Seeder
         User::create([
             'name' => 'Administrator',
             'email' => 'admin@fajarworld.com',
-            'password' => Hash::make('zanshere'),
+            'password' => Hash::make('fajarworld'),
             'role' => 'admin',
             'member_since' => now(),
         ]);
 
         $this->command->info('Admin user created successfully!');
         $this->command->info('Email: admin@fajarworld.com');
-        $this->command->info('Password: zanshere');
+        $this->command->info('Password: fajarworld');
     }
 }
