@@ -59,12 +59,19 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::middleware(['auth', 'verified', \App\Http\Middleware\AdminMiddleware::class])->group(function () {
         // Dashboard Admin
         Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('dashboard');
+          Route::get('/tickets/verify', [TicketController::class, 'showVerifyPage'])->name('tickets.verify');
+    Route::post('/tickets/verify/qr', [TicketController::class, 'verifyByQr'])->name('tickets.verify.qr');
+    Route::post('/tickets/verify/token', [TicketController::class, 'verifyByToken'])->name('tickets.verify.token');
+ 
+        
+});
 
         // User Management
         Route::get('/users', [UserManagementController::class, 'index'])->name('users.index');
         Route::get('/users/{user}', [UserManagementController::class, 'show'])->name('users.show');
         Route::get('/users/{user}/edit', [UserManagementController::class, 'edit'])->name('users.edit');
-        Route::put('/users/{user}', [UserManagementController::class, 'update'])->name('users.update');
+        Route::put('/users/{user}', [AdminController::class, 'updateUser'])->name('users.update');
+
         Route::delete('/users/{user}', [UserManagementController::class, 'destroy'])->name('users.destroy');
         Route::post('/users/{user}/points', [UserManagementController::class, 'updatePoints'])->name('users.update-points');
 
@@ -93,8 +100,9 @@ Route::prefix('admin')->name('admin.')->group(function () {
         // QR Code & Scanning
         Route::post('/tickets/scan', [AdminController::class, 'scanTicket'])->name('tickets.scan');
         Route::get('/tickets/{ticket}/qrcode', [AdminController::class, 'generateQrCode'])->name('tickets.qrcode');
+        
     });
-});
+
 
 // Profile Routes (accessible by all authenticated users)
 Route::middleware('auth')->group(function () {
