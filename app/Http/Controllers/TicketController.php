@@ -12,6 +12,50 @@ use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 class TicketController extends Controller
 {
+
+    public function showVerifyPage()
+{
+    return view('admin.tickets.verify');
+}
+
+public function verifyByToken(Request $request)
+{
+    $request->validate(['token' => 'required|string']);
+
+    $ticket = Ticket::where('barcode', $request->token)->first();
+
+    if (!$ticket) {
+        return back()->with('error', 'Token tidak ditemukan.');
+    }
+
+    if ($ticket->status === 'terpakai') {
+        return back()->with('error', 'Tiket sudah digunakan.');
+    }
+
+    $ticket->update(['status' => 'terpakai']);
+
+    return back()->with('success', 'Tiket berhasil dikonfirmasi via Token.');
+}
+
+public function verifyByQr(Request $request)
+{
+    $request->validate(['ticket_id' => 'required|integer']);
+
+    $ticket = Ticket::find($request->ticket_id);
+
+    if (!$ticket) {
+        return response()->json(['status' => 'error', 'message' => 'Tiket tidak ditemukan.']);
+    }
+
+    if ($ticket->status === 'terpakai') {
+        return response()->json(['status' => 'error', 'message' => 'Tiket sudah digunakan.']);
+    }
+
+    $ticket->update(['status' => 'terpakai']);
+
+    return response()->json(['status' => 'success', 'message' => 'Tiket berhasil dikonfirmasi via QR.']);
+}
+
     public function index()
     {
         return view('pages.tiket');
@@ -136,8 +180,17 @@ class TicketController extends Controller
         return response()->json([
             'ticket' => $ticket,
             'qr_code' => $qrCode
+
         ]);
     }
+public function showUser($id)
+{
+    $ticket = Ticket::where('id', $id)
+        ->where('user_id', auth()->id()) // supaya hanya tiket milik user yang bisa diakses
+        ->firstOrFail();
+
+    return view('user.tickets.show', compact('ticket'));
+}
 
     public function myTickets()
     {
