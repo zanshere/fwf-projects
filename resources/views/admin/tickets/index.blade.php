@@ -18,6 +18,11 @@
             <span>Manajemen Tiket</span>
         </h1>
         <a href="{{ route('admin.dashboard') }}" class="text-green-600 hover:underline font-medium">← Kembali ke Dashboard</a>
+        <a href="{{ route('admin.tickets.verify') }}" 
+   class="bg-green-600 text-white px-4 py-2 rounded-lg shadow hover:bg-green-700 transition">
+   Konfirmasi Tiket
+</a>
+
     </div>
 
     <div class="max-w-7xl mx-auto py-8 px-4">
