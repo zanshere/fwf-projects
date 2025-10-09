@@ -1,5 +1,7 @@
 @vite(['resources/css/app.css', 'resources/js/app.js'])
 
+<title>Login</title>
+
 <div class="min-h-screen bg-gradient-to-br from-green-800 via-green-600 to-green-900 relative overflow-hidden">
     <!-- Animated Background Elements -->
     <div class="absolute inset-0 overflow-hidden">
