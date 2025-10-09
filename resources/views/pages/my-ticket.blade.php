@@ -496,10 +496,25 @@
             initTicketModal();
         });
 
-        function initTicketModal() {
+        async function initTicketModal() {
+            let QRCode;
+
+            // Dynamically import QRCode library
+            try {
+                // Import QRCode library
+                const qrCodeModule = await import('qrcode');
+                QRCode = qrCodeModule.default;
+                console.log('QRCode library loaded successfully');
+            } catch (error) {
+                console.error('Failed to load QRCode library:', error);
+                // Fallback: load from CDN if dynamic import fails
+                await loadQRCodeFromCDN();
+                return;
+            }
+
             // Ticket modal functionality
             document.querySelectorAll('.view-ticket').forEach(button => {
-                button.addEventListener('click', function() {
+                button.addEventListener('click', async function() {
                     const ticketId = this.getAttribute('data-ticket-id');
                     const modal = document.getElementById('ticket-modal');
 
@@ -512,73 +527,70 @@
                     </div>
                 `;
 
-                    // Fetch ticket details
-                    fetch(`/tickets/${ticketId}`)
-                        .then(response => {
-                            if (!response.ok) {
-                                throw new Error('Network response was not ok');
-                            }
-                            return response.json();
-                        })
-                        .then(data => {
-                            const ticket = data.ticket;
+                    try {
+                        // Fetch ticket details
+                        const response = await fetch(`/tickets/${ticketId}`);
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok');
+                        }
+                        const data = await response.json();
+                        const ticket = data.ticket;
 
-                            // Update modal content
-                            document.getElementById('modal-ticket-type').textContent = ticket
-                                .ticket_type;
-                            document.getElementById('modal-purchase-date').textContent = new Date(ticket
-                                .purchase_date).toLocaleDateString('id-ID', {
-                                weekday: 'long',
-                                year: 'numeric',
-                                month: 'long',
-                                day: 'numeric'
-                            });
-                            document.getElementById('modal-quantity').textContent = ticket.quantity +
-                                ' tiket';
-                            document.getElementById('modal-adult-count').textContent = ticket
-                                .adult_count + ' orang';
-                            document.getElementById('modal-child-count').textContent = ticket
-                                .child_count + ' orang';
-                            document.getElementById('modal-points-earned').textContent = '+' + ticket
-                                .points_earned.toLocaleString('id-ID') + ' poin';
-                            document.getElementById('modal-total-price').textContent = 'Rp ' + ticket
-                                .total_price.toLocaleString('id-ID');
-                            document.getElementById('modal-barcode').textContent = ticket.barcode;
-                            document.getElementById('modal-title').textContent = 'Detail Tiket - ' +
-                                ticket.ticket_type;
+                        // Update modal content
+                        document.getElementById('modal-ticket-type').textContent = ticket
+                            .ticket_type;
+                        document.getElementById('modal-purchase-date').textContent = new Date(ticket
+                            .purchase_date).toLocaleDateString('id-ID', {
+                            weekday: 'long',
+                            year: 'numeric',
+                            month: 'long',
+                            day: 'numeric'
+                        });
+                        document.getElementById('modal-quantity').textContent = ticket.quantity +
+                            ' tiket';
+                        document.getElementById('modal-adult-count').textContent = ticket
+                            .adult_count + ' orang';
+                        document.getElementById('modal-child-count').textContent = ticket
+                            .child_count + ' orang';
+                        document.getElementById('modal-points-earned').textContent = '+' + ticket
+                            .points_earned.toLocaleString('id-ID') + ' poin';
+                        document.getElementById('modal-total-price').textContent = 'Rp ' + ticket
+                            .total_price.toLocaleString('id-ID');
+                        document.getElementById('modal-barcode').textContent = ticket.barcode;
+                        document.getElementById('modal-title').textContent = 'Detail Tiket - ' +
+                            ticket.ticket_type;
 
-                            // Generate QR Code di frontend menggunakan data yang sama dengan backend
-                            generateQRCode(ticket);
+                        // Generate QR Code
+                        await generateQRCode(QRCode, ticket);
 
-                            // Update status info based on ticket status
-                            updateTicketStatusInfo(ticket.status);
+                        // Update status info based on ticket status
+                        updateTicketStatusInfo(ticket.status);
 
-                            // Show modal
-                            modal.classList.remove('hidden');
+                        // Show modal
+                        modal.classList.remove('hidden');
 
-                            // Reinitialize Lucide icons for new content
-                            if (typeof lucide !== 'undefined') {
-                                lucide.createIcons();
-                            }
-                        })
-                        .catch(error => {
-                            console.error('Error:', error);
-                            document.getElementById('modal-title').textContent = 'Error Memuat Data';
-                            document.getElementById('qr-code-container').innerHTML = `
+                        // Reinitialize Lucide icons for new content
+                        if (typeof lucide !== 'undefined') {
+                            lucide.createIcons();
+                        }
+                    } catch (error) {
+                        console.error('Error:', error);
+                        document.getElementById('modal-title').textContent = 'Error Memuat Data';
+                        document.getElementById('qr-code-container').innerHTML = `
                             <div class="flex flex-col items-center justify-center py-8">
                                 <i data-lucide="alert-triangle" class="w-12 h-12 text-red-500 mb-4"></i>
                                 <p class="text-red-500 text-sm">Gagal memuat data tiket</p>
                             </div>
                         `;
-                            if (typeof lucide !== 'undefined') {
-                                lucide.createIcons();
-                            }
-                        });
+                        if (typeof lucide !== 'undefined') {
+                            lucide.createIcons();
+                        }
+                    }
                 });
             });
 
             // Function untuk generate QR code dari data tiket
-            function generateQRCode(ticket) {
+            async function generateQRCode(QRCode, ticket) {
                 const qrContainer = document.getElementById('qr-code-container');
 
                 // Data yang akan diencode dalam QR code - SAMA dengan yang di backend
@@ -589,27 +601,17 @@
                     status: ticket.status
                 });
 
-                // Generate QR code
-                QRCode.toDataURL(qrData, {
-                    width: 200,
-                    height: 200,
-                    margin: 1,
-                    color: {
-                        dark: '#000000',
-                        light: '#FFFFFF'
-                    }
-                }, function(err, url) {
-                    if (err) {
-                        console.error('QR Code generation error:', err);
-                        qrContainer.innerHTML = `
-                        <div class="flex flex-col items-center justify-center py-4">
-                            <i data-lucide="alert-triangle" class="w-8 h-8 text-red-500 mb-2"></i>
-                            <p class="text-red-500 text-xs">Gagal generate QR Code</p>
-                            <p class="text-gray-600 text-xs mt-2">Kode: ${ticket.barcode}</p>
-                        </div>
-                    `;
-                        return;
-                    }
+                try {
+                    // Generate QR code
+                    const url = await QRCode.toDataURL(qrData, {
+                        width: 200,
+                        height: 200,
+                        margin: 1,
+                        color: {
+                            dark: '#000000',
+                            light: '#FFFFFF'
+                        }
+                    });
 
                     qrContainer.innerHTML = `
                     <div class="flex flex-col items-center">
@@ -620,10 +622,40 @@
                         </p>
                     </div>
                 `;
+                } catch (err) {
+                    console.error('QR Code generation error:', err);
+                    qrContainer.innerHTML = `
+                        <div class="flex flex-col items-center justify-center py-4">
+                            <i data-lucide="alert-triangle" class="w-8 h-8 text-red-500 mb-2"></i>
+                            <p class="text-red-500 text-xs">Gagal generate QR Code</p>
+                            <p class="text-gray-600 text-xs mt-2">Kode: ${ticket.barcode}</p>
+                        </div>
+                    `;
+                }
+            }
+
+            // Fallback function untuk load QRCode dari CDN
+            async function loadQRCodeFromCDN() {
+                return new Promise((resolve, reject) => {
+                    if (window.QRCode) {
+                        resolve(window.QRCode);
+                        return;
+                    }
+
+                    const script = document.createElement('script');
+                    script.src = 'https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js';
+                    script.onload = () => {
+                        console.log('QRCode loaded from CDN');
+                        resolve(window.QRCode);
+                    };
+                    script.onerror = () => {
+                        reject(new Error('Failed to load QRCode from CDN'));
+                    };
+                    document.head.appendChild(script);
                 });
             }
 
-            // Function untuk update status info
+            // Function untuk update status info (tetap sama)
             function updateTicketStatusInfo(status) {
                 const statusInfo = document.getElementById('ticket-status-info');
                 let statusHtml = '';
@@ -690,7 +722,7 @@
                 }
             }
 
-            // Print functionality
+            // Print functionality (tetap sama)
             document.getElementById('print-btn').addEventListener('click', function() {
                 const ticketType = document.getElementById('modal-ticket-type').textContent;
                 const purchaseDate = document.getElementById('modal-purchase-date').textContent;
@@ -788,7 +820,7 @@
                 printWindow.document.close();
             });
 
-            // Close modal events
+            // Close modal events (tetap sama)
             document.getElementById('ok-btn').addEventListener('click', function() {
                 document.getElementById('ticket-modal').classList.add('hidden');
             });
@@ -797,7 +829,7 @@
                 document.getElementById('ticket-modal').classList.add('hidden');
             });
 
-            // Close modal when clicking outside
+            // Close modal when clicking outside (tetap sama)
             window.addEventListener('click', function(event) {
                 const modal = document.getElementById('ticket-modal');
                 if (event.target === modal) {
