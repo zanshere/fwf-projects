@@ -14,47 +14,47 @@ class TicketController extends Controller
 {
 
     public function showVerifyPage()
-{
-    return view('admin.tickets.verify');
-}
-
-public function verifyByToken(Request $request)
-{
-    $request->validate(['token' => 'required|string']);
-
-    $ticket = Ticket::where('barcode', $request->token)->first();
-
-    if (!$ticket) {
-        return back()->with('error', 'Token tidak ditemukan.');
+    {
+        return view('admin.tickets.verify');
     }
 
-    if ($ticket->status === 'terpakai') {
-        return back()->with('error', 'Tiket sudah digunakan.');
+    public function verifyByToken(Request $request)
+    {
+        $request->validate(['token' => 'required|string']);
+
+        $ticket = Ticket::where('barcode', $request->token)->first();
+
+        if (!$ticket) {
+            return back()->with('error', 'Token tidak ditemukan.');
+        }
+
+        if ($ticket->status === 'terpakai') {
+            return back()->with('error', 'Tiket sudah digunakan.');
+        }
+
+        $ticket->update(['status' => 'terpakai']);
+
+        return back()->with('success', 'Tiket berhasil dikonfirmasi via Token.');
     }
 
-    $ticket->update(['status' => 'terpakai']);
+    public function verifyByQr(Request $request)
+    {
+        $request->validate(['ticket_id' => 'required|integer']);
 
-    return back()->with('success', 'Tiket berhasil dikonfirmasi via Token.');
-}
+        $ticket = Ticket::find($request->ticket_id);
 
-public function verifyByQr(Request $request)
-{
-    $request->validate(['ticket_id' => 'required|integer']);
+        if (!$ticket) {
+            return response()->json(['status' => 'error', 'message' => 'Tiket tidak ditemukan.']);
+        }
 
-    $ticket = Ticket::find($request->ticket_id);
+        if ($ticket->status === 'terpakai') {
+            return response()->json(['status' => 'error', 'message' => 'Tiket sudah digunakan.']);
+        }
 
-    if (!$ticket) {
-        return response()->json(['status' => 'error', 'message' => 'Tiket tidak ditemukan.']);
+        $ticket->update(['status' => 'terpakai']);
+
+        return response()->json(['status' => 'success', 'message' => 'Tiket berhasil dikonfirmasi via QR.']);
     }
-
-    if ($ticket->status === 'terpakai') {
-        return response()->json(['status' => 'error', 'message' => 'Tiket sudah digunakan.']);
-    }
-
-    $ticket->update(['status' => 'terpakai']);
-
-    return response()->json(['status' => 'success', 'message' => 'Tiket berhasil dikonfirmasi via QR.']);
-}
 
     public function index()
     {
@@ -158,7 +158,6 @@ public function verifyByQr(Request $request)
 
             return redirect()->route('tickets.my-tickets')
                 ->with('success', $successMessage);
-
         } catch (\Exception $e) {
             DB::rollBack();
             return redirect()->back()
@@ -174,23 +173,30 @@ public function verifyByQr(Request $request)
             abort(403, 'Unauthorized access to this ticket.');
         }
 
-        // Generate QR code
-        $qrCode = QrCode::size(200)->generate($ticket->getQrCodeContent());
-
+        // Return ticket data only (QR will be generated on frontend)
         return response()->json([
-            'ticket' => $ticket,
-            'qr_code' => $qrCode
-
+            'ticket' => [
+                'id' => $ticket->id,
+                'ticket_type' => $ticket->ticket_type,
+                'quantity' => $ticket->quantity,
+                'adult_count' => $ticket->adult_count,
+                'child_count' => $ticket->child_count,
+                'purchase_date' => $ticket->purchase_date->format('Y-m-d'),
+                'points_earned' => $ticket->points_earned,
+                'total_price' => $ticket->total_price,
+                'barcode' => $ticket->barcode,
+                'status' => $ticket->status
+            ]
         ]);
     }
-public function showUser($id)
-{
-    $ticket = Ticket::where('id', $id)
-        ->where('user_id', auth()->id()) // supaya hanya tiket milik user yang bisa diakses
-        ->firstOrFail();
+    public function showUser($id)
+    {
+        $ticket = Ticket::where('id', $id)
+            ->where('user_id', auth()->id()) // supaya hanya tiket milik user yang bisa diakses
+            ->firstOrFail();
 
-    return view('user.tickets.show', compact('ticket'));
-}
+        return view('user.tickets.show', compact('ticket'));
+    }
 
     public function myTickets()
     {
@@ -206,7 +212,6 @@ public function showUser($id)
             }
 
             return view('pages.my-ticket', compact('tickets'));
-
         } catch (\Exception $e) {
             $tickets = collect();
             return view('pages.my-ticket', compact('tickets'))
@@ -233,7 +238,6 @@ public function showUser($id)
                 'message' => 'Tiket berhasil divalidasi!',
                 'ticket' => $ticket
             ]);
-
         } catch (\Exception $e) {
             return response()->json([
                 'success' => false,

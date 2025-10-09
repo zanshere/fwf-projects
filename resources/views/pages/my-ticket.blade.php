@@ -475,367 +475,440 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Initialize Lucide icons
-            if (typeof lucide !== 'undefined') {
-                lucide.createIcons();
-            }
+    // Initialize Lucide icons
+    if (typeof lucide !== 'undefined') {
+        lucide.createIcons();
+    }
 
-            // GSAP animations for table rows
-            if (typeof gsap !== 'undefined') {
-                gsap.to('.gsap-fade-up', {
-                    opacity: 1,
-                    y: 0,
-                    duration: 0.6,
-                    stagger: 0.1,
-                    delay: 0.3,
-                    ease: "power2.out"
-                });
-            }
+    // Initialize ticket modal functionality
+    initTicketModal();
+});
 
-            // Initialize ticket modal functionality
-            initTicketModal();
-        });
+async function initTicketModal() {
+    // Load QRCode library from CDN
+    const QRCode = await loadQRCodeLibrary();
 
-        async function initTicketModal() {
-            let QRCode;
+    if (!QRCode) {
+        console.error('Failed to load QRCode library');
+        return;
+    }
 
-            // Dynamically import QRCode library
+    // Ticket modal functionality
+    const modal = document.getElementById('ticket-modal');
+    const closeBtn = document.getElementById('close-modal');
+    const okBtn = document.getElementById('ok-btn');
+    const printBtn = document.getElementById('print-btn');
+
+    // View ticket buttons
+    document.querySelectorAll('.view-ticket').forEach(button => {
+        button.addEventListener('click', async function(e) {
+            e.preventDefault();
+            const ticketId = this.getAttribute('data-ticket-id');
+
+            console.log('Opening ticket:', ticketId);
+
+            // Show modal with loading state
+            modal.classList.remove('hidden');
+            showLoadingState();
+
             try {
-                // Import QRCode library
-                const qrCodeModule = await import('qrcode');
-                QRCode = qrCodeModule.default;
-                console.log('QRCode library loaded successfully');
+                // Fetch ticket details
+                const response = await fetch(`/tickets/${ticketId}`, {
+                    method: 'GET',
+                    headers: {
+                        'Accept': 'application/json',
+                        'X-Requested-With': 'XMLHttpRequest'
+                    }
+                });
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+
+                const data = await response.json();
+                console.log('Ticket data received:', data);
+
+                if (!data.ticket) {
+                    throw new Error('Data tiket tidak valid');
+                }
+
+                const ticket = data.ticket;
+
+                // Update modal content
+                updateModalContent(ticket);
+
+                // Generate QR Code
+                await generateQRCode(QRCode, ticket);
+
+                // Update status info
+                updateTicketStatusInfo(ticket.status);
+
+                // Reinitialize Lucide icons
+                if (typeof lucide !== 'undefined') {
+                    lucide.createIcons();
+                }
+
             } catch (error) {
-                console.error('Failed to load QRCode library:', error);
-                // Fallback: load from CDN if dynamic import fails
-                await loadQRCodeFromCDN();
+                console.error('Error loading ticket:', error);
+                showErrorState(error.message);
+            }
+        });
+    });
+
+    // Load QRCode library from CDN - Try multiple CDNs
+    function loadQRCodeLibrary() {
+        return new Promise((resolve, reject) => {
+            // Check if already loaded
+            if (window.QRCode) {
+                console.log('QRCode library already loaded');
+                resolve(window.QRCode);
                 return;
             }
 
-            // Ticket modal functionality
-            document.querySelectorAll('.view-ticket').forEach(button => {
-                button.addEventListener('click', async function() {
-                    const ticketId = this.getAttribute('data-ticket-id');
-                    const modal = document.getElementById('ticket-modal');
+            // Try multiple CDN sources
+            const cdnSources = [
+                'https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js',
+                'https://unpkg.com/qrcodejs2@0.0.2/qrcode.min.js'
+            ];
 
-                    // Show loading state
-                    modal.querySelector('#modal-title').textContent = 'Memuat Detail Tiket...';
-                    document.getElementById('qr-code-container').innerHTML = `
-                    <div class="flex flex-col items-center justify-center py-8">
-                        <div class="animate-spin rounded-full h-16 w-16 border-b-2 border-green-600 mb-4"></div>
-                        <p class="text-gray-500 text-sm">Memuat QR Code...</p>
-                    </div>
-                `;
+            let currentCDN = 0;
 
-                    try {
-                        // Fetch ticket details
-                        const response = await fetch(`/tickets/${ticketId}`);
-                        if (!response.ok) {
-                            throw new Error('Network response was not ok');
+            function tryLoadScript() {
+                if (currentCDN >= cdnSources.length) {
+                    console.error('All CDN sources failed');
+                    alert('Gagal memuat library QR Code dari semua sumber. Silakan refresh halaman.');
+                    reject(new Error('Failed to load QRCode library from all sources'));
+                    return;
+                }
+
+                const script = document.createElement('script');
+                script.src = cdnSources[currentCDN];
+
+                script.onload = () => {
+                    console.log(`QRCode library loaded successfully from: ${cdnSources[currentCDN]}`);
+                    // Wait a bit for the library to initialize
+                    setTimeout(() => {
+                        if (window.QRCode) {
+                            resolve(window.QRCode);
+                        } else {
+                            console.warn(`Library loaded but QRCode not available, trying next CDN...`);
+                            currentCDN++;
+                            tryLoadScript();
                         }
-                        const data = await response.json();
-                        const ticket = data.ticket;
+                    }, 100);
+                };
 
-                        // Update modal content
-                        document.getElementById('modal-ticket-type').textContent = ticket
-                            .ticket_type;
-                        document.getElementById('modal-purchase-date').textContent = new Date(ticket
-                            .purchase_date).toLocaleDateString('id-ID', {
-                            weekday: 'long',
-                            year: 'numeric',
-                            month: 'long',
-                            day: 'numeric'
-                        });
-                        document.getElementById('modal-quantity').textContent = ticket.quantity +
-                            ' tiket';
-                        document.getElementById('modal-adult-count').textContent = ticket
-                            .adult_count + ' orang';
-                        document.getElementById('modal-child-count').textContent = ticket
-                            .child_count + ' orang';
-                        document.getElementById('modal-points-earned').textContent = '+' + ticket
-                            .points_earned.toLocaleString('id-ID') + ' poin';
-                        document.getElementById('modal-total-price').textContent = 'Rp ' + ticket
-                            .total_price.toLocaleString('id-ID');
-                        document.getElementById('modal-barcode').textContent = ticket.barcode;
-                        document.getElementById('modal-title').textContent = 'Detail Tiket - ' +
-                            ticket.ticket_type;
+                script.onerror = () => {
+                    console.warn(`Failed to load from ${cdnSources[currentCDN]}, trying next...`);
+                    currentCDN++;
+                    tryLoadScript();
+                };
 
-                        // Generate QR Code
-                        await generateQRCode(QRCode, ticket);
+                document.head.appendChild(script);
+            }
 
-                        // Update status info based on ticket status
-                        updateTicketStatusInfo(ticket.status);
+            tryLoadScript();
+        });
+    }
 
-                        // Show modal
-                        modal.classList.remove('hidden');
+    // Show loading state
+    function showLoadingState() {
+        document.getElementById('modal-title').textContent = 'Memuat Detail Tiket...';
+        document.getElementById('qr-code-container').innerHTML = `
+            <div class="flex flex-col items-center justify-center py-8">
+                <div class="animate-spin rounded-full h-16 w-16 border-b-2 border-green-600 mb-4"></div>
+                <p class="text-gray-500 text-sm">Memuat QR Code...</p>
+            </div>
+        `;
+    }
 
-                        // Reinitialize Lucide icons for new content
-                        if (typeof lucide !== 'undefined') {
-                            lucide.createIcons();
-                        }
-                    } catch (error) {
-                        console.error('Error:', error);
-                        document.getElementById('modal-title').textContent = 'Error Memuat Data';
-                        document.getElementById('qr-code-container').innerHTML = `
-                            <div class="flex flex-col items-center justify-center py-8">
-                                <i data-lucide="alert-triangle" class="w-12 h-12 text-red-500 mb-4"></i>
-                                <p class="text-red-500 text-sm">Gagal memuat data tiket</p>
-                            </div>
-                        `;
-                        if (typeof lucide !== 'undefined') {
-                            lucide.createIcons();
-                        }
-                    }
-                });
+    // Show error state
+    function showErrorState(message) {
+        document.getElementById('modal-title').textContent = 'Error Memuat Data';
+        document.getElementById('qr-code-container').innerHTML = `
+            <div class="flex flex-col items-center justify-center py-8">
+                <i data-lucide="alert-triangle" class="w-12 h-12 text-red-500 mb-4"></i>
+                <p class="text-red-500 text-sm">${message || 'Gagal memuat data tiket'}</p>
+            </div>
+        `;
+        if (typeof lucide !== 'undefined') {
+            lucide.createIcons();
+        }
+    }
+
+    // Update modal content with ticket data
+    function updateModalContent(ticket) {
+        // Parse date properly
+        const purchaseDate = new Date(ticket.purchase_date);
+        const formattedDate = purchaseDate.toLocaleDateString('id-ID', {
+            weekday: 'long',
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric'
+        });
+
+        document.getElementById('modal-title').textContent = 'Detail Tiket - ' + ticket.ticket_type;
+        document.getElementById('modal-ticket-type').textContent = ticket.ticket_type;
+        document.getElementById('modal-purchase-date').textContent = formattedDate;
+        document.getElementById('modal-quantity').textContent = ticket.quantity + ' tiket';
+        document.getElementById('modal-adult-count').textContent = ticket.adult_count + ' orang';
+        document.getElementById('modal-child-count').textContent = ticket.child_count + ' orang';
+        document.getElementById('modal-points-earned').textContent = '+' +
+            ticket.points_earned.toLocaleString('id-ID') + ' poin';
+        document.getElementById('modal-total-price').textContent = 'Rp ' +
+            ticket.total_price.toLocaleString('id-ID');
+        document.getElementById('modal-barcode').textContent = ticket.barcode;
+    }
+
+    // Generate QR Code using QRCode.js library
+    async function generateQRCode(QRCodeLib, ticket) {
+        const qrContainer = document.getElementById('qr-code-container');
+
+        // Data yang akan diencode dalam QR code
+        const qrData = JSON.stringify({
+            ticket_id: ticket.id,
+            barcode: ticket.barcode,
+            type: ticket.ticket_type,
+            status: ticket.status
+        });
+
+        try {
+            // Clear container and create a div for QR code
+            qrContainer.innerHTML = '<div id="qrcode-canvas"></div>';
+            const qrDiv = document.getElementById('qrcode-canvas');
+
+            // Generate QR Code using QRCode.js
+            new QRCodeLib(qrDiv, {
+                text: qrData,
+                width: 200,
+                height: 200,
+                colorDark: "#000000",
+                colorLight: "#ffffff",
+                correctLevel: QRCodeLib.CorrectLevel.H
             });
 
-            // Function untuk generate QR code dari data tiket
-            async function generateQRCode(QRCode, ticket) {
-                const qrContainer = document.getElementById('qr-code-container');
+            // Wait for QR code to render
+            await new Promise(resolve => setTimeout(resolve, 100));
 
-                // Data yang akan diencode dalam QR code - SAMA dengan yang di backend
-                const qrData = JSON.stringify({
-                    ticket_id: ticket.id,
-                    barcode: ticket.barcode,
-                    type: ticket.ticket_type,
-                    status: ticket.status
-                });
+            // Get the generated image
+            const qrImage = qrDiv.querySelector('img') || qrDiv.querySelector('canvas');
 
-                try {
-                    // Generate QR code
-                    const url = await QRCode.toDataURL(qrData, {
-                        width: 200,
-                        height: 200,
-                        margin: 1,
-                        color: {
-                            dark: '#000000',
-                            light: '#FFFFFF'
-                        }
-                    });
-
-                    qrContainer.innerHTML = `
+            if (qrImage) {
+                // Wrap with nice styling
+                qrContainer.innerHTML = `
                     <div class="flex flex-col items-center">
-                        <img src="${url}" alt="QR Code Tiket" class="qr-code-glow rounded-lg border-2 border-green-200 mb-3">
+                        <div class="qr-code-glow rounded-lg border-2 border-green-200 mb-3 p-2 bg-white">
+                            ${qrImage.outerHTML}
+                        </div>
                         <p class="text-xs text-gray-600 text-center">
                             Scan QR code untuk validasi tiket<br>
                             <span class="font-mono text-xs bg-gray-100 px-2 py-1 rounded mt-1 inline-block">${ticket.barcode}</span>
                         </p>
                     </div>
                 `;
-                } catch (err) {
-                    console.error('QR Code generation error:', err);
-                    qrContainer.innerHTML = `
-                        <div class="flex flex-col items-center justify-center py-4">
-                            <i data-lucide="alert-triangle" class="w-8 h-8 text-red-500 mb-2"></i>
-                            <p class="text-red-500 text-xs">Gagal generate QR Code</p>
-                            <p class="text-gray-600 text-xs mt-2">Kode: ${ticket.barcode}</p>
-                        </div>
-                    `;
-                }
+            } else {
+                throw new Error('QR Code image not generated');
             }
-
-            // Fallback function untuk load QRCode dari CDN
-            async function loadQRCodeFromCDN() {
-                return new Promise((resolve, reject) => {
-                    if (window.QRCode) {
-                        resolve(window.QRCode);
-                        return;
-                    }
-
-                    const script = document.createElement('script');
-                    script.src = 'https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js';
-                    script.onload = () => {
-                        console.log('QRCode loaded from CDN');
-                        resolve(window.QRCode);
-                    };
-                    script.onerror = () => {
-                        reject(new Error('Failed to load QRCode from CDN'));
-                    };
-                    document.head.appendChild(script);
-                });
+        } catch (err) {
+            console.error('QR Code generation error:', err);
+            qrContainer.innerHTML = `
+                <div class="flex flex-col items-center justify-center py-4">
+                    <i data-lucide="alert-triangle" class="w-8 h-8 text-red-500 mb-2"></i>
+                    <p class="text-red-500 text-xs">Gagal generate QR Code</p>
+                    <p class="text-gray-600 text-xs mt-2">Kode: ${ticket.barcode}</p>
+                </div>
+            `;
+            if (typeof lucide !== 'undefined') {
+                lucide.createIcons();
             }
-
-            // Function untuk update status info (tetap sama)
-            function updateTicketStatusInfo(status) {
-                const statusInfo = document.getElementById('ticket-status-info');
-                let statusHtml = '';
-
-                switch (status) {
-                    case 'aktif':
-                        statusHtml = `
-                        <div class="flex items-center gap-3">
-                            <div class="w-10 h-10 bg-green-500 rounded-full flex items-center justify-center">
-                                <i data-lucide="check" class="w-5 h-5 text-white"></i>
-                            </div>
-                            <div>
-                                <p class="font-semibold text-green-800 text-sm">Tiket Aktif</p>
-                                <p class="text-green-600 text-xs">Siap digunakan untuk masuk</p>
-                            </div>
-                        </div>
-                    `;
-                        break;
-                    case 'proses':
-                        statusHtml = `
-                        <div class="flex items-center gap-3">
-                            <div class="w-10 h-10 bg-yellow-500 rounded-full flex items-center justify-center">
-                                <i data-lucide="clock" class="w-5 h-5 text-white"></i>
-                            </div>
-                            <div>
-                                <p class="font-semibold text-yellow-800 text-sm">Menunggu Konfirmasi</p>
-                                <p class="text-yellow-600 text-xs">Tiket sedang diproses</p>
-                            </div>
-                        </div>
-                    `;
-                        break;
-                    case 'terpakai':
-                        statusHtml = `
-                        <div class="flex items-center gap-3">
-                            <div class="w-10 h-10 bg-gray-500 rounded-full flex items-center justify-center">
-                                <i data-lucide="check-circle" class="w-5 h-5 text-white"></i>
-                            </div>
-                            <div>
-                                <p class="font-semibold text-gray-800 text-sm">Tiket Terpakai</p>
-                                <p class="text-gray-600 text-xs">Tiket sudah digunakan</p>
-                            </div>
-                        </div>
-                    `;
-                        break;
-                    default:
-                        statusHtml = `
-                        <div class="flex items-center gap-3">
-                            <div class="w-10 h-10 bg-gray-500 rounded-full flex items-center justify-center">
-                                <i data-lucide="x" class="w-5 h-5 text-white"></i>
-                            </div>
-                            <div>
-                                <p class="font-semibold text-gray-800 text-sm">Status Tidak Dikenal</p>
-                                <p class="text-gray-600 text-xs">Status: ${status}</p>
-                            </div>
-                        </div>
-                    `;
-                }
-
-                statusInfo.innerHTML = statusHtml;
-
-                // Reinitialize Lucide icons untuk icon yang baru
-                if (typeof lucide !== 'undefined') {
-                    lucide.createIcons();
-                }
-            }
-
-            // Print functionality (tetap sama)
-            document.getElementById('print-btn').addEventListener('click', function() {
-                const ticketType = document.getElementById('modal-ticket-type').textContent;
-                const purchaseDate = document.getElementById('modal-purchase-date').textContent;
-                const barcode = document.getElementById('modal-barcode').textContent;
-                const qrCodeImg = document.querySelector('#qr-code-container img');
-
-                if (!qrCodeImg) {
-                    alert('QR Code tidak tersedia untuk dicetak');
-                    return;
-                }
-
-                const printWindow = window.open('', '_blank');
-                printWindow.document.write(`
-                <!DOCTYPE html>
-                <html>
-                <head>
-                    <title>Cetak Tiket - ${ticketType}</title>
-                    <style>
-                        body {
-                            font-family: Arial, sans-serif;
-                            margin: 20px;
-                            text-align: center;
-                        }
-                        .header {
-                            color: #16a34a;
-                            margin-bottom: 20px;
-                        }
-                        .qr-code {
-                            max-width: 300px;
-                            margin: 20px auto;
-                            border: 2px solid #16a34a;
-                            padding: 10px;
-                            border-radius: 10px;
-                        }
-                        .info {
-                            text-align: left;
-                            margin: 20px auto;
-                            max-width: 400px;
-                        }
-                        .barcode {
-                            font-family: monospace;
-                            background: #f3f4f6;
-                            padding: 10px;
-                            border-radius: 5px;
-                            margin: 10px 0;
-                        }
-                        .footer {
-                            margin-top: 30px;
-                            color: #666;
-                            font-size: 12px;
-                        }
-                        @media print {
-                            body { margin: 0; }
-                        }
-                    </style>
-                </head>
-                <body>
-                    <div class="header">
-                        <h1>E-Ticket</h1>
-                        <h2>Fajar World Fantasy</h2>
-                    </div>
-
-                    <div class="info">
-                        <p><strong>Jenis Tiket:</strong> ${ticketType}</p>
-                        <p><strong>Tanggal Pembelian:</strong> ${purchaseDate}</p>
-                        <div class="barcode">
-                            <strong>Kode Tiket:</strong><br>
-                            ${barcode}
-                        </div>
-                    </div>
-
-                    <div class="qr-code">
-                        <img src="${qrCodeImg.src}" alt="QR Code" style="width: 100%;">
-                        <p style="margin-top: 10px; font-size: 12px; color: #666;">
-                            Scan QR code untuk validasi tiket
-                        </p>
-                    </div>
-
-                    <div class="footer">
-                        <p>Cetak: ${new Date().toLocaleDateString('id-ID')}</p>
-                        <p>Tunjukkan QR Code ini untuk scan masuk</p>
-                    </div>
-
-                    <script>
-                        window.onload = function() {
-                            window.print();
-                            setTimeout(function() {
-                                window.close();
-                            }, 1000);
-                        }
-                    <\/script>
-                </body>
-                </html>
-            `);
-                printWindow.document.close();
-            });
-
-            // Close modal events (tetap sama)
-            document.getElementById('ok-btn').addEventListener('click', function() {
-                document.getElementById('ticket-modal').classList.add('hidden');
-            });
-
-            document.getElementById('close-modal').addEventListener('click', function() {
-                document.getElementById('ticket-modal').classList.add('hidden');
-            });
-
-            // Close modal when clicking outside (tetap sama)
-            window.addEventListener('click', function(event) {
-                const modal = document.getElementById('ticket-modal');
-                if (event.target === modal) {
-                    modal.classList.add('hidden');
-                }
-            });
         }
+    }
+
+    // Update ticket status info
+    function updateTicketStatusInfo(status) {
+        const statusInfo = document.getElementById('ticket-status-info');
+        let statusHtml = '';
+
+        switch (status) {
+            case 'aktif':
+                statusHtml = `
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 bg-green-500 rounded-full flex items-center justify-center">
+                            <i data-lucide="check" class="w-5 h-5 text-white"></i>
+                        </div>
+                        <div>
+                            <p class="font-semibold text-green-800 text-sm">Tiket Aktif</p>
+                            <p class="text-green-600 text-xs">Siap digunakan untuk masuk</p>
+                        </div>
+                    </div>
+                `;
+                break;
+            case 'proses':
+                statusHtml = `
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 bg-yellow-500 rounded-full flex items-center justify-center">
+                            <i data-lucide="clock" class="w-5 h-5 text-white"></i>
+                        </div>
+                        <div>
+                            <p class="font-semibold text-yellow-800 text-sm">Menunggu Konfirmasi</p>
+                            <p class="text-yellow-600 text-xs">Tiket sedang diproses</p>
+                        </div>
+                    </div>
+                `;
+                break;
+            case 'terpakai':
+                statusHtml = `
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 bg-gray-500 rounded-full flex items-center justify-center">
+                            <i data-lucide="check-circle" class="w-5 h-5 text-white"></i>
+                        </div>
+                        <div>
+                            <p class="font-semibold text-gray-800 text-sm">Tiket Terpakai</p>
+                            <p class="text-gray-600 text-xs">Tiket sudah digunakan</p>
+                        </div>
+                    </div>
+                `;
+                break;
+            default:
+                statusHtml = `
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 bg-gray-500 rounded-full flex items-center justify-center">
+                            <i data-lucide="x" class="w-5 h-5 text-white"></i>
+                        </div>
+                        <div>
+                            <p class="font-semibold text-gray-800 text-sm">Status Tidak Dikenal</p>
+                            <p class="text-gray-600 text-xs">Status: ${status}</p>
+                        </div>
+                    </div>
+                `;
+        }
+
+        statusInfo.innerHTML = statusHtml;
+
+        if (typeof lucide !== 'undefined') {
+            lucide.createIcons();
+        }
+    }
+
+    // Print functionality
+    printBtn.addEventListener('click', function() {
+        const ticketType = document.getElementById('modal-ticket-type').textContent;
+        const purchaseDate = document.getElementById('modal-purchase-date').textContent;
+        const barcode = document.getElementById('modal-barcode').textContent;
+        const qrCodeImg = document.querySelector('#qr-code-container img') || document.querySelector(
+            '#qr-code-container canvas');
+
+        if (!qrCodeImg) {
+            alert('QR Code tidak tersedia untuk dicetak');
+            return;
+        }
+
+        // Convert canvas to image if needed
+        let qrSrc = qrCodeImg.src;
+        if (qrCodeImg.tagName === 'CANVAS') {
+            qrSrc = qrCodeImg.toDataURL();
+        }
+
+        const printWindow = window.open('', '_blank');
+        printWindow.document.write(`
+            <!DOCTYPE html>
+            <html>
+            <head>
+                <title>Cetak Tiket - ${ticketType}</title>
+                <style>
+                    body {
+                        font-family: Arial, sans-serif;
+                        margin: 20px;
+                        text-align: center;
+                    }
+                    .header {
+                        color: #16a34a;
+                        margin-bottom: 20px;
+                    }
+                    .qr-code {
+                        max-width: 300px;
+                        margin: 20px auto;
+                        border: 2px solid #16a34a;
+                        padding: 10px;
+                        border-radius: 10px;
+                    }
+                    .info {
+                        text-align: left;
+                        margin: 20px auto;
+                        max-width: 400px;
+                    }
+                    .barcode {
+                        font-family: monospace;
+                        background: #f3f4f6;
+                        padding: 10px;
+                        border-radius: 5px;
+                        margin: 10px 0;
+                    }
+                    .footer {
+                        margin-top: 30px;
+                        color: #666;
+                        font-size: 12px;
+                    }
+                    @media print {
+                        body { margin: 0; }
+                    }
+                </style>
+            </head>
+            <body>
+                <div class="header">
+                    <h1>E-Ticket</h1>
+                    <h2>Fajar World Fantasy</h2>
+                </div>
+
+                <div class="info">
+                    <p><strong>Jenis Tiket:</strong> ${ticketType}</p>
+                    <p><strong>Tanggal Pembelian:</strong> ${purchaseDate}</p>
+                    <div class="barcode">
+                        <strong>Kode Tiket:</strong><br>
+                        ${barcode}
+                    </div>
+                </div>
+
+                <div class="qr-code">
+                    <img src="${qrSrc}" alt="QR Code" style="width: 100%;">
+                    <p style="margin-top: 10px; font-size: 12px; color: #666;">
+                        Scan QR code untuk validasi tiket
+                    </p>
+                </div>
+
+                <div class="footer">
+                    <p>Cetak: ${new Date().toLocaleDateString('id-ID')}</p>
+                    <p>Tunjukkan QR Code ini untuk scan masuk</p>
+                </div>
+
+                <script>
+                    window.onload = function() {
+                        window.print();
+                        setTimeout(function() {
+                            window.close();
+                        }, 1000);
+                    }
+                <\/script>
+            </body>
+            </html>
+        `);
+        printWindow.document.close();
+    });
+
+    // Close modal events
+    function closeModal() {
+        modal.classList.add('hidden');
+    }
+
+    okBtn.addEventListener('click', closeModal);
+    closeBtn.addEventListener('click', closeModal);
+
+    // Close modal when clicking outside
+    window.addEventListener('click', function(event) {
+        if (event.target === modal) {
+            closeModal();
+        }
+    });
+}
     </script>
 </x-app-layout>
