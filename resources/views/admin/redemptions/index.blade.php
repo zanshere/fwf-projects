@@ -21,11 +21,11 @@
                     </li>
                 </ol>
             </nav>
-            <h1 class="text-2xl font-bold text-gray-800">Manajemen Penukaran Reward</h1>
-            <p class="text-gray-600 mt-1">Kelola semua permintaan penukaran reward dari pengguna</p>
+            <h1 class="text-2xl font-bold text-gray-800 dark:text-white">Manajemen Penukaran Reward</h1>
+            <p class="text-gray-600 dark:text-gray-400 mt-1 ">Kelola semua permintaan penukaran reward dari pengguna</p>
         </div>
         <div class="flex gap-3">
-            <button class="px-4 py-2 bg-white border border-gray-300 rounded-xl text-gray-700 hover:border-green-500 hover:text-green-600 transition-all duration-300 flex items-center gap-2">
+            <button class="px-4 py-2 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-xl text-gray-700 dark:text-gray-300 hover:border-green-500 dark:hover:border-green-500 transition-all duration-300 flex items-center gap-2">
                 <i data-lucide="filter" class="w-4 h-4"></i>
                 Filter
             </button>
@@ -95,18 +95,18 @@
     @endif
 
     {{-- Table Container --}}
-    <div class="bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden gsap-fade-up">
+    <div class="bg-white dark:bg-gray-800  rounded-2xl shadow-lg border border-gray-100 overflow-hidden gsap-fade-up">
         {{-- Table Header dengan Search --}}
         <div class="px-6 py-4 border-b border-gray-200 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
             <div class="flex items-center gap-4">
                 <div class="relative flex-1 sm:max-w-xs">
                     <i data-lucide="search" class="w-4 h-4 absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
                     <input type="text" placeholder="Cari penukaran..."
-                           class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-all duration-300">
+                           class="w-full pl-10 pr-4 py-2 dark:bg-gray-700 border border-gray-300 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-all duration-300">
                 </div>
             </div>
             <div class="flex items-center gap-2">
-                <button class="p-2 text-gray-400 hover:text-gray-600 transition-colors">
+                <button class="p-2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors">
                     <i data-lucide="refresh-cw" class="w-4 h-4"></i>
                 </button>
             </div>
@@ -115,14 +115,14 @@
         {{-- Table --}}
         <div class="overflow-x-auto">
             <table class="w-full">
-                <thead class="bg-gray-50">
+                <thead class="bg-gray-50 dark:bg-gray-700">
                     <tr>
-                        <th class="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">User</th>
-                        <th class="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Reward</th>
-                        <th class="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Poin</th>
-                        <th class="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Tanggal</th>
-                        <th class="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Status</th>
-                        <th class="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Aksi</th>
+                        <th class="px-6 py-3 text-left text-xs font-semibold text-gray-600 dark:text-gray-300 uppercase tracking-wider">User</th>
+                        <th class="px-6 py-3 text-left text-xs font-semibold text-gray-600 dark:text-gray-300 uppercase tracking-wider">Reward</th>
+                        <th class="px-6 py-3 text-left text-xs font-semibold text-gray-600 dark:text-gray-300 uppercase tracking-wider">Poin</th>
+                        <th class="px-6 py-3 text-left text-xs font-semibold text-gray-600 dark:text-gray-300 uppercase tracking-wider">Tanggal</th>
+                        <th class="px-6 py-3 text-left text-xs font-semibold text-gray-600 dark:text-gray-300 uppercase tracking-wider">Status</th>
+                        <th class="px-6 py-3 text-left text-xs font-semibold text-gray-600 dark:text-gray-300 uppercase tracking-wider">Aksi</th>
                     </tr>
                 </thead>
                 <tbody class="divide-y divide-gray-200">
