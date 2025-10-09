@@ -184,8 +184,8 @@
 
 {{-- Modals --}}
 @include('admin.redemptions.approve-modal')
-@include('admin.rewards.modals.reject-modal')
-@include('admin.rewards.modals.detail-modal')
+@include('admin.redemptions.reject-modal')
+@include('admin.redemptions.detail-modal')
 @endsection
 
 @push('scripts')

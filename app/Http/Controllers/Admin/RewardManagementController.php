@@ -30,13 +30,20 @@ class RewardManagementController extends Controller
     public function showRedemption($id)
     {
         $redemption = RewardRedemption::with(['user', 'reward', 'approvedBy'])->findOrFail($id);
+
+        // Jika request AJAX, kembalikan JSON dengan HTML
+        if (request()->ajax()) {
+            $html = view('admin.rewards.partials.redemption-detail', compact('redemption'))->render();
+            return response()->json(['html' => $html]);
+        }
+
         return view('admin.rewards.redemption-detail', compact('redemption'));
     }
 
-    public function approveRedemption(Request $request, $id)
+    public function approveRedemption(Request $request)
     {
         try {
-            $redemption = RewardRedemption::findOrFail($id);
+            $redemption = RewardRedemption::findOrFail($request->redemption_id);
 
             $request->validate([
                 'admin_notes' => 'nullable|string|max:500'
@@ -47,16 +54,15 @@ class RewardManagementController extends Controller
 
             return redirect()->route('admin.rewards.redemptions')
                 ->with('success', 'Penukaran reward berhasil disetujui.');
-
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Error: ' . $e->getMessage());
         }
     }
 
-    public function rejectRedemption(Request $request, $id)
+    public function rejectRedemption(Request $request)
     {
         try {
-            $redemption = RewardRedemption::findOrFail($id);
+            $redemption = RewardRedemption::findOrFail($request->redemption_id);
 
             $request->validate([
                 'admin_notes' => 'required|string|max:500'
@@ -67,7 +73,6 @@ class RewardManagementController extends Controller
 
             return redirect()->route('admin.rewards.redemptions')
                 ->with('success', 'Penukaran reward berhasil ditolak.');
-
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Error: ' . $e->getMessage());
         }
@@ -75,7 +80,7 @@ class RewardManagementController extends Controller
 
     public function createReward()
     {
-        return view('admin.rewards.create');
+        return view('admin.redemptions.create');
     }
 
     public function storeReward(Request $request)
@@ -100,9 +105,8 @@ class RewardManagementController extends Controller
                 'is_active' => $request->has('is_active'),
             ]);
 
-            return redirect()->route('admin.rewards.index')
+            return redirect()->route('admin.rewards.redemptions')
                 ->with('success', 'Reward berhasil ditambahkan.');
-
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Error: ' . $e->getMessage());
         }
@@ -137,9 +141,8 @@ class RewardManagementController extends Controller
                 'is_active' => $request->has('is_active'),
             ]);
 
-            return redirect()->route('admin.rewards.index')
+            return redirect()->route('admin.rewards.redemptions')
                 ->with('success', 'Reward berhasil diperbarui.');
-
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Error: ' . $e->getMessage());
         }

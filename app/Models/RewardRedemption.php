@@ -1,4 +1,5 @@
 <?php
+// app/Models/RewardRedemption.php
 
 namespace App\Models;
 
@@ -13,15 +14,21 @@ class RewardRedemption extends Model
         'user_id',
         'reward_id',
         'points_used',
+        'points_before',
+        'points_after',
         'status',
         'notes',
+        'admin_notes',
         'redeemed_at',
         'processed_at',
+        'approved_at',
+        'approved_by',
     ];
 
     protected $casts = [
         'redeemed_at' => 'datetime',
         'processed_at' => 'datetime',
+        'approved_at' => 'datetime',
     ];
 
     public function user()
@@ -34,26 +41,35 @@ class RewardRedemption extends Model
         return $this->belongsTo(Reward::class);
     }
 
-    public function approve($notes = null)
+    public function approvedBy()
+    {
+        return $this->belongsTo(User::class, 'approved_by');
+    }
+
+    public function approve($adminId, $notes = null)
     {
         $this->update([
             'status' => 'approved',
             'processed_at' => now(),
-            'notes' => $notes,
+            'approved_at' => now(),
+            'approved_by' => $adminId,
+            'admin_notes' => $notes,
         ]);
 
-        // Deduct from reward stock if needed
+        // Deduct from reward stock
         if ($this->reward->stock > 0) {
             $this->reward->decrement('stock');
         }
     }
 
-    public function reject($notes = null)
+    public function reject($adminId, $notes = null)
     {
         $this->update([
             'status' => 'rejected',
             'processed_at' => now(),
-            'notes' => $notes,
+            'approved_at' => now(),
+            'approved_by' => $adminId,
+            'admin_notes' => $notes,
         ]);
 
         // Return points to user
@@ -69,5 +85,21 @@ class RewardRedemption extends Model
             'status' => 'completed',
             'notes' => $notes,
         ]);
+    }
+
+    // Scope untuk filtering
+    public function scopePending($query)
+    {
+        return $query->where('status', 'pending');
+    }
+
+    public function scopeApproved($query)
+    {
+        return $query->where('status', 'approved');
+    }
+
+    public function scopeRejected($query)
+    {
+        return $query->where('status', 'rejected');
     }
 }
