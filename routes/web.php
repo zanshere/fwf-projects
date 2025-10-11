@@ -7,6 +7,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\RewardController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Admin\UserManagementController;
+use App\Http\Controllers\Admin\RewardManagementController;
 
 /*
 |--------------------------------------------------------------------------
@@ -64,8 +65,8 @@ Route::prefix('admin')->name('admin.')->group(function () {
           Route::get('/tickets/verify', [TicketController::class, 'showVerifyPage'])->name('tickets.verify');
     Route::post('/tickets/verify/qr', [TicketController::class, 'verifyByQr'])->name('tickets.verify.qr');
     Route::post('/tickets/verify/token', [TicketController::class, 'verifyByToken'])->name('tickets.verify.token');
- 
-        
+
+
 });
 
         // User Management
@@ -83,18 +84,17 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::post('/tickets/{ticket}/reject', [AdminController::class, 'rejectTicket'])->name('tickets.reject');
         Route::post('/tickets/special', [AdminController::class, 'createSpecialTicket'])->name('tickets.create-special');
 
-        // Reward Management
-        Route::get('/rewards/redemptions', [AdminController::class, 'rewardsRedemptions'])->name('admin.rewards.redemptions');
-        Route::get('/rewards/{reward}', [AdminController::class, 'showReward'])->name('rewards.show');
-        Route::get('/rewards/{reward}/edit', [AdminController::class, 'editReward'])->name('rewards.edit');
-        Route::put('/rewards/{reward}', [AdminController::class, 'updateReward'])->name('rewards.update');
-        Route::patch('/rewards/{reward}/update-status', [AdminController::class, 'updateRewardStatus'])->name('rewards.update-status');
-        Route::delete('/rewards/{reward}', [AdminController::class, 'destroyReward'])->name('rewards.destroy');
+        // Reward Redemptions Management
+        Route::get('/rewards/redemptions', [RewardManagementController::class, 'index'])->name('rewards.redemptions');
+        Route::get('/rewards/redemptions/{id}', [RewardManagementController::class, 'showRedemption'])->name('rewards.redemption-detail');
+        Route::post('/rewards/redemptions/approve', [RewardManagementController::class, 'approveRedemption'])->name('rewards.approve');
+        Route::post('/rewards/redemptions/reject', [RewardManagementController::class, 'rejectRedemption'])->name('rewards.reject');
 
-        // Reward Redemptions
-        Route::get('/rewards/redemptions', [AdminController::class, 'rewardRedemptions'])->name('rewards.redemptions');
-        Route::post('/rewards/redemptions/{redemption}/approve', [AdminController::class, 'approveRewardRedemption'])->name('rewards.approve');
-        Route::post('/rewards/redemptions/{redemption}/reject', [AdminController::class, 'rejectRewardRedemption'])->name('rewards.reject');
+        // Reward CRUD
+        Route::get('/rewards/create', [RewardManagementController::class, 'createReward'])->name('rewards.create');
+        Route::post('/rewards', [RewardManagementController::class, 'storeReward'])->name('rewards.store');
+        Route::get('/rewards/{id}/edit', [RewardManagementController::class, 'editReward'])->name('rewards.edit');
+        Route::put('/rewards/{id}', [RewardManagementController::class, 'updateReward'])->name('rewards.update');
 
         // Export Rewards
         Route::get('/rewards-export', [AdminController::class, 'exportRewards'])->name('rewards.export');
@@ -102,7 +102,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
         // QR Code & Scanning
         Route::post('/tickets/scan', [AdminController::class, 'scanTicket'])->name('tickets.scan');
         Route::get('/tickets/{ticket}/qrcode', [AdminController::class, 'generateQrCode'])->name('tickets.qrcode');
-        
+
     });
 
 
