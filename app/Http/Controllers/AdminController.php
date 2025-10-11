@@ -265,6 +265,15 @@ public function exportRewards()
         return view('admin.tickets.index', compact('tickets', 'stats', 'status', 'search'));
     }
 
+public function modal(Ticket $ticket)
+{
+    // Partial view berisi detail tiket
+    $html = view('admin.partials.ticket-modal', compact('ticket'))->render();
+
+    return response()->json(['html' => $html]);
+}
+
+
     /**
      * Konfirmasi Tiket (Ubah status dari proses ke aktif)
      */
