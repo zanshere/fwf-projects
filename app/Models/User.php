@@ -80,25 +80,30 @@ class User extends Authenticatable
     }
 
     public function addPoints($points, $activity = null)
-    {
-        $this->increment('points', $points);
+{
+    // Tambah poin aktif dan poin lifetime
+    $this->increment('points', $points);
+    $this->increment('points_lifetime', $points); // ✅ Tambahan untuk komplain #1
 
-        if ($activity) {
-            $this->activities()->create([
-                'type' => $activity['type'] ?? 'points_added',
-                'description' => $activity['description'] ?? "Earned {$points} points",
-                'points_earned' => $points,
-                'activity_date' => now(),
-            ]);
-        }
-
-        $this->updateMemberLevel();
+    // Catat aktivitas bila ada
+    if ($activity) {
+        $this->activities()->create([
+            'type' => $activity['type'] ?? 'points_added',
+            'description' => $activity['description'] ?? "Earned {$points} points",
+            'points_earned' => $points,
+            'activity_date' => now(),
+        ]);
     }
+
+    // Update level member setelah poin bertambah
+    $this->updateMemberLevel();
+}
+
 
     public function deductPoints($points, $activity = null)
     {
         $this->decrement('points', $points);
-
+        
         if ($activity) {
             $this->activities()->create([
                 'type' => $activity['type'] ?? 'points_used',
