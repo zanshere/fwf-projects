@@ -54,13 +54,13 @@
                                     class="text-xs font-medium text-blue-600 bg-blue-100 px-2 py-1 rounded-full">Total</span>
                             </div>
                             <h3 class="text-xl lg:text-2xl font-black text-gray-800 mb-1" id="visits-count">
-                                {{ $points ?? $user->points }}
+                                {{ $user->total_visits ?? 0 }}
                             </h3>
                             <p class="text-gray-600 text-xs lg:text-sm">Kunjungan</p>
                         </div>
                     </div>
 
-                    <!-- Poin Reward Card -->
+                    <!-- Poin Harian Card (Daily Points) -->
                     <div class="group relative gsap-scale">
                         <div
                             class="absolute inset-0 bg-gradient-to-r from-yellow-400/20 to-orange-400/20 rounded-2xl lg:rounded-3xl blur-xl opacity-75 group-hover:opacity-100 transition-opacity">
@@ -73,12 +73,13 @@
                                     <i data-lucide="star" class="w-5 h-5 lg:w-6 lg:h-6 text-white"></i>
                                 </div>
                                 <span
-                                    class="text-xs font-medium text-yellow-600 bg-yellow-100 px-2 py-1 rounded-full">Aktif</span>
+                                    class="text-xs font-medium text-yellow-600 bg-yellow-100 px-2 py-1 rounded-full">Hari
+                                    Ini</span>
                             </div>
-                            <h3 class="text-xl lg:text-2xl font-black text-gray-800 mb-1" id="points-count">
-                                {{ number_format($user->points_lifetime ?? 0) }}
+                            <h3 class="text-xl lg:text-2xl font-black text-gray-800 mb-1" id="daily-points-count">
+                                {{ number_format($user->daily_points ?? 0) }}
                             </h3>
-                            <p class="text-gray-600 text-xs lg:text-sm">Poin Reward</p>
+                            <p class="text-gray-600 text-xs lg:text-sm">Poin Hari Ini</p>
                         </div>
                     </div>
 
@@ -97,7 +98,9 @@
                                 <span
                                     class="text-xs font-medium text-green-600 bg-green-100 px-2 py-1 rounded-full">Tersedia</span>
                             </div>
-                            <h3 class="text-xl lg:text-2xl font-black text-gray-800 mb-1">3</h3>
+                            <h3 class="text-xl lg:text-2xl font-black text-gray-800 mb-1" id="active-tickets-count">
+                                {{ $user->activeTickets()->count() ?? 0 }}
+                            </h3>
                             <p class="text-gray-600 text-xs lg:text-sm">Tiket Aktif</p>
                         </div>
                     </div>
@@ -286,21 +289,22 @@
 
                                 <div class="space-y-3 lg:space-y-4 mb-6">
                                     <div class="flex justify-between items-center">
-                                        <span class="text-gray-600 text-sm">Member Sejak</span>
-                                        <span
-                                            class="font-semibold text-gray-800 text-sm">{{ $user->member_since ? $user->member_since->format('M Y') : 'Jan 2024' }}</span>
+                                        <span class="text-gray-600 text-sm">Poin Aktif</span>
+                                        <span class="font-semibold text-gray-800 text-sm" id="profile-active-points">
+                                            {{ number_format($user->points ?? 0) }} poin
+                                        </span>
                                     </div>
                                     <div class="flex justify-between items-center">
                                         <span class="text-gray-600 text-sm">Total Kunjungan</span>
-                                        <span
-                                            class="font-semibold text-gray-800 text-sm">{{ $user->total_visits ?? 0 }}
-                                            kali</span>
+                                        <span class="font-semibold text-gray-800 text-sm">
+                                            {{ $user->total_visits ?? 0 }} kali
+                                        </span>
                                     </div>
                                     <div class="flex justify-between items-center">
-                                        <span class="text-gray-600 text-sm">Poin Lifetime</span>
-                                        <span
-                                            class="font-semibold text-gray-800 text-sm">{{ number_format($user->activities()->pointsEarned()->sum('points_earned') ?? 3450) }}
-                                            poin</span>
+                                        <span class="text-gray-600 text-sm">Poin Terpakai</span>
+                                        <span class="font-semibold text-orange-600 text-sm" id="profile-used-points">
+                                            {{ number_format($user->points_used ?? 0) }} poin
+                                        </span>
                                     </div>
                                 </div>
 
@@ -399,19 +403,21 @@
 
                         <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8" id="weather-content">
                             <!-- Today's Weather -->
-                            <div class="text-center bg-gradient-to-br from-blue-50 to-cyan-50 rounded-xl lg:rounded-2xl p-6 lg:p-8">
+                            <div
+                                class="text-center bg-gradient-to-br from-blue-50 to-cyan-50 rounded-xl lg:rounded-2xl p-6 lg:p-8">
                                 <h4 class="font-bold text-gray-800 mb-4 text-sm lg:text-base">Hari Ini</h4>
                                 <div class="flex items-center justify-center gap-4 mb-4">
                                     <i id="weather-icon-today" data-lucide="sun"
                                         class="w-12 h-12 lg:w-16 lg:h-16 text-yellow-500"></i>
                                     <div>
-                                        <div id="weather-temp-today" class="text-2xl lg:text-3xl font-black text-gray-800">--°C</div>
+                                        <div id="weather-temp-today"
+                                            class="text-2xl lg:text-3xl font-black text-gray-800">--°C</div>
                                         <div id="weather-desc-today" class="text-gray-600 text-sm">Memuat...</div>
                                     </div>
                                 </div>
                                 <div class="grid grid-cols-2 gap-3 text-xs lg:text-sm">
                                     <div class="text-center">
-                                        <i data-lucide="thermometer" class="w-4 h-4 text-orange-500 mx-auto mb-1"></i>
+                                        <i data-lucide="thermometer" class="w-4 h-4 text-blue-500 mx-auto mb-1"></i>
                                         <div id="temp-min-today" class="text-gray-600">Min: --°C</div>
                                     </div>
                                     <div class="text-center">
@@ -422,7 +428,8 @@
                             </div>
 
                             <!-- Weather Details -->
-                            <div class="bg-gradient-to-br from-green-50 to-emerald-50 rounded-xl lg:rounded-2xl p-6 lg:p-8">
+                            <div
+                                class="bg-gradient-to-br from-green-50 to-emerald-50 rounded-xl lg:rounded-2xl p-6 lg:p-8">
                                 <h4 class="font-bold text-gray-800 mb-4 text-sm lg:text-base">Detail Cuaca</h4>
                                 <div class="space-y-4">
                                     <div class="flex items-center justify-between">
@@ -430,7 +437,8 @@
                                             <i data-lucide="wind" class="w-4 h-4 text-blue-500"></i>
                                             <span class="text-gray-600 text-sm">Kecepatan Angin</span>
                                         </div>
-                                        <span id="wind-speed" class="font-semibold text-gray-800 text-sm">-- km/h</span>
+                                        <span id="wind-speed" class="font-semibold text-gray-800 text-sm">--
+                                            km/h</span>
                                     </div>
                                     <div class="flex items-center justify-between">
                                         <div class="flex items-center gap-2">
@@ -450,19 +458,21 @@
                             </div>
 
                             <!-- Tomorrow's Weather -->
-                            <div class="text-center bg-gradient-to-br from-purple-50 to-pink-50 rounded-xl lg:rounded-2xl p-6 lg:p-8">
+                            <div
+                                class="text-center bg-gradient-to-br from-purple-50 to-pink-50 rounded-xl lg:rounded-2xl p-6 lg:p-8">
                                 <h4 class="font-bold text-gray-800 mb-4 text-sm lg:text-base">Besok</h4>
                                 <div class="flex items-center justify-center gap-4 mb-4">
                                     <i id="weather-icon-tomorrow" data-lucide="cloud"
                                         class="w-12 h-12 lg:w-16 lg:h-16 text-gray-500"></i>
                                     <div>
-                                        <div id="weather-temp-tomorrow" class="text-2xl lg:text-3xl font-black text-gray-800">--°C</div>
+                                        <div id="weather-temp-tomorrow"
+                                            class="text-2xl lg:text-3xl font-black text-gray-800">--°C</div>
                                         <div id="weather-desc-tomorrow" class="text-gray-600 text-sm">Memuat...</div>
                                     </div>
                                 </div>
                                 <div class="grid grid-cols-2 gap-3 text-xs lg:text-sm">
                                     <div class="text-center">
-                                        <i data-lucide="thermometer" class="w-4 h-4 text-orange-500 mx-auto mb-1"></i>
+                                        <i data-lucide="thermometer" class="w-4 h-4 text-blue-500 mx-auto mb-1"></i>
                                         <div id="temp-min-tomorrow" class="text-gray-600">Min: --°C</div>
                                     </div>
                                     <div class="text-center">
@@ -588,8 +598,8 @@
     </style>
 
     <!-- Enhanced JavaScript with GSAP -->
-    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.2/dist/gsap.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.2/dist/ScrollTrigger.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -694,19 +704,21 @@
 
         function initCountUpAnimations() {
             const visits = parseInt(document.getElementById('visits-count').textContent) || 0;
-            const points = parseInt(document.getElementById('points-count').textContent.replace(/,/g, '')) || 0;
+            const dailyPoints = parseInt(document.getElementById('daily-points-count').textContent.replace(/,/g, '')) || 0;
+            const activeTickets = parseInt(document.getElementById('active-tickets-count').textContent) || 0;
 
             const statsData = [{
                     selector: '#visits-count',
                     value: visits
                 },
                 {
-                    selector: '#points-count',
-                    value: points
+                    selector: '#daily-points-count',
+                    value: dailyPoints,
+                    useComma: true
                 },
                 {
-                    selector: '.gsap-scale:nth-child(3) h3',
-                    value: 3
+                    selector: '#active-tickets-count',
+                    value: activeTickets
                 }
             ];
 
@@ -721,12 +733,9 @@
                         delay: 1.2 + (index * 0.2),
                         ease: "power2.out",
                         onUpdate: function() {
-                            if (stat.selector.includes('points-count')) {
-                                element.textContent = Math.round(this.targets()[0].value)
-                                    .toLocaleString();
-                            } else {
-                                element.textContent = Math.round(this.targets()[0].value);
-                            }
+                            const currentValue = Math.round(this.targets()[0].value);
+                            element.textContent = stat.useComma ? currentValue.toLocaleString() :
+                                currentValue;
                         }
                     });
                 }
@@ -738,21 +747,63 @@
                 const response = await fetch('{{ route('dashboard.stats') }}');
                 const stats = await response.json();
 
-                // Update stats with real data
+                // Update stats dengan animasi smooth
+                if (stats.daily_points !== undefined) {
+                    animateValue('daily-points-count', 0, stats.daily_points, 1500, true);
+                }
+
                 if (stats.total_visits !== undefined) {
-                    document.getElementById('visits-count').textContent = stats.total_visits;
+                    animateValue('visits-count', 0, stats.total_visits, 1500, false);
                 }
-                if (stats.points !== undefined) {
-                    document.getElementById('points-count').textContent = stats.points.toLocaleString();
+
+                if (stats.active_tickets !== undefined) {
+                    animateValue('active-tickets-count', 0, stats.active_tickets, 1500, false);
                 }
+
+                // Update profile points
+                if (stats.points_active !== undefined) {
+                    const activePointsEl = document.getElementById('profile-active-points');
+                    if (activePointsEl) {
+                        activePointsEl.textContent = stats.points_active.toLocaleString() + ' poin';
+                    }
+                }
+
+                if (stats.points_lifetime !== undefined) {
+                    const lifetimePointsEl = document.getElementById('profile-lifetime-points');
+                    if (lifetimePointsEl) {
+                        lifetimePointsEl.textContent = stats.points_lifetime.toLocaleString() + ' poin';
+                    }
+                }
+
             } catch (error) {
                 console.log('Error loading stats:', error);
             }
         }
 
+        // Helper function untuk animasi angka
+        function animateValue(id, start, end, duration, useComma = false) {
+            const element = document.getElementById(id);
+            if (!element) return;
+
+            const range = end - start;
+            const increment = range / (duration / 16);
+            let current = start;
+
+            const timer = setInterval(() => {
+                current += increment;
+                if ((increment > 0 && current >= end) || (increment < 0 && current <= end)) {
+                    current = end;
+                    clearInterval(timer);
+                }
+
+                const displayValue = Math.round(current);
+                element.textContent = useComma ? displayValue.toLocaleString() : displayValue;
+            }, 16);
+        }
+
         async function loadWeatherData() {
             const LAT = -6.3971493;
-            const LON = 6.9650053;
+            const LON = 106.9650053;
 
             const mapWeatherCode = (code) => {
                 const map = {
@@ -814,11 +865,17 @@
                 };
             };
 
-            const url = `https://api.open-meteo.com/v1/forecast?latitude=${LAT}&longitude=${LON}&hourly=temperature_2m,relativehumidity_2m,windspeed_10m,weathercode&daily=temperature_2m_max,temperature_2m_min,weathercode&forecast_days=2&timezone=Asia%2FJakarta&windspeed_unit=kmh`;
+            const url =
+                `https://api.open-meteo.com/v1/forecast?latitude=${LAT}&longitude=${LON}&hourly=temperature_2m,relativehumidity_2m,windspeed_10m,weathercode&daily=temperature_2m_max,temperature_2m_min,weathercode&forecast_days=2&timezone=Asia%2FJakarta&windspeed_unit=kmh`;
 
             try {
                 const res = await fetch(url);
                 const data = await res.json();
+
+                // Check if required data exists
+                if (!data.daily || !data.hourly) {
+                    throw new Error('Data cuaca tidak lengkap');
+                }
 
                 const today = {
                     tempMin: data.daily.temperature_2m_min[0],
@@ -831,7 +888,8 @@
                     tempMin: data.daily.temperature_2m_min[1],
                     tempMax: data.daily.temperature_2m_max[1],
                     wc: data.daily.weathercode[1],
-                    humidity: Math.round(data.hourly.relativehumidity_2m.slice(24, 48).reduce((a, b) => a + b) / 24),
+                    humidity: Math.round(data.hourly.relativehumidity_2m.slice(24, 48).reduce((a, b) => a + b) /
+                        24),
                     wind: Math.round(data.hourly.windspeed_10m.slice(24, 48).reduce((a, b) => a + b) / 24)
                 };
 
@@ -839,50 +897,70 @@
                 const wcToday = mapWeatherCode(today.wc);
                 const wcTomorrow = mapWeatherCode(tomorrow.wc);
 
+                // Safe element updates with null checks
+                const updateElement = (id, value) => {
+                    const element = document.getElementById(id);
+                    if (element) element.textContent = value;
+                };
+
+                const updateIcon = (id, icon, color) => {
+                    const element = document.getElementById(id);
+                    if (element) {
+                        element.setAttribute("data-lucide", icon);
+                        element.className = `w-12 h-12 lg:w-16 lg:h-16 ${color}`;
+                    }
+                };
+
                 // Update Today's Weather
-                document.getElementById('weather-icon-today').setAttribute("data-lucide", wcToday.icon);
-                document.getElementById('weather-icon-today').className = `w-12 h-12 lg:w-16 lg:h-16 ${wcToday.color}`;
-                document.getElementById('weather-temp-today').textContent = `${nowAvg}°C`;
-                document.getElementById('weather-desc-today').textContent = wcToday.text;
-                document.getElementById('temp-min-today').textContent = `Min: ${today.tempMin}°C`;
-                document.getElementById('temp-max-today').textContent = `Max: ${today.tempMax}°C`;
+                updateIcon('weather-icon-today', wcToday.icon, wcToday.color);
+                updateElement('weather-temp-today', `${nowAvg}°C`);
+                updateElement('weather-desc-today', wcToday.text);
+                updateElement('temp-min-today', `Min: ${today.tempMin}°C`);
+                updateElement('temp-max-today', `Max: ${today.tempMax}°C`);
 
                 // Update Tomorrow's Weather
                 const tomorrowAvg = Math.round((tomorrow.tempMin + tomorrow.tempMax) / 2);
-                document.getElementById('weather-icon-tomorrow').setAttribute("data-lucide", wcTomorrow.icon);
-                document.getElementById('weather-icon-tomorrow').className = `w-12 h-12 lg:w-16 lg:h-16 ${wcTomorrow.color}`;
-                document.getElementById('weather-temp-tomorrow').textContent = `${tomorrowAvg}°C`;
-                document.getElementById('weather-desc-tomorrow').textContent = wcTomorrow.text;
-                document.getElementById('temp-min-tomorrow').textContent = `Min: ${tomorrow.tempMin}°C`;
-                document.getElementById('temp-max-tomorrow').textContent = `Max: ${tomorrow.tempMax}°C`;
+                updateIcon('weather-icon-tomorrow', wcTomorrow.icon, wcTomorrow.color);
+                updateElement('weather-temp-tomorrow', `${tomorrowAvg}°C`);
+                updateElement('weather-desc-tomorrow', wcTomorrow.text);
+                updateElement('temp-min-tomorrow', `Min: ${tomorrow.tempMin}°C`);
+                updateElement('temp-max-tomorrow', `Max: ${tomorrow.tempMax}°C`);
 
                 // Update Weather Details
-                document.getElementById('wind-speed').textContent = `${today.wind} km/h`;
-                document.getElementById('humidity').textContent = `${today.humidity}%`;
-                document.getElementById('conditions').textContent = wcToday.text;
+                updateElement('wind-speed', `${today.wind} km/h`);
+                updateElement('humidity', `${today.humidity}%`);
+                updateElement('conditions', wcToday.text);
 
                 // Update Summary
-                document.getElementById('weather-summary').innerHTML = `
-                    <i data-lucide="thermometer" class="w-4 h-4 inline mr-1"></i>
-                    Hari ini ${wcToday.text.toLowerCase()} dengan suhu antara <b>${today.tempMin}°C - ${today.tempMax}°C</b>,
-                    kelembapan rata-rata <b>${today.humidity}%</b>, kecepatan angin <b>${today.wind} km/h</b>.
-                    Besok: suhu <b>${tomorrow.tempMin}°C - ${tomorrow.tempMax}°C</b>, ${wcTomorrow.text.toLowerCase()}.
-                `;
+                const summaryElement = document.getElementById('weather-summary');
+                if (summaryElement) {
+                    summaryElement.innerHTML = `
+                <i data-lucide="thermometer" class="w-4 h-4 inline mr-1"></i>
+                Hari ini ${wcToday.text.toLowerCase()} dengan suhu antara <b>${today.tempMin}°C - ${today.tempMax}°C</b>,
+                kelembapan rata-rata <b>${today.humidity}%</b>, kecepatan angin <b>${today.wind} km/h</b>.
+                Besok: suhu <b>${tomorrow.tempMin}°C - ${tomorrow.tempMax}°C</b>, ${wcTomorrow.text.toLowerCase()}.
+            `;
+                }
 
                 // Reinitialize Lucide icons
-                lucide.createIcons();
-            } catch (err) {
-                console.error(err);
-                document.getElementById('weather-summary').innerHTML = `
-                    <i data-lucide="alert-triangle" class="w-4 h-4 inline mr-1 text-red-500"></i>
-                    Gagal memuat data cuaca. Silakan refresh halaman.
-                `;
-                lucide.createIcons();
-            }
-        }
+                if (typeof lucide !== 'undefined') {
+                    lucide.createIcons();
+                }
 
-        function showNotification(message, type = 'info') {
-            // Existing notification code...
+            } catch (err) {
+                console.error('Error loading weather data:', err);
+                const summaryElement = document.getElementById('weather-summary');
+                if (summaryElement) {
+                    summaryElement.innerHTML = `
+                <i data-lucide="alert-triangle" class="w-4 h-4 inline mr-1 text-red-500"></i>
+                Gagal memuat data cuaca. Silakan refresh halaman.
+            `;
+                }
+
+                if (typeof lucide !== 'undefined') {
+                    lucide.createIcons();
+                }
+            }
         }
     </script>
 </x-app-layout>

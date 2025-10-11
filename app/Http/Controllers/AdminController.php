@@ -40,7 +40,7 @@ class AdminController extends Controller
             $pendingRedemptions = RewardRedemption::with(['user', 'reward'])
                 ->where('status', 'pending')
                 ->get();
-            
+
                  $chart = [
             'labels' => ['Sen', 'Sel', 'Rab', 'Kam', 'Jum', 'Sab', 'Min'],
             'data' => [65, 78, 90, 81, 86, 55, 40],
@@ -53,7 +53,7 @@ class AdminController extends Controller
         }
     }
 
-    
+
 
     public function editUser(User $user)
 {
@@ -74,7 +74,7 @@ public function updateUser(Request $request, User $user)
     return redirect()->route('admin.users.show', $user->id)->with('success', 'Data pengguna berhasil diperbarui.');
 }
 
-    
+
 // Menampilkan daftar reward
 public function rewards()
 {

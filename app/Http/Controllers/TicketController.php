@@ -12,7 +12,6 @@ use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 class TicketController extends Controller
 {
-
     public function showVerifyPage()
     {
         return view('admin.tickets.verify');
@@ -80,12 +79,10 @@ class TicketController extends Controller
         ];
 
         if ($isAuthenticated) {
-            // For authenticated users, use their info
             $validated = $request->validate($validationRules);
             $validated['nama'] = Auth::user()->name;
             $validated['email'] = Auth::user()->email;
         } else {
-            // For guests, require name and email
             $guestRules = array_merge($validationRules, [
                 'nama' => 'required|string|max:255',
                 'email' => 'required|email'
@@ -93,7 +90,6 @@ class TicketController extends Controller
             $validated = $request->validate($guestRules);
         }
 
-        // Validate quantity >= adult_count + child_count
         if ($validated['quantity'] < ($validated['adult_count'] + $validated['child_count'])) {
             return redirect()->back()
                 ->with('error', 'Jumlah tiket harus lebih besar atau sama dengan jumlah dewasa + anak.')
@@ -103,7 +99,6 @@ class TicketController extends Controller
         try {
             DB::beginTransaction();
 
-            // Calculate total price
             $priceMap = [
                 'Reguler' => 1500000,
                 'Premium' => 2000000,
@@ -114,17 +109,15 @@ class TicketController extends Controller
             $quantity = $validated['quantity'];
             $totalPrice = $priceMap[$ticketType] * $quantity;
 
-            // Calculate points (only for authenticated users)
+            // ✅ Calculate points - akan diberikan saat tiket dikonfirmasi
             $pointsEarned = $isAuthenticated ? Ticket::calculatePoints($ticketType, $quantity) : 0;
 
-            // Handle file upload
             $detailFilePath = null;
             if ($request->hasFile('detail_file')) {
                 $detailFilePath = $request->file('detail_file')->store('public/tickets');
                 $detailFilePath = str_replace('public/', 'storage/', $detailFilePath);
             }
 
-            // Create ticket
             $ticketData = [
                 'ticket_type' => $ticketType,
                 'quantity' => $quantity,
@@ -151,7 +144,7 @@ class TicketController extends Controller
 
             $successMessage = 'Tiket berhasil dipesan! Status: Menunggu Konfirmasi.';
             if ($isAuthenticated && $pointsEarned > 0) {
-                $successMessage .= ' Anda akan mendapatkan ' . $pointsEarned . ' poin setelah tiket aktif.';
+                $successMessage .= ' Anda akan mendapatkan ' . $pointsEarned . ' poin setelah tiket dikonfirmasi.';
             } elseif (!$isAuthenticated) {
                 $successMessage .= ' Catatan: Pemesanan sebagai tamu tidak mendapatkan poin reward.';
             }
@@ -168,12 +161,10 @@ class TicketController extends Controller
 
     public function show(Ticket $ticket)
     {
-        // Check ownership
         if (!$ticket->isOwnedByUser(Auth::user())) {
             abort(403, 'Unauthorized access to this ticket.');
         }
 
-        // Return ticket data only (QR will be generated on frontend)
         return response()->json([
             'ticket' => [
                 'id' => $ticket->id,
@@ -189,10 +180,11 @@ class TicketController extends Controller
             ]
         ]);
     }
+
     public function showUser($id)
     {
         $ticket = Ticket::where('id', $id)
-            ->where('user_id', auth()->id()) // supaya hanya tiket milik user yang bisa diakses
+            ->where('user_id', auth()->id())
             ->firstOrFail();
 
         return view('user.tickets.show', compact('ticket'));
@@ -207,7 +199,6 @@ class TicketController extends Controller
                     ->orderBy('purchase_date', 'desc')
                     ->get();
             } else {
-                // For guests, show empty or implement session-based ticket tracking
                 $tickets = collect();
             }
 
@@ -251,15 +242,18 @@ class TicketController extends Controller
         if ($ticket->status === 'proses') {
             $ticket->update(['status' => 'aktif']);
 
-            // Add points to user if authenticated at purchase
+            // ✅ Tambahkan poin menggunakan method addPoints (otomatis masuk ke daily_points)
             if ($ticket->user_id && $ticket->points_earned > 0) {
                 $ticket->user->addPoints($ticket->points_earned, [
                     'type' => 'ticket_confirmed',
-                    'description' => 'Tiket ' . $ticket->ticket_type . ' dikonfirmasi - ' . $ticket->points_earned . ' poin'
+                    'description' => "Pembelian tiket {$ticket->ticket_type} dikonfirmasi - earned {$ticket->points_earned} points"
                 ]);
             }
 
-            return response()->json(['success' => true, 'message' => 'Tiket berhasil dikonfirmasi']);
+            return response()->json([
+                'success' => true,
+                'message' => 'Tiket berhasil dikonfirmasi dan poin telah ditambahkan'
+            ]);
         }
 
         return response()->json(['success' => false, 'message' => 'Status tiket tidak valid'], 400);
