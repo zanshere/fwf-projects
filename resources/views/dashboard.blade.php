@@ -54,7 +54,7 @@
                                     class="text-xs font-medium text-blue-600 bg-blue-100 px-2 py-1 rounded-full">Total</span>
                             </div>
                             <h3 class="text-xl lg:text-2xl font-black text-gray-800 mb-1" id="visits-count">
-                                {{ $user->total_visits ?? 0 }}
+                                {{ $points ?? $user->points }}
                             </h3>
                             <p class="text-gray-600 text-xs lg:text-sm">Kunjungan</p>
                         </div>
@@ -76,7 +76,7 @@
                                     class="text-xs font-medium text-yellow-600 bg-yellow-100 px-2 py-1 rounded-full">Aktif</span>
                             </div>
                             <h3 class="text-xl lg:text-2xl font-black text-gray-800 mb-1" id="points-count">
-                                {{ number_format($user->points ?? 0) }}
+                                {{ number_format($user->points_lifetime ?? 0) }}
                             </h3>
                             <p class="text-gray-600 text-xs lg:text-sm">Poin Reward</p>
                         </div>
