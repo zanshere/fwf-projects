@@ -48,7 +48,6 @@
                 <i data-lucide="ticket" class="w-8 h-8 text-white/80"></i>
             </div>
         </div>
-
         <div class="bg-gradient-to-br from-yellow-500 to-amber-600 rounded-2xl p-6 text-white gsap-scale">
             <div class="flex items-center justify-between">
                 <div>
@@ -58,7 +57,6 @@
                 <i data-lucide="clock" class="w-8 h-8 text-white/80"></i>
             </div>
         </div>
-
         <div class="bg-gradient-to-br from-blue-500 to-cyan-600 rounded-2xl p-6 text-white gsap-scale">
             <div class="flex items-center justify-between">
                 <div>
@@ -68,7 +66,6 @@
                 <i data-lucide="check-circle" class="w-8 h-8 text-white/80"></i>
             </div>
         </div>
-
         <div class="bg-gradient-to-br from-gray-500 to-gray-700 rounded-2xl p-6 text-white gsap-scale">
             <div class="flex items-center justify-between">
                 <div>
@@ -177,11 +174,12 @@
                         </td>
                         <td class="px-6 py-4">
                             <div class="flex items-center gap-2">
-                                <a href="{{ route('admin.tickets.index', $ticket->id) }}"
-                                        class="p-2 text-gray-400 hover:text-green-600 dark:hover:text-green-400 transition-colors duration-300"
-                                        title="Lihat Detail">
+                                <!-- Tombol Eye AJAX Modal -->
+                                <a href="#" class="p-2 text-gray-400 hover:text-green-600 dark:hover:text-green-400 transition-colors duration-300 view-ticket"
+                                   data-ticket-id="{{ $ticket->id }}" title="Lihat Detail">
                                     <i data-lucide="eye" class="w-4 h-4"></i>
                                 </a>
+
                                 @if($ticket->status === 'proses')
                                 <form action="{{ route('admin.tickets.confirm', $ticket->id) }}" method="POST" class="inline">
                                     @csrf
@@ -222,27 +220,79 @@
         @endif
     </div>
 </div>
+
+<!-- Modal tetap seperti sebelumnya -->
+<div id="ticketModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+    <div class="bg-white rounded-lg p-6 max-w-xl w-full relative">
+        <button onclick="document.getElementById('ticketModal').classList.add('hidden')" class="absolute top-2 right-2 text-gray-500 hover:text-gray-800">&times;</button>
+        <div id="modalContent">
+            <!-- AJAX akan memuat modal admin -->
+        </div>
+    </div>
+</div>
+
+<!-- JS tombol eye -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const modal = document.getElementById('ticketModal');
+    const content = document.getElementById('modalContent');
+
+    document.querySelectorAll('.view-ticket').forEach(btn => {
+        btn.addEventListener('click', function(e) {
+            e.preventDefault();
+            const ticketId = this.dataset.ticketId;
+
+            fetch(`/tickets/modal/${ticketId}`)
+                .then(res => {
+                    if(!res.ok) throw new Error('HTTP error ' + res.status);
+                    return res.json(); // pastikan route mengembalikan JSON { html: '...' }
+                })
+                .then(data => {
+                    content.innerHTML = data.html;
+                    modal.classList.remove('hidden');
+                })
+                .catch(err => {
+                    alert('Gagal memuat detail tiket');
+                    console.error(err);
+                });
+        });
+    });
+});
+</script>
+
 @endsection
 
 @push('scripts')
-<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.2/dist/gsap.min.js"></script>
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        // Initialize animations
-        gsap.from('.gsap-scale', {
-            opacity: 0,
-            scale: 0.8,
-            duration: 0.6,
-            stagger: 0.1,
-            ease: "back.out(1.4)"
-        });
+document.addEventListener('DOMContentLoaded', function() {
+    const modal = document.getElementById('ticketModal');
+    const modalContent = document.getElementById('modalContent');
+    const closeModal = document.getElementById('closeModal');
 
-        gsap.from('.gsap-fade-up', {
-            opacity: 0,
-            y: 20,
-            duration: 0.6,
-            ease: "power2.out"
+    // Tutup modal
+    closeModal.addEventListener('click', () => {
+        modal.classList.add('hidden');
+    });
+
+    // Semua tombol eye
+    document.querySelectorAll('.view-ticket').forEach(button => {
+        button.addEventListener('click', function(e) {
+            e.preventDefault();
+            const ticketId = this.dataset.ticketId;
+
+            fetch(`/admin/tickets/${ticketId}/detail`)
+                .then(res => res.json())
+                .then(data => {
+                    modalContent.innerHTML = data.html;
+                    modal.classList.remove('hidden');
+                })
+                .catch(err => {
+                    console.error(err);
+                    alert('Gagal memuat detail tiket');
+                });
         });
     });
+});
 </script>
 @endpush
