@@ -11,11 +11,8 @@ class DashboardController extends Controller
     public function index()
     {
         $user = Auth::user();
-        $recentActivities = UserActivity::where('user_id', $user->id)
-            ->recent(5)
-            ->get();
 
-        // Record visit if not already recorded today
+        // Catat aktivitas kunjungan harian
         $todayVisit = $user->activities()
             ->where('type', 'visit')
             ->whereDate('activity_date', today())
@@ -25,19 +22,30 @@ class DashboardController extends Controller
             $user->recordVisit();
         }
 
-        return view('dashboard', compact('user', 'recentActivities'));
+        $recentActivities = UserActivity::where('user_id', $user->id)
+            ->recent(5)
+            ->get();
+        
+            $user->refresh();
+
+        // ✅ Ambil poin aktif dan lifetime langsung dari tabel users
+        $points_active = $user->points;
+        $points_reward = $user->points_lifetime;
+
+        return view('dashboard', compact('user', 'recentActivities', 'points_active', 'points_reward'));
     }
 
     public function stats()
     {
         $user = Auth::user();
 
+        // ✅ Ambil data statistik yang lebih akurat
         $stats = [
-            'total_visits' => $user->total_visits,
-            'points' => $user->points,
-            'active_tickets' => $user->tickets, 
-            'member_level' => $user->member_level,
-            'lifetime_points' => $user->activities()->pointsEarned()->sum('points_earned'),
+            'total_visits'    => $user->total_visits,
+            'points_active'   => $user->points,
+            'points_reward'   => $user->points_lifetime, // lifetime tetap sama walau poin aktif berkurang
+            'active_tickets'  => $user->tickets,
+            'member_level'    => $user->member_level,
         ];
 
         return response()->json($stats);
