@@ -34,6 +34,8 @@ Route::get('/tickets/create', [TicketController::class, 'create'])->name('ticket
 Route::post('/tickets', [TicketController::class, 'store'])->name('tickets.store');
 Route::get('/tickets/{ticket}', [TicketController::class, 'show'])->name('tickets.show');
 Route::get('/my-tickets', [TicketController::class, 'myTickets'])->name('tickets.my-tickets');
+Route::get('/tickets/modal/{ticket}', [AdminController::class, 'modal'])->name('admin.tickets.modal');
+
 
 // QR Code Scanning
 Route::post('/tickets/scan/{barcode}', [TicketController::class, 'scan'])->name('tickets.scan');
