@@ -12,7 +12,7 @@
         <!-- Nature Icons Floating -->
         <div class="absolute top-20 left-10 animate-float pointer-events-none">
             <i data-lucide="leaf" class="w-8 h-8 text-green-300 opacity-30"></i>
-        </div>
+        </div>  
         <div class="absolute top-40 right-20 animate-float-delayed pointer-events-none">
             <i data-lucide="ticket" class="w-6 h-6 text-yellow-300 opacity-30"></i>
         </div>
